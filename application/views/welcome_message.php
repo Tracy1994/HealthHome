@@ -87,3 +87,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 </body>
 </html>
+
+<script type="text/javascript">
+	window.location.href = "/front/index.html";
+</script>
