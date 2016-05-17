@@ -5,12 +5,51 @@
 /*--header
 ------------------------------------------------*/
 header{
+		width: 1280px;
+	}
+	nav ul{
+		width: 1280px;
+	}
+	nav li{
+		width:150px;
+	}
+	main .left section{
+		width: 750px;
+	}
+	main .left{
+		width:750px;
+	}
+	
+@media screen and (min-width:1280px){
+	header{
+		width: 100%;
+	}
+	nav ul{
+		width: 100%;
+	}
+	nav li{
+		width:11%;
+	}
+	main .left{
+		width: 60%;
+	}
+	main .left section{
+		width: 100%;
+	}
+	main .left .l-buttom{
+		width: 97%;
+	}
+}
+
+header{
 	height: 62px;
-	width: 1349px;
+	display: flex;
 	background-color: rgb(240,250,220);
 	border-bottom: rgb(70,70,70);
 }
-
+.search{
+	margin: auto;
+}
 header img{
 width: 50px;
 height: 50px;
@@ -29,8 +68,9 @@ header .name{
 header input{
 width: 408px;
 height: 35px;
-margin: 10px 0px 10px 163px;
+margin: 10px;
 border: 2px solid rgb(0,179,138);
+
 
 }
 
@@ -43,20 +83,18 @@ header button{
 	margin: 10px 0px;
 	border: 0px;
 	position: relative;
-	right: 10px;
+	right: 18px;
 	font-size: 19px;
 }
 header ul{
 	list-style: none;
-	width: 200px;
-	
 	float: right;
 	margin: 15px;
 }
 
 header li{
 	display: inline-block;
-	width:33px;
+	
 }
 
 header a{
@@ -73,10 +111,10 @@ header li:hover a{
 /*---nav
 ---------------------------------------------------*/
 nav ul{
-	width: 1349px;
+	
 }
 nav li{
-	width: 150px;
+	
 	display: inline-block;
 	line-height: 40px;
 	text-align: center;
@@ -96,12 +134,12 @@ nav li:hover a{
 /*-----main-left
 --------------------------------------------------*/
 main .left{
-	width: 800px;
+	
 	margin-left: 100px;
 	float: left;
 }
 main .left section{
-	width: 750px;
+	
 	height: 261px;
 	position: relative;
 	border-bottom: 1px solid rgb(150,150,150);
@@ -142,7 +180,7 @@ main .left h5:hover {
 	
 }
 main .left .l-buttom{
-	width: 700px;
+	
 	margin: 10px;
 	position: absolute;
 	bottom: 0px;
@@ -220,3 +258,4 @@ main .right .cover:hover{
 	background-color: rgba(0,179,138,0.8);
 	color: rgba(255,255,255,1);
 }
+	
