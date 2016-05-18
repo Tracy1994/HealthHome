@@ -305,6 +305,8 @@ switch (ENVIRONMENT)
 
 	define('VIEWPATH', $view_folder.DIRECTORY_SEPARATOR);
 
+	ini_set('date.timezone','Asia/Shanghai');
+
 /*
  * --------------------------------------------------------------------
  * LOAD THE BOOTSTRAP FILE
@@ -313,3 +315,6 @@ switch (ENVIRONMENT)
  * And away we go...
  */
 require_once BASEPATH.'core/CodeIgniter.php';
+
+
+

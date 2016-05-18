@@ -849,3 +849,39 @@ if ( ! function_exists('function_usable'))
 		return FALSE;
 	}
 }
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('check_login'))
+{
+	function check_login($user_name)
+	{
+		if (!session_id())
+		{
+			session_start();
+		}
+
+		if (!isset($_SESSION['user_info']))
+		{
+			return FALSE;
+		}
+		else
+		{
+			$user_name = $$_SESSION['user_info']['user_name'];
+			setcookie('user_name', $user_name, time() + 60 * 30, '/');
+			return TRUE;
+		}
+		return FALSE;
+	}
+}
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('output_cgi_data'))
+{
+	function output_cgi_data($code, $msg, $data)
+	{
+		$str = json_encode(array('code' => $code, 'msg' => $msg, 'data' => $data));
+		echo $str;
+	}
+}

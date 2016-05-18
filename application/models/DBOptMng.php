@@ -1,8 +1,13 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class DBOptMng extents CI_Model
+class DBOptMng extends CI_Model
 {
+	public function DBOptMng()
+	{
+		// $this->load->database();
+	}
+
 	public function get_count($table_name, $arr_where)
 	{
 		if (is_array($arr_where) && count($arr_where) > 0)
