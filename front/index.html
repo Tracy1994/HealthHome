@@ -4,7 +4,30 @@
 <head>
 	<title>www.healthhome.com</title>
 	<link rel="stylesheet" type="text/css" href="./css/shouye.css">
-	
+	<script>
+	window.onload = function(){
+		function MyTab(){
+			var spans = document.getElementsByTagName('li');
+			
+			// alert(spans.length)
+			console.log('spans.length: ' + spans.length)
+			
+			for(var i=0; i<spans.length;i++){
+				spans[i].index = i;
+				spans[i].onclick = function(){
+					
+					for(var i=0; i<spans.length;i++){
+						spans[i].className = '';
+					}
+					this.className = 'current';				
+				}
+			}	
+		}
+		
+		MyTab();
+		
+	}
+</script>
 </head>
 
 <body>
@@ -28,7 +51,7 @@
 </header>
 <nav>
 	<ul>
-		<li><a href="#">推荐</a></li>
+		<li class="current"><a href="#">推荐</a></li>
 		<li><a href="#">专题</a></li>
 		<li><a href="#">真相</a></li>
 		<li><a href="#">一图读懂</a></li>
