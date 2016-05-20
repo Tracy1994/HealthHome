@@ -35,7 +35,7 @@ input,button{
 	border-bottom: 1px solid rgb(200,200,200);
 	border-radius: 5px;
 	margin-left: 2px;
-	color: rgb(100,100,100);
+	
 	padding: 2px;
 }
 
@@ -45,6 +45,9 @@ button{
 	font-weight: bold;
 	color: white;
 	cursor: pointer;
+}
+button:hover{
+	background-color: rgb(9,171,237);
 }
 .a2{
 	color: green;
