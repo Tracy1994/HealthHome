@@ -1,34 +1,50 @@
 <!DOCTYPE html>
 <html>
+<meta charset="utf-8">
 <head>
 	<title>editor</title>
 	<link rel="stylesheet" type="text/css" href="/front/css/writter.css">
-	<style type="text/css">
-		@import url('http://cdn.gbtags.com/twitter-bootstrap/3.2.0/css/bootstrap.css');
-		@import url('http://cdn.gbtags.com/font-awesome/4.1.0/css/font-awesome.min.css');
-		@import url('http://cdn.gbtags.com/summernote/0.5.2/summernote.css');
-
-	</style>
+	<link rel="stylesheet" type="text/css" href="http://cdn.gbtags.com/twitter-bootstrap/3.2.0/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="http://cdn.gbtags.com/font-awesome/4.1.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="http://cdn.gbtags.com/summernote/0.5.2/summernote.css">
+	<script src="http://cdn.gbtags.com/jquery/1.11.1/jquery.min.js"></script>
+	<script src="http://cdn.gbtags.com/twitter-bootstrap/3.2.0/js/bootstrap.js"></script>
+	<script src="http://cdn.gbtags.com/summernote/0.5.2/summernote.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function(){
-		$('#editor').summernote();
-		});
+			$('#editor').summernote({
+			 width:600,
+			 
+			});
 
-</script>
+		});
+	</script>
 
 	</script>
 </head>
 <body>
+<p>文章标题</p>
+<select>
+	<option value="">心理</option>
+	<option value="">真相</option>
+	<option value="">一图读懂</option>
+	<option value="">肿瘤</option>
+	<option value="">慢病</option>
+	<option value="">营养</option>
+	<option value="">母婴</option>
+</select>
 <input type="" name="">
+<p>文章内容</p>
 <!-- 定义一个div容器 -->
 <div id="editor">
- hello world 
+ 
 </div>
 
 
-<script src="http://cdn.gbtags.com/jquery/1.11.1/jquery.min.js"></script>
-<script src="http://cdn.gbtags.com/twitter-bootstrap/3.2.0/js/bootstrap.js"></script>
-<script src="http://cdn.gbtags.com/summernote/0.5.2/summernote.min.js"></script>
+<p>作者头像</p>
+<input type="file" name="" value="上传图片" onchange="previewImage(this,'prvid')" >
 
+
+<button>发表文章</button> <button>保存</button> <button>舍弃</button>
 </body>
 </html>
