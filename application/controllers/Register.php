@@ -14,7 +14,6 @@ class Register extends CI_Controller {
 		$str_message='http://119.29.197.121/register/active_account?user_name='.$user_name.'&active_code='.$active_code;
 		$this->email->message('<p>'.$str_message.'</p>');
 		$ret = $this->email->send();
-		echo $this->email->print_debugger();
 		return $ret;
 	}
 
