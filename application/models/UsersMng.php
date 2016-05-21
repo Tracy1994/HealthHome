@@ -23,10 +23,10 @@ class UsersMng extends CI_Model
 		return true;
 	}
 
-	public function is_user_exists($user_name)
+	public function is_user_exists($user_name, $email)
 	{
-		$arr_user_info = array('user_name' => $user_name);
-		$ret = $this->db_opt_mng->get_count($this->table_name, $arr_user_info);
+		$arr_user_info = array('user_name' => $user_name, 'email' => $email);
+		$ret = $this->db_opt_mng->get_count($this->table_name, array(), $arr_user_info);
 		if ($ret === false || $ret == 0)
 		{
 			return false;
@@ -34,10 +34,31 @@ class UsersMng extends CI_Model
 		return true;
 	}
 
-	public function add_user($user_name, $passwd)
+	public function add_user($user_name, $email, $passwd, $active_code)
 	{
 		$passwd = hash("sha256", $this->str_salt + $passwd);
-		$arr_user_info = array('user_name' => $user_name, 'passwd' => $passwd);
+		$arr_user_info = array(
+			'user_name' => $user_name, 
+			'email' => $email, 
+			'passwd' => $passwd,
+			'state' => 0,
+			'active_code' =>$active_code);
 		return $this->db_opt_mng->insert($this->table_name, $arr_user_info);
+	}
+
+	public function update_user_state($user_name, $active_code)
+	{
+		$ret = $this->db_opt_mng->get_count(
+			$this->table_name, array('user_name' =>$user_name, 'active_code' =>$active_code));
+		if ($ret == 0 || $ret === false)
+		{
+			return false;
+		}
+
+		$arr_values = array(
+			'register_time' => date('y-m-d h:i:s', time()),
+			'state' => 1);
+		$arr_where = array('user_name' => $user_name);
+		return $this->db_opt_mng->update($this->table_name, $arr_values, $arr_where);
 	}
 }

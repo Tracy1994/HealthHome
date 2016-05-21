@@ -16,7 +16,7 @@ class Login extends CI_Controller {
 		{
 			if (!isset($_REQUEST['user_name']) || !isset($_REQUEST['passwd']))
 			{
-				output_cgi_data(-10001, 'user name or password is empty', '');
+				output_cgi_data(ERR_PARAMS, 'user name or password is empty', '');
 				return false;
 			}
 			
@@ -32,7 +32,7 @@ class Login extends CI_Controller {
 			}
 			else
 			{
-				output_cgi_data(-10002, 'user name or password error', '');
+				output_cgi_data(ERR_PARAMS, 'user name or password error', '');
 				return false;
 			}
 		}
