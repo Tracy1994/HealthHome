@@ -72,7 +72,7 @@ class Register extends CI_Controller {
 		}
 
 		output_cgi_data(0, 'active succ', '');
-		$this->load->view('active_account_succ')
+		$this->load->view('active_account_succ');
 		return true;
 	}
 }
