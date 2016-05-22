@@ -868,7 +868,7 @@ if ( ! function_exists('check_login'))
 		else
 		{
 			$user_name = $$_SESSION['user_info']['user_name'];
-			setcookie('user_name', $user_name, time() + 60 * 30, '/');
+			setcookie('user_name', $user_name, 0, '/');
 			return TRUE;
 		}
 		return FALSE;
