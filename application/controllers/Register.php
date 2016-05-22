@@ -78,12 +78,10 @@ class Register extends CI_Controller {
 		$ret = $this->users_mng->update_user_state($_REQUEST['user_name'], $_REQUEST['active_code']);
 		if ($ret == false)
 		{
-			output_cgi_data(ERR_CHECK, 'active error', '');
 			$this->load->view('active_account_fail');
 			return false;
 		}
 
-		output_cgi_data(0, 'active succ', '');
 		$this->load->view('active_account_succ');
 		return true;
 	}
