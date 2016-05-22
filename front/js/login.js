@@ -71,6 +71,8 @@
 			});
 
 			$("#btn_login").click(function(){
+				
+				
 				console.log('btn_login on click');
 				var url="/login/index?user_name="+$("#l_user_name").val()+"&passwd=" + $("#l_password").val();
 				var xmlhttp;
@@ -84,22 +86,24 @@
 					// code for IE6, IE5
 					xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
 				}
-				xmlhttp.open("POST", url, true);
-				xmlhttp.send();
+				
 				xmlhttp.onreadystatechange=function(){
-					var resp = xmlhttp.responseText;										
+					var resp = xmlhttp.responseText;
+					console.log(resp);										
 					if (xmlhttp.readyState==4 && xmlhttp.status==200) {
 						var code=eval("(" + resp + ")").code;
+						console.log(code);
 						if (code == 0){
-							window.location.herf="/front/index.html";
+							window.location.href='/front/index.html';													
 						}
-						else{
+						else {
 							alert("登录不成功，请重试！");
 						}
 					}
 					
 				}
-				
+				xmlhttp.open("POST", url, true);
+				xmlhttp.send();
 			});
 			
 		});

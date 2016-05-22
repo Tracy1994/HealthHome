@@ -1,4 +1,13 @@
+body{
+	margin:20px;
+}
 .editor{
 	width: 800px;
 	overflow: none;
+}
+p{
+	color: #999;
+	font-weight: bold;
+	padding: 12px 4px 2px 4px;
+	border-bottom: 1px solid #f5f5f5;
 }

@@ -4,30 +4,7 @@
 <head>
 	<title>健康之家</title>
 	<link rel="stylesheet" type="text/css" href="./css/shouye.css">
-	<script>
-	window.onload = function(){
-		function MyTab(){
-			var spans = document.getElementsByTagName('li');
-			
-			// alert(spans.length)
-			console.log('spans.length: ' + spans.length)
-			
-			for(var i=0; i<spans.length;i++){
-				spans[i].index = i;
-				spans[i].onclick = function(){
-					
-					for(var i=0; i<spans.length;i++){
-						spans[i].className = '';
-					}
-					this.className = 'current';				
-				}
-			}	
-		}
-		
-		MyTab();
-		
-	}
-</script>
+	<script language="javascript"  src="/front/js/index.js"></script>
 </head>
 
 <body>
@@ -43,10 +20,10 @@
 	<ul>
 		<li><a href="">首页</a> </li>
 		<span>│</span>
-		<li><a href="/front/html/login.html">登录</a> </li>
+		<li ><a id="login" href="/front/html/login.html">登录</a> </li>
 		<span>│</span>
-		<li><a href="/front/html/register.html">注册</a> </li>
-		<link rel="stylesheet" type="text/css" href="">
+		<li ><a id="register" href="/front/html/register.html">注册</a> </li>
+		
 	</ul>
 </header>
 <nav>
