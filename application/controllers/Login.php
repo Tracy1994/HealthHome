@@ -49,9 +49,10 @@ class Login extends CI_Controller {
 	{
 		if (session_id())
 		{
-			setcookie('user_name',  '', time()-3600, '/');
 			unset($_SESSION['user_info']);
 			session_destroy();
 		}
+		setcookie('user_name',  '', time()-3600, '/');
+		$this->load->view('welcome_message');
 	}
 }
