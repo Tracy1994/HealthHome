@@ -40,7 +40,7 @@ class Login extends CI_Controller {
 		else
 		{
 			output_cgi_data(0, 'user has login', array('user_name' => $_SESSION['user_info']['user_name']));
-			setcookie('user_name',  $_SESSION['user_info']['user_name'], time() + 60 * 30, '/')
+			setcookie('user_name',  $_SESSION['user_info']['user_name'], time() + 60 * 30, '/');
 			return true;
 		}
 	}
