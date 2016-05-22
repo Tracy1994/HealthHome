@@ -8,6 +8,7 @@ class UsersMng extends CI_Model
 
 	public function UsersMng()
 	{
+		parent::__construct();
 		$this->load->model('DBOptMng', 'db_opt_mng');
 	}
 
@@ -41,6 +42,7 @@ class UsersMng extends CI_Model
 			'user_name' => $user_name, 
 			'email' => $email, 
 			'passwd' => $passwd,
+			'register_time' => date('y-m-d h:i:s', time()),
 			'state' => 0,
 			'active_code' =>$active_code);
 		return $this->db_opt_mng->insert($this->table_name, $arr_user_info);
@@ -60,5 +62,12 @@ class UsersMng extends CI_Model
 			'state' => 1);
 		$arr_where = array('user_name' => $user_name);
 		return $this->db_opt_mng->update($this->table_name, $arr_values, $arr_where);
+	}
+
+	public function clear_timeout_users()
+	{
+		// 删除注册而又没有激活的用户，通过crontab定时触发
+		$arr_where = array('register_time <= ' => date('y-m-d h:i:s', time() - 60 * 30));
+		$this->db_opt_mng->delete($this->table_name, $arr_where);
 	}
 }

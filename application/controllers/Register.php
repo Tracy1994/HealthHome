@@ -3,10 +3,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Register extends CI_Controller {
 
+	public function Register() 
+	{
+		parent::__construct();
+		$this->load->model('UsersMng', 'users_mng');
+		$this->load->library('email');
+	}
+
 	private function send_mail($email, $user_name, $active_code)
 	{
 		// 邮箱的配置在config/email.php中，由于涉及到密码，所以并不上传到Github上
-		$this->load->library('email');
 		$this->email->clear();
 		$this->email->from('kljianhui@163.com', '健康之家');
 		$this->email->to($email);
@@ -36,7 +42,6 @@ class Register extends CI_Controller {
 			return false;
 		}
 
-		$this->load->model('UsersMng', 'users_mng');
 		if ($this->users_mng->is_user_exists($user_name, $email))
 		{
 			$str_errmsg = 'user: '.$user_name.' or email: '.$_REQUEST['email'].' has exists';
@@ -70,16 +75,22 @@ class Register extends CI_Controller {
 			return false;
 		}
 
-		$this->load->model('UsersMng', 'users_mng');
 		$ret = $this->users_mng->update_user_state($_REQUEST['user_name'], $_REQUEST['active_code']);
 		if ($ret == false)
 		{
 			output_cgi_data(ERR_CHECK, 'active error', '');
+			$this->load->view('active_account_fail');
 			return false;
 		}
 
 		output_cgi_data(0, 'active succ', '');
 		$this->load->view('active_account_succ');
 		return true;
+	}
+
+	public function clear_timeout_users()
+	{
+		// 删除注册而又没有激活的用户，通过crontab定时触发
+		$this->users_mng->clear_timeout_users();
 	}
 }
