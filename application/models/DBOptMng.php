@@ -16,7 +16,7 @@ class DBOptMng extends CI_Model
 		}
 		if (is_array($arr_where_or) && count($arr_where_or) > 0)
 		{
-			$this->db->or_where($arr_where);
+			$this->db->or_where($arr_where_or);
 		}
 		$this->db->from($table_name);
 		return $this->db->count_all_results();

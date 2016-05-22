@@ -28,6 +28,13 @@ class Register extends CI_Controller {
 		$user_name = $_REQUEST['user_name'];
 		$email = $_REQUEST['email'];
 		$passwd = $_REQUEST['passwd'];
+		$pos_at = strpos($email, '@');
+		$pos_dot = strpos($email, '.');
+		if (!preg_match("/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/", $email))
+		{
+			output_cgi_data(ERR_PARAMS, 'Email addr is invailed', '');
+			return false;
+		}
 
 		$this->load->model('UsersMng', 'users_mng');
 		if ($this->users_mng->is_user_exists($user_name, $email))
@@ -72,6 +79,7 @@ class Register extends CI_Controller {
 		}
 
 		output_cgi_data(0, 'active succ', '');
+		$this->load->view('active_account_succ');
 		return true;
 	}
 }

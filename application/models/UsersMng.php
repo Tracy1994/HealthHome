@@ -14,7 +14,7 @@ class UsersMng extends CI_Model
 	public function check_user_info($user_name, $passwd)
 	{
 		$passwd = hash("sha256", $this->str_salt + $passwd);
-		$arr_user_info = array('user_name' => $user_name, 'passwd' => $passwd);
+		$arr_user_info = array('user_name' => $user_name, 'passwd' => $passwd, 'state' => 1);
 		$ret = $this->db_opt_mng->get_count($this->table_name, $arr_user_info);
 		if ($ret === false || $ret == 0)
 		{

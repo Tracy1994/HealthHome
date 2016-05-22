@@ -27,7 +27,7 @@ class Login extends CI_Controller {
 				$user_info["user_name"] = $_REQUEST['user_name'];
 				$user_info["passwd"] = $_REQUEST['passwd'];
 				$_SESSION['user_info'] = $user_info;
-				output_cgi_data(0, 'login succ', '');
+				output_cgi_data(0, 'login succ', array('user_name' => $_REQUEST['user_name']));
 				return true;
 			}
 			else
@@ -38,7 +38,7 @@ class Login extends CI_Controller {
 		}
 		else
 		{
-			output_cgi_data(0, 'user has login', '');
+			output_cgi_data(0, 'user has login', array('user_name' => $_SESSION['user_info']['user_name']));
 			return true;
 		}
 	}
