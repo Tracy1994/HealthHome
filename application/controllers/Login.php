@@ -52,19 +52,17 @@ class Login extends CI_Controller {
 			output_cgi_data(0, 'user has login', array('user_name' => $_SESSION['user_info']['user_name']));
 			setcookie('user_name',  $_SESSION['user_info']['user_name'], 0, '/');
 			setcookie('role', $_SESSION['user_info']['role'], 0, '/');
-			var_dump($_SESSION['user_info']);
 			return true;
 		}
 	}
 
 	public function logout()
 	{
-		var_dump(session_id());
 		if (!session_id())
 		{
 			session_start();
 		}
-		var_dump('destory session');
+
 		unset($_SESSION['user_info']);
 		session_unset();
 		session_destroy();
