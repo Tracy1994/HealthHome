@@ -1,13 +1,121 @@
-body{
-	margin:20px;
+	header{
+			width: 1280px;
+		}
+	#title{
+		width: 450px;
+	}	
+	.w_info div{
+		width:400px;
+	}
+	#head{
+		width:180px;
+	}	
+	.w_info input{
+		width: 300px;
+	}
+	.w_info{
+		width: 1200px;
+	}
+	#info_finish{
+		width: 800px;
+	}
+@media screen and (min-width:1280px){
+	header{
+		width: 100%;
+	}
+	#title{
+	width: 60%;
+	}
+	.w_info div{
+	width:30%;
+	}
+	#head{
+	width:52%;
+	}
+	.w_info input{
+		width: 72%;
+	}
+	.w_info{
+		width: 110%;
+	}
+	#info_finish{
+		width: 59%;
+	}
 }
-.editor{
-	width: 800px;
-	overflow: none;
+.classity{
+	padding-right:100px; 
+}
+.w_name{
+	padding-right:100px; 
+}
+header{
+	height: 70px;
+	color: white;
+	background-color:rgb(0,179,138);
+	text-align: center;
+	line-height: 70px;
+	letter-spacing: 20px; 
+	font-size: 35px;
+	font-weight: bold;
+}
+input{
+	height: 30px;
+}
+form{
+	margin: 10px 30px;
+	
+
+}
+.w_info p{
+	display: inline-block;
+}
+.w_info div{
+	
+	height: 200px;
+	border-bottom: 1px solid rgb(180,180,180);
+	border-left: 1px solid rgb(180,180,180);
+	border-top: 1px solid rgb(180,180,180);
+	float: left; 
+
+}
+.bg{
+	border-right: 1px solid rgb(180,180,180);
+}
+#head{
+	margin: 6% 27%;
+	color: rgb(120,120,120);
+	
+
+}
+.w_info input{
+	
+	height: 30px;
+	margin: 20px 50px;
+}
+.w_info{
+	text-align: center;
+	
+	height: 200px;
+	
 }
 p{
-	color: #999;
+	color: rgb(0,179,138);
 	font-weight: bold;
 	padding: 12px 4px 2px 4px;
 	border-bottom: 1px solid #f5f5f5;
+	font-size: 22px;
+}
+#info_finish{
+	background-color: rgb(0,179,138);
+	margin:4% 22%;
+	font-size:18px;
+	font-weight: bold;
+	color: white;
+	text-align: center;
+	
+	height: 40px;
+
+}
+#info_finish:hover{
+	background-color: rgb(0,162,138)
 }

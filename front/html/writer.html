@@ -1,52 +1,66 @@
 <!DOCTYPE html>
-<html>
+<html  lang="zh">
 <meta charset="utf-8">
 <head>
 	<title>editor</title>
+	
 	<link rel="stylesheet" type="text/css" href="/front/css/writer.css">
 	<link rel="stylesheet" type="text/css" href="http://cdn.gbtags.com/twitter-bootstrap/3.2.0/css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="http://cdn.gbtags.com/font-awesome/4.1.0/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="http://cdn.gbtags.com/summernote/0.5.2/summernote.css">
-	<script src="http://cdn.gbtags.com/jquery/1.11.1/jquery.min.js"></script>
+	<script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
 	<script src="http://cdn.gbtags.com/twitter-bootstrap/3.2.0/js/bootstrap.js"></script>
 	<script src="http://cdn.gbtags.com/summernote/0.5.2/summernote.min.js"></script>
-	<script type="text/javascript">
-		$(document).ready(function(){
-			$('#editor').summernote({
-			 
-			});
-
-		});
-	</script>
-
-	</script>
+	<script type="text/javascript" src="/front/js/writer.js"></script>
 </head>
 <body>
-<p>文章标题</p>
-<select>
-	<option value="">心理</option>
-	<option value="">真相</option>
-	<option value="">一图读懂</option>
-	<option value="">肿瘤</option>
-	<option value="">慢病</option>
-	<option value="">营养</option>
-	<option value="">母婴</option>
-</select>
-<input type="" name="">
-<p>文章内容</p>
+<header>
+	健康之家编辑窗
+</header>
+<form name="form1" method="post" enctype="multipart/from-date" action="">
+	<p>文章标题</p>
+	<input list="classify" name="classify" autofocus="autofocus" placeholder="请点击选择分类">
+	<datalist id="classify">
+		<option value="心理"></option>
+		<option value="真相"></option>
+		<option value="一图读懂"></option>
+		<option value="肿瘤"></option>
+		<option value="慢病"></option>
+		<option value="营养"></option>
+		<option value="母婴"></option>
+	</datalist>
+		
+	
+	<input id="title" type="text" name="">
+	
+	<p>作者信息</p>
+<div class="w_info">
+	<div>
+		<p>姓名</p><br>
+		<input  list="w_name" name="w_name"  placeholder="请输入或点击选择作者">
+		<datalist id="w_name">
+			<option value="何绮华"></option>
+			<option value="梁健辉"></option>		
+		</datalist>
+	</div>
+	<div>
+		<p>个人头像</p><br>
+	<input id="head" type="file" name="" value="上传图片"  >
+	</div>
+	<div class="bg">
+		<p>学历/背景</p><br>
+	<input id="bg" type="text" name=""><br>
+	</div>	
+</div>
+
+	<input id="info_finish" type="submit" name="" value="已编辑个人信息"> 
+	<p>文章内容</p>
+</form>
+
 <!-- 定义一个div容器 -->
-<div id="editor">
- 
+
+<div id="editor"> 
 </div>
-
-
-<p>作者信息</p>
-<span>个人头像</span><input type="file" name="" value="上传图片" onchange="previewImage(this,'prvid')" >
-<p>学历/背景</p>
-<input type="text" name="">
-<div>
-	<button>发表文章</button> <button>保存</button> <button>舍弃</button>
-</div>
-
+<button id="text_finish">编辑完成</button>
 </body>
 </html>

@@ -1,4 +1,4 @@
-
+//点击登录或注册实现页面跳转
 		$(document).ready(function(){
 
 			$(".a1").click(function(){
@@ -13,6 +13,7 @@
 				$(".a1").css({"font-weight":"normal","color":"gray","text-decoration":"none"});
 				$(".register").show();
 			});
+//点击注册页，完成注册并提交数据到后台
 			$("#btn_register").click(function(){ 
 				var re= /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
 				if ($("#r_user_name").val()=="" ) {
@@ -69,7 +70,7 @@
 			xmlhttp.send();	
 				
 			});
-
+//点击登录，把数据传到后台
 			$("#btn_login").click(function(){
 				
 				
