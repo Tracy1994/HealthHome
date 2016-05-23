@@ -17,50 +17,53 @@
 <header>
 	健康之家编辑窗
 </header>
-<form name="form1" method="post" enctype="multipart/from-date" action="">
-	<p>文章标题</p>
-	<input list="classify" name="classify" autofocus="autofocus" placeholder="请点击选择分类">
-	<datalist id="classify">
-		<option value="心理"></option>
-		<option value="真相"></option>
-		<option value="一图读懂"></option>
-		<option value="肿瘤"></option>
-		<option value="慢病"></option>
-		<option value="营养"></option>
-		<option value="母婴"></option>
-	</datalist>
+<form name="form1" method="post" enctype="multipart/from-date" action="/upload/do_upload?input_name">
 		
-	
-	<input id="title" type="text" name="">
-	
-	<p>作者信息</p>
-<div class="w_info">
-	<div>
-		<p>姓名</p><br>
-		<input  list="w_name" name="w_name"  placeholder="请输入或点击选择作者">
-		<datalist id="w_name">
-			<option value="何绮华"></option>
-			<option value="梁健辉"></option>		
-		</datalist>
+		
+		<p>作者信息</p>
+	<div class="w_info">
+		<div class="w_name">
+			<p>姓名</p><br>
+			<input  list="w_name" name="w_name"  placeholder="请输入或双击选择作者">
+			<datalist id="w_name">
+				<option value="何绮华"></option>
+				<option value="梁健辉"></option>		
+			</datalist>
+		</div>
+		<div class="head">
+			<p>个人头像</p><br>
+			
+		<input id="head" type="file" name="head" value="上传图片" >
+		</div>
+		<div class="bg">
+			<p>学历/背景</p><br>
+		<input id="bg" type="text" name="bg"><br>
+		</div>
+		<input id="info_finish" type="submit" name="info_finish" value="提交"> 	
 	</div>
-	<div>
-		<p>个人头像</p><br>
-	<input id="head" type="file" name="" value="上传图片"  >
-	</div>
-	<div class="bg">
-		<p>学历/背景</p><br>
-	<input id="bg" type="text" name=""><br>
-	</div>	
-</div>
-
-	<input id="info_finish" type="submit" name="" value="已编辑个人信息"> 
-	<p>文章内容</p>
 </form>
-
-<!-- 定义一个div容器 -->
-
-<div id="editor"> 
+<div class="text">
+	<p>文章标题</p>
+	<input list="classify" name="classify" autofocus="autofocus" placeholder="请双击选择分类">
+		<datalist id="classify">
+			<option value="心理"></option>
+			<option value="真相"></option>
+			<option value="一图读懂"></option>
+			<option value="肿瘤"></option>
+			<option value="慢病"></option>
+			<option value="营养"></option>
+			<option value="母婴"></option>
+		</datalist>
+		<input id="title" type="text" name="title">
+	<p>文章内容</p>
 </div>
-<button id="text_finish">编辑完成</button>
+<!-- 定义一个div容器 -->
+	<div id="editor">
+	
+	</div>
+
+	<button id="text_finish">编辑完成</button>
+
+	
 </body>
 </html>

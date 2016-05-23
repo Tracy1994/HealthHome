@@ -9,8 +9,10 @@ $(document).ready(function(){
   			
 		});
 		$("#text_finish").click(function(){
-			var markupStr = $('.summernote').eq(1).summernote('code');
+			var markupStr = $('#editor').summernote('code');
 			alert(markupStr.code);
+			console.log(markupStr);
+			console.log(markupStr.code);
 			});
 		
 });
