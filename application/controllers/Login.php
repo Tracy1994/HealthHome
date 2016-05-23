@@ -60,6 +60,7 @@ class Login extends CI_Controller {
 		if (session_id())
 		{
 			unset($_SESSION['user_info']);
+			session_unset();
 			session_destroy();
 		}
 		setcookie('user_name',  '', time()-3600, '/');
