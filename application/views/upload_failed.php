@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+?><!DOCTYPE html>
 <html>
 <head>
 <title>Upload Form</title>
@@ -9,10 +9,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 <h3>Your file was failed uploaded!</h3>
 
-<ul>
-</ul>
-
 <p><?php echo anchor('upload', 'Upload File Failed!'); ?></p>
+<p><?php echo $error; ?></p>
 
 </body>
 </html>

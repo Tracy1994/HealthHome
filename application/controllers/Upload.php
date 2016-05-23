@@ -16,22 +16,23 @@ class Upload extends CI_Controller {
         $this->load->library('upload', $config);
     }
 
+    public function index()
+    {
+        $this->load->view('upload_form', array('error' => ' ' ));
+    }
+
     public function do_upload()
     {
-        if (!isset($_REQUEST['input_name']))
-        {
-        	output_cgi_data(ERR_PARAMS, 'the name of input tag in html is not set', '');
-        	return false;
-        }
-
-        if (!$this->upload->do_upload($_REQUEST['input_name']))
+        if ( ! $this->upload->do_upload('userfile'))
         {
             $error = array('error' => $this->upload->display_errors());
-            $this->load->view('upload_failed');
+
+            $this->load->view('upload_form', $error);
         }
         else
         {
             $data = array('upload_data' => $this->upload->data());
+
             $this->load->view('upload_success', $data);
         }
     }
