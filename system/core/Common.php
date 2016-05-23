@@ -867,8 +867,10 @@ if ( ! function_exists('check_login'))
 		}
 		else
 		{
-			$user_name = $$_SESSION['user_info']['user_name'];
+			$user_name = $_SESSION['user_info']['user_name'];
+			$role = $_SESSION['user_info']['role'];
 			setcookie('user_name', $user_name, 0, '/');
+			setcookie('role', $role, 0, '/');
 			return TRUE;
 		}
 		return FALSE;

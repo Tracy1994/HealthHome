@@ -15,9 +15,10 @@ class Login extends CI_Controller {
 		if (!session_id())
 		{
 			session_cache_limiter('private');
-			session_cache_expire(15);
-			session_start(); 
+			session_start();
 		}
+
+
 
 		if (!isset($_SESSION['user_info']))
 		{
@@ -51,18 +52,22 @@ class Login extends CI_Controller {
 			output_cgi_data(0, 'user has login', array('user_name' => $_SESSION['user_info']['user_name']));
 			setcookie('user_name',  $_SESSION['user_info']['user_name'], 0, '/');
 			setcookie('role', $_SESSION['user_info']['role'], 0, '/');
+			var_dump($_SESSION['user_info']);
 			return true;
 		}
 	}
 
 	public function logout()
 	{
-		if (session_id())
+		var_dump(session_id());
+		if (!session_id())
 		{
-			unset($_SESSION['user_info']);
-			session_unset();
-			session_destroy();
+			session_start();
 		}
+		var_dump('destory session');
+		unset($_SESSION['user_info']);
+		session_unset();
+		session_destroy();
 		setcookie('user_name',  '', time()-3600, '/');
 		setcookie('role', '', time()-3600, '/');
 		$this->load->view('welcome_message');
