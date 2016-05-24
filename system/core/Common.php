@@ -854,7 +854,7 @@ if ( ! function_exists('function_usable'))
 
 if ( ! function_exists('check_login'))
 {
-	function check_login($user_name)
+	function check_login()
 	{
 		if (!session_id())
 		{
@@ -877,11 +877,45 @@ if ( ! function_exists('check_login'))
 	}
 }
 
+if ( ! function_exists('check_role_editer'))
+{
+	function check_role_editor()
+	{
+		if (!session_id())
+		{
+			session_start();
+		}
+
+		if (isset($_SESSION['user_info']) && $_SESSION['user_info']['role'] == 1)
+		{
+			return TRUE;
+		}
+		return FALSE;
+	}
+}
+
+if ( ! function_exists('get_user_name'))
+{
+	function get_user_name()
+	{
+		if (!session_id())
+		{
+			session_start();
+		}
+
+		if (!isset($_SESSION['user_info']) || !isset($_SESSION['user_info']['user_name']))
+		{
+			return "";
+		}
+		return $_SESSION['user_info']['user_name'];
+	}
+}
+
 // ------------------------------------------------------------------------
 
 if ( ! function_exists('output_cgi_data'))
 {
-	function output_cgi_data($code, $msg, $data)
+	function output_cgi_data($code, $msg, $data = '')
 	{
 		$str = json_encode(array('code' => $code, 'msg' => $msg, 'data' => $data));
 		echo $str;

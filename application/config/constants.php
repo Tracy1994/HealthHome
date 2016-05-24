@@ -87,4 +87,6 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 define('ERR_SUCC', 0);
 define('ERR_PARAMS', -10001);
 define('ERR_SYSTEM', -10002);
-define('ERR_CHECK', -10003);
+define('ERR_NO_LOGIN', -10003);
+define('ERR_PERMISSION_DENIED', -10004);
+define('ERR_UPLOAD_FILE', -10005);
