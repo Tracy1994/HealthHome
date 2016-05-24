@@ -1,14 +1,90 @@
 <!DOCTYPE html>
 <html>
+<meta charset="utf-8">
 <head>
-	<title></title>
+	<title>test</title>
+	<link rel="stylesheet" type="text/css" href="/front/css/writer.css">
+	<link rel="stylesheet" type="text/css" href="http://cdn.gbtags.com/twitter-bootstrap/3.2.0/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="http://cdn.gbtags.com/font-awesome/4.1.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="http://cdn.gbtags.com/summernote/0.5.2/summernote.css">
+	<script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
+	<script src="http://cdn.gbtags.com/twitter-bootstrap/3.2.0/js/bootstrap.js"></script>
+	<script src="http://cdn.gbtags.com/summernote/0.5.2/summernote.min.js"></script>
+	
+	<script type="text/javascript">
+    $('div.summernote').each(function() {
+        var $this = $(this);
+        var placeholder = $this.attr("placeholder") || '';
+        var url = $this.attr("action") || '';
+        $this.summernote({
+            lang : 'zh-CN',
+            placeholder : placeholder,
+            minHeight : 300,
+            dialogsFade : true,// Add fade effect on dialogs
+            dialogsInBody : true,// Dialogs can be placed in body, not in
+            // summernote.
+            disableDragAndDrop : false,// default false You can disable drag
+            // and drop
+            callbacks : {
+                onImageUpload : function(files) {
+                    var $files = $(files);
+                    $files.each(function() {
+                        var file = this;
+                        var data = new FormData();
+                        data.append("file", file);
+
+                        $.ajax({
+                            data : data,
+                            type : "POST",
+                            url : url,
+                            cache : false,
+                            contentType : false,
+                            processData : false,
+                            success : function(response) {
+                                var json = YUNM.jsonEval(response);
+                                YUNM.debug(json);
+                                YUNM.ajaxDone(json);
+
+                                if (json[YUNM.keys.statusCode] == YUNM.statusCode.ok) {
+                                    // 文件不为空
+                                    if (json[YUNM.keys.result]) {
+                                        var imageUrl = json[YUNM.keys.result].completeSavePath;
+                                        $this.summernote('insertImage', imageUrl, function($image) {
+
+                                        });
+                                    }
+                                }
+
+                            },
+                            error : YUNM.ajaxError
+                        });
+                    });
+                }
+            }
+        });
+    });
+  </script>
+
 </head>
 <body>
-<form name="form1" method="post" enctype="multipart/from-date" action="/upload/do_upload">
-<input type="text" name="a" value="1">
-<input type="text" name="b" value="2">
-	<input type="file" name="userfile">
-	<input type="submit" name="upload">
-</form>
+<div class="container">
+    <form class="form-horizontal required-validate" action="#" enctype="multipart/form-data" method="post" onsubmit="return iframeCallback(this, pageAjaxDone)">
+    <div class="form-group">
+        <label for="" class="col-md-2 control-label">项目封面</label>
+        <div class="col-md-8 tl th">
+            <input type="file" name="image" class="projectfile" value="${deal.image}"/>
+            <p class="help-block">支持jpg、jpeg、png、gif格式，大小不超过2.0M</p>
+        </div>
+    </div>
+
+      <div class="form-group">
+        <label for="" class="col-md-2 control-label">项目详情</label>
+        <div class="col-md-8">
+           <div class="summernote" name="description" placeholder="请对项目进行详细的描述，使更多的人了解你的" action="${ctx}/file"></div>
+        </div>
+    </div>
+    <input type="submit" name="submit">
+    </form>
+</div>
 </body>
-</html>119.29.197.121
+</html>
