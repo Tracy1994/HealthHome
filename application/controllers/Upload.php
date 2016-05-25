@@ -26,12 +26,12 @@ class Upload extends CI_Controller {
         if (!$this->upload->do_upload('userfile'))
         {
             $error = array('error' => $this->upload->display_errors());
-            $this->load->view('upload_form', $error);
+            output_cgi_data(-1, $error);
         }
         else
         {
             $data = array('upload_data' => $this->upload->data());
-            $this->load->view('upload_success', $data);
+            output_cgi_data(0, 'succ', $data);
         }
     }
 }

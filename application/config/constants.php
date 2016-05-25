@@ -90,3 +90,4 @@ define('ERR_SYSTEM', -10002);
 define('ERR_NO_LOGIN', -10003);
 define('ERR_PERMISSION_DENIED', -10004);
 define('ERR_UPLOAD_FILE', -10005);
+define('ERR_NO_RIGHT', -10006);
