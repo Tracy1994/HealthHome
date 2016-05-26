@@ -6,18 +6,34 @@ class Article extends CI_Controller {
 	public function Article()
 	{
 		parent::__construct();
+
+		$config['upload_path']      = './uploads/';
+        $config['allowed_types']    = 'gif|jpg|png|txt|pdf|doc';
+        $config['max_size']     	= 1024;
+        $config['max_width']        = 1024;
+        $config['max_height']       = 1024;
+        $this->load->library('upload', $config);
+
 		$this->load->model('ArticleMng', 'article_mng');
 	}
 
 	public function get_detail()
 	{
-		if (!isset($_REQUEST['id']))
+		if (!isset($_REQUEST['article_id']))
 		{
 			output_cgi_data(ERR_PARAMS, 'params error');
 			return false;
 		}
 
-		$this->article_mng->get_detail($_REQUEST['id']);
+		$ret = $this->article_mng->get_detail($_REQUEST['article_id']);
+		if ($ret === false)
+		{
+			output_cgi_data(ERR_SYSTEM, 'system errror');
+			return false;
+		}
+
+		output_cgi_data(0, 'succ', $ret);
+		return true;
 	}
 
 	public function get_list()
@@ -93,8 +109,91 @@ class Article extends CI_Controller {
 		output_cgi_data(0, 'succ');
 	}
 
-	private function get_summary()
+	public function search()
 	{
+		if (!isset($_REQUEST['key_word']))
+		{
+			output_cgi_data(ERR_PARAMS, 'key word is empty');
+			return false;
+		}
 
+		$key_word = $_REQUEST['key_word'];
+		$ret = $this->article_mng->search($key_word);
+		output_cgi_data(0, 'succ', $ret);
+		return true;
+	}
+
+	public function upload_cover()
+	{
+		if (!check_login())
+		{
+			output_cgi_data(ERR_NO_LOGIN, 'user no login');
+			return false;
+		}
+
+		if (!check_role_editor())
+		{
+			output_cgi_data(ERR_PERMISSION_DENIED, 'upload cover img denied to you');
+			return false;
+		}
+
+		if (!$this->upload->do_upload('coverimg'))
+		{
+			output_cgi_data(ERR_UPLOAD_FILE, array('error' => $this->upload->display_errors()));
+			return false;
+		}
+
+		$data = $this->upload->data();
+		$coverimg_name = date('ymdHis', time()) + '_' + strval(rank(100000, 999999)) + $data['file_ext'];
+		$coverimg_path = $data['file_path'] + '../coverimgs/';
+		$ret = rename($data['full_path'], $headimg_path.$headimg_name);
+		if ($ret === false)
+		{
+			output_cgi_data(ERR_SYSTEM, 'system error');
+			return false;
+		}
+
+		output_cgi_data(0, 'succ', '/coverimgs/' + $coverimg_name);
+		return true;
+	}
+
+	public function save()
+	{
+		if (!check_login())
+		{
+			output_cgi_data(ERR_NO_LOGIN, 'user no login');
+			return false;
+		}
+
+		if (!check_role_editor())
+		{
+			output_cgi_data(ERR_PERMISSION_DENIED, 'save article is denied to you');
+			return false;
+		}
+
+		if (!isset($_REQUEST['article_id']) || !isset($_REQUEST['title']) || 
+			!isset($_REQUEST['author_id']) || !isset($_REQUEST['type_id']) || !isset($_REQUEST['content']))
+		{
+			output_cgi_data(ERR_PARAMS, 'params error');
+			return false;
+		}
+
+		$cover_url = '';
+		if (isset($_REQUEST['cover_url']))
+		{
+			$cover_url = $_REQUEST['cover_url'];
+		}
+
+		$ret = $this->article_mng->save(
+			$_REQUEST['article_id'], $_REQUEST['title'], $_REQUEST['author_id'], 
+			$_REQUEST['type_id'], $cover_url, $content);
+		if ($ret === false)
+		{
+			output_cgi_data(ERR_SYSTEM, 'save article failed');
+			return false;
+		}
+
+		output_cgi_data(0, 'succ');
+		return true;
 	}
 }

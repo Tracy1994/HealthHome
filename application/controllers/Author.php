@@ -14,7 +14,7 @@ class Author extends CI_Controller {
         $config['max_height']       = 1024;
         $this->load->library('upload', $config);
 
-		$this->loda->model('AuthorMng', 'author_mng');
+		$this->load->model('AuthorMng', 'author_mng');
 	}
 
 	public function get_all_authors()
@@ -31,7 +31,7 @@ class Author extends CI_Controller {
 			return false;
 		}
 
-		$ret = $this->author_mng->get_all_users();
+		$ret = $this->author_mng->get_all_authors();
 		if ($ret === false)
 		{
 			output_cgi_data(ERR_SYSTEM, '系统错误');
@@ -70,7 +70,7 @@ class Author extends CI_Controller {
 
 		$data = $this->upload->data();
 		$headimg_name = date('ymdHis', time()) + '_' + strval(rank(100000, 999999)) + $data['file_ext'];
-		$headimg_path = $data['file_path'] + '../headimgs/'
+		$headimg_path = $data['file_path'] + '../headimgs/';
 		$ret = rename($data['full_path'], $headimg_path.$headimg_name);
 		if ($ret === false)
 		{

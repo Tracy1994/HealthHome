@@ -13,7 +13,7 @@ class AuthorMng extends CI_Model {
 
 	public function get_all_authors()
 	{
-		$ret = $this->db_opt_mng->select($this->table_name);
+		$ret = $this->db_opt_mng->select($this->table_name, array());
 		return $ret;
 	}
 
