@@ -32,6 +32,7 @@ class Article extends CI_Controller {
 			return false;
 		}
 
+		$this->article_mng->click($_REQUEST['article_id']);
 		output_cgi_data(0, 'succ', $ret);
 		return true;
 	}
@@ -85,24 +86,6 @@ class Article extends CI_Controller {
 		if ($ret === false)
 		{
 			output_cgi_data(ERR_NO_RIGHT, 'you had like');
-			return false;
-		}
-
-		output_cgi_data(0, 'succ');
-	}
-
-	public function click()
-	{
-		if (!isset($_REQUEST['article_id']))
-		{
-			output_cgi_data(ERR_PARAMS, 'params error');
-			return false;
-		}
-
-		$ret = $this->article_mng->click($_REQUEST['article_id']);
-		if ($ret === false)
-		{
-			output_cgi_data(ERR_SYSTEM, 'system error');
 			return false;
 		}
 
