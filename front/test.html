@@ -1,90 +1,96 @@
-<!DOCTYPE html>
 <html>
-<meta charset="utf-8">
 <head>
-	<title>test</title>
-	<link rel="stylesheet" type="text/css" href="/front/css/writer.css">
-	<link rel="stylesheet" type="text/css" href="http://cdn.gbtags.com/twitter-bootstrap/3.2.0/css/bootstrap.css">
-	<link rel="stylesheet" type="text/css" href="http://cdn.gbtags.com/font-awesome/4.1.0/css/font-awesome.min.css">
-	<link rel="stylesheet" type="text/css" href="http://cdn.gbtags.com/summernote/0.5.2/summernote.css">
-	<script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
-	<script src="http://cdn.gbtags.com/twitter-bootstrap/3.2.0/js/bootstrap.js"></script>
-	<script src="http://cdn.gbtags.com/summernote/0.5.2/summernote.min.js"></script>
-	
-	<script type="text/javascript">
-    $('div.summernote').each(function() {
-        var $this = $(this);
-        var placeholder = $this.attr("placeholder") || '';
-        var url = $this.attr("action") || '';
-        $this.summernote({
-            lang : 'zh-CN',
-            placeholder : placeholder,
-            minHeight : 300,
-            dialogsFade : true,// Add fade effect on dialogs
-            dialogsInBody : true,// Dialogs can be placed in body, not in
-            // summernote.
-            disableDragAndDrop : false,// default false You can disable drag
-            // and drop
-            callbacks : {
-                onImageUpload : function(files) {
-                    var $files = $(files);
-                    $files.each(function() {
-                        var file = this;
-                        var data = new FormData();
-                        data.append("file", file);
+<meta charset="utf-8">
+<title>Ajax表单提交插件jquery form</title>
 
-                        $.ajax({
-                            data : data,
-                            type : "POST",
-                            url : url,
-                            cache : false,
-                            contentType : false,
-                            processData : false,
-                            success : function(response) {
-                                var json = YUNM.jsonEval(response);
-                                YUNM.debug(json);
-                                YUNM.ajaxDone(json);
+<script type="text/javascript" src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
 
-                                if (json[YUNM.keys.statusCode] == YUNM.statusCode.ok) {
-                                    // 文件不为空
-                                    if (json[YUNM.keys.result]) {
-                                        var imageUrl = json[YUNM.keys.result].completeSavePath;
-                                        $this.summernote('insertImage', imageUrl, function($image) {
 
-                                        });
-                                    }
-                                }
 
-                            },
-                            error : YUNM.ajaxError
-                        });
-                    });
-                }
-            }
-        });
-    });
-  </script>
+<script type="text/javascript">
+$(function(){   
+    var options = { 
+       // target:        '#output',   // target element(s) to be updated with server response 
+        beforeSubmit:  showRequest,  // pre-submit callback 
+        success:       showResponse,  // post-submit callback
+        resetForm: true, 
+        dataType:  'json' 
+ 
+        // other available options: 
+        //url:       url         // override for form's 'action' attribute 
+        //type:      type        // 'get' or 'post', override for form's 'method' attribute 
+        //dataType:  null        // 'xml', 'script', or 'json' (expected server response type) 
+        //clearForm: true        // clear all form fields after successful submit 
+        //resetForm: true        // reset the form after successful submit 
+ 
+        // $.ajax options can be used here too, for example: 
+        //timeout:   3000 
+    }; 
+ 
+    // bind to the form's submit event 
+    $('#my_form').submit(function() { 
+        // inside event callbacks 'this' is the DOM element so we first 
+        // wrap it in a jQuery object and then invoke ajaxSubmit 
+        $(this).ajaxSubmit(options); 
+ 
+        // !!! Important !!! 
+        // always return false to prevent standard browser submit and page navigation 
+        return false; 
+    }); 
+});
+// pre-submit callback 
+function showRequest(formData, jqForm, options) { 
+    var uname = $("#uname").val();
+    if(uname==""){
+        $("#msg").html("姓名不能为空！");
+        return false;
+    }
+    
+    var age = $("#age").val();
+    if(age==""){
+        $("#msg").html("年龄不能为空！");
+        return false;
+    }
+    $("#msg").html("正在提交...");
+    
+    
+    return true; 
+} 
+ 
+// post-submit callback 
+function showResponse(responseText, statusText)  { 
+    $("#msg").html('提交成功');
+    var sex = responseText.sex==1?"男":"女";
+    $("#output").html("姓名："+responseText.uname+"&nbsp;性别："+sex+"&nbsp;年龄："+responseText.age);
+    // for normal html responses, the first argument to the success callback 
+    // is the XMLHttpRequest object's responseText property 
+ 
+    // if the ajaxSubmit method was passed an Options Object with the dataType 
+    // property set to 'xml' then the first argument to the success callback 
+    // is the XMLHttpRequest object's responseXML property 
+ 
+    // if the ajaxSubmit method was passed an Options Object with the dataType 
+    // property set to 'json' then the first argument to the success callback 
+    // is the json data object returned by the server 
+ 
+    //alert('status: ' + statusText + '\n\nresponseText: \n' + responseText + 
+    //    '\n\nThe output div should have already been updated with the responseText.'); 
+} 
+</script>
+
 
 </head>
 <body>
-<div class="container">
-    <form class="form-horizontal required-validate" action="#" enctype="multipart/form-data" method="post" onsubmit="return iframeCallback(this, pageAjaxDone)">
-    <div class="form-group">
-        <label for="" class="col-md-2 control-label">项目封面</label>
-        <div class="col-md-8 tl th">
-            <input type="file" name="image" class="projectfile" value="${deal.image}"/>
-            <p class="help-block">支持jpg、jpeg、png、gif格式，大小不超过2.0M</p>
-        </div>
-    </div>
 
-      <div class="form-group">
-        <label for="" class="col-md-2 control-label">项目详情</label>
-        <div class="col-md-8">
-           <div class="summernote" name="description" placeholder="请对项目进行详细的描述，使更多的人了解你的" action="${ctx}/file"></div>
-        </div>
-    </div>
-    <input type="submit" name="submit">
-    </form>
-</div>
+
+<form id="my_form" action="submit.php" method="post"> 
+    <p>姓名：<input type="text" name="uname" id="uname" class="input"></p>
+     <p>性别：<input type="radio" name="sex" value="1" checked> 男 <input type="radio" name="sex" value="2"> 女 </p>
+     <p>年龄：<input type="text" name="age" id="age" class="input" ></p>
+     <p "><input type="submit" class="btn" value="提交"><span id="msg"></span></p>
+</form>
+
+
+<div id="output"></div>      
 </body>
 </html>

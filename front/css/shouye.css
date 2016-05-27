@@ -72,7 +72,7 @@ width: 408px;
 height: 35px;
 margin: 10px;
 border: 2px solid rgb(0,179,138);
-
+font-size: 15px;
 
 }
 
@@ -87,12 +87,15 @@ header button{
 	position: relative;
 	right: 18px;
 	font-size: 19px;
+	cursor: pointer;
 }
 header ul{
 	list-style: none;
 	float: right;
 	margin: 15px;
-	width: 195px;
+	max-width: 295px;
+	
+	overflow: hidden;
 }
 
 header li{
@@ -102,14 +105,13 @@ header li{
 
 header a{
 	text-decoration: none;
-	color: rgb(100,100,100);
+	color: rgb(150,150,150);
 	font-family: "微软雅黑","黑体"；
 	font-size: 14px;
 }
 header li:hover a{
 	color: rgb(70,70,70);
-	font-weight: bold;
-
+	
 }
 /*---nav
 ---------------------------------------------------*/

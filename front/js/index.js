@@ -1,4 +1,15 @@
+
+
 $(document).ready(function(){
+		
+	$("#n1").click(function(){
+		$(".l-top img").load("/front/img/ghw.jpg");
+		$("h5").load("http://img.ugirls.com/uploads/cooperate/baidu/20160519maipingguo.jpg");
+		$(".l-top #tag").load("http://jquery.com/download/");
+		$(".l-top h4").load("http://jquery.com/download/");
+		$(".l-top p span").load("http://jquery.com/download/");
+	});
+	
 	window.onload = function(){
 		//登录后改变html内容和退出登录
 		function getCookieValue(cname) {
@@ -34,13 +45,17 @@ $(document).ready(function(){
 		  		
 		  		$("#register").text("退出");
 		  		$("#register").attr("href","/login/logout");
-		  	}
-		  	
-		  	console.log("role:" + role);
-		  	
-
-		  		
+		  	}		  	
+		  	console.log("role:" + role);	  			  		
 		}
+		//页面加载
+		$.get("/article/get_list?type_id=0",function(data){
+			console.log(data);
+			
+			var id=eval("(" + date + ")").id;
+			console.log(id);
+			
+		});
 		//导航条的点击变色
 		function MyTab(){
 			var spans = document.getElementsByTagName('li');
