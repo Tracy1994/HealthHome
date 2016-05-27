@@ -140,7 +140,7 @@ class Article extends CI_Controller {
 		return true;
 	}
 
-	public function save()
+	public function publish()
 	{
 		if (!check_login())
 		{
