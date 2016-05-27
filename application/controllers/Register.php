@@ -49,7 +49,7 @@ class Register extends CI_Controller {
 			return false;
 		}
 
-		$active_code = hash("md5", $user_name + date('y-m-d H:i:s', time() + rand()));
+		$active_code = hash("md5", $user_name + strval(time()) + rand());
 		$ret = $this->send_mail($email, $user_name, $active_code);
 		if ($ret === false)
 		{
