@@ -1,15 +1,42 @@
 
 
 $(document).ready(function(){
-		
-	$("#n1").click(function(){
-		$(".l-top img").load("/front/img/ghw.jpg");
-		$("h5").load("http://img.ugirls.com/uploads/cooperate/baidu/20160519maipingguo.jpg");
-		$(".l-top #tag").load("http://jquery.com/download/");
-		$(".l-top h4").load("http://jquery.com/download/");
-		$(".l-top p span").load("http://jquery.com/download/");
+	//发送请求，页面加载，默认开始加载分类为推荐的文章列表
+	$.getJSON("/article/get_list?type_id=0",function(jsondata){
+		console.log(jsondata.code);
+		if (jsondata.code!=0) {
+			alert("系统繁忙，请稍后再试～～");
+		}
+		else{
+			refreshArticleList(jsondata.data);
+		}
 	});
-	
+//页面加载每篇文章的信息
+		function refreshArticleList(articles){
+			$("#articleList").empty();
+			for (var i = 0; i < articles.length; i++) {
+				var articleDiv = getArticleDiv(articles[i]);
+
+				$("#articleList").append(articleDiv);
+			}
+		}
+//页面加载单篇文章的具体内容
+		function getArticleDiv(article){
+			
+			var section= "<section>"+
+				"<div class=\"l-top\">"+
+				"<img src=\"" + article.author_head_url + "\">"+
+				"<h5 class=\"l2\">" + article.like_cnt + "</h5>"+
+				"<h4><a href=\"/front/html/article.html?article_id=" + article.id + "\".id +>" +article.title+"</a></h4>"+
+				"<p><b>"+article.author+"</b><span>"+article.author_desp+"</span></p></div>"+
+				"<div class=\"l-buttom\"><div class=\"summary\">"+
+				"<img src=\""+article.cover_url+"\">"+
+				"<span class=\"p\">"+article.summary+"</span></div><div class=\"bottom\">"+
+				"<span class=\"r\" >阅读（"+article.click_cnt+"）</span>"+
+				"<span class=\"c\">点赞（" + article.like_cnt + "）</span></div></div>"+
+				"</section>"				
+			return section;
+		}
 	window.onload = function(){
 		//登录后改变html内容和退出登录
 		function getCookieValue(cname) {
@@ -48,29 +75,30 @@ $(document).ready(function(){
 		  	}		  	
 		  	console.log("role:" + role);	  			  		
 		}
-		//页面加载
-		$.get("/article/get_list?type_id=0",function(data){
-			console.log(data);
-			
-			var id=eval("(" + date + ")").id;
-			console.log(id);
-			
-		});
-		//导航条的点击变色
+		
+		
+		//导航条的点击变色和发送请求
 		function MyTab(){
-			var spans = document.getElementsByTagName('li');
+			var spans = document.getElementById('nav').getElementsByTagName('li');
 			
 			// alert(spans.length)
-			console.log(spans)
+			console.log(spans);
 			
 			for(var i=0; i<spans.length;i++){
+				console.log("level 1 i:"+i);
 				spans[i].index = i;
 				spans[i].onclick = function(){
-					
-					for(var i=0; i<spans.length;i++){
-						spans[i].className = '';
+					console.log("level 2 i: " + this.index);
+
+					$.getJSON("/article/get_list?type_id="+this.index,function(jsondata){
+						
+						refreshArticleList(jsondata.data);
+						
+					});		
+					for(var j=0; j<spans.length;j++){
+						spans[j].className = '';
 					}
-					this.className = 'current';				
+					this.className = 'current';
 				}
 			}
 		}		

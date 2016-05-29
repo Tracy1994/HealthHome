@@ -13,6 +13,9 @@ header{
 	nav li{
 		width:150px;
 	}
+	main{
+		width: 1280px;
+	}
 	main .left section{
 		width: 750px;
 	}
@@ -30,6 +33,9 @@ header{
 	nav li{
 		width:11%;
 	}
+	main{
+		width: 104%;
+	}
 	main .left{
 		width: 60%;
 	}
@@ -44,12 +50,14 @@ header{
 ---------------------------------------------------------------------------------------------------*/
 header{
 	height: 62px;
-	display: flex;
+	position: relative;
 	background-color: rgb(240,250,220);
 	border-bottom: rgb(70,70,70);
 }
 .search{
-	margin: auto;
+	position: absolute;
+	
+	left: 30%;
 }
 header img{
 	width: 50px;
@@ -111,7 +119,7 @@ header a{
 }
 header li:hover a{
 	color: rgb(70,70,70);
-	
+	font-weight: bold;
 }
 /*---nav
 ---------------------------------------------------*/
@@ -144,6 +152,9 @@ nav .current a{
 }
 /*-----main-left
 --------------------------------------------------*/
+main{
+
+}
 main .left{
 	
 	margin-left: 100px;
@@ -160,7 +171,7 @@ main .left .l-top p,main .left .l-top h4{
 	position: relative;
 	left: 80px;
 	bottom: 100px;
-	margin: 10px 5px;
+	margin: 25px 5px;
 }
 main .left .l-top p,main .left .l-top p a{
 	font-size: 14px;
@@ -170,26 +181,11 @@ main .left .l-top p,main .left .l-top p a{
 main .left .l-top img{
 	width: 60px;
 	height: 60px;
-	border-radius: 5px;
+	border-radius: 30px;
 	margin: 10px 0px;
 	
 }
-main .left .l-top h5{
-	width: 45px;
-	line-height: 20px;
-	background-color: rgb(245,240,240);
-	color:rgb(145,140,140);
-	border-radius: 5px;
-	text-align: center;
-	margin-left: 6px;
-	
-}
 
-main .left h5:hover {
-	background-color: rgb(145,140,140);
-	color: rgb(245,240,240);
-	
-}
 main .left .l-buttom{
 	
 	margin: 10px;
@@ -197,6 +193,7 @@ main .left .l-buttom{
 	bottom: 0px;
 	left: 60px;
 }
+
 main .left .l-buttom img{
 	width: 200px;
 	height: 112px;
@@ -204,17 +201,24 @@ main .left .l-buttom img{
 	border-radius: 5px;
 	margin: 10px;
 }
-main .left .l-buttom p{
-	margin: 28px;
-	font-size: 14px;
-	color: rgb(70,70,70);
-	line-height: 21px;
+main .left .l-buttom .p{
+	color: rgb(160,160,160);
+	font-size: 15px;	
+	position: relative;
+	top:20px;
+
+}
+main .left .l-buttom .summary{
+	float: left;
+}
+main .left .l-buttom .bottom{
+	width: 100%;
+	float: left;
 }
 main .left span{
-color: rgb(160,160,160);
-font-size: 15px;
-border: 10px 15px;
-margin-left: 28px;
+	font-size: 15px;
+	color: rgb(130,130,130);
+	margin: 0px 10px;
 }
 main .left a{
 	text-decoration: none;

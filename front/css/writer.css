@@ -5,6 +5,9 @@
 		}
 	#title{
 		width: 10449px;
+	}
+	.w_info{
+		width: 1200px;
 	}	
 	.w_info div{
 		width:400px;
@@ -29,6 +32,9 @@
 	}
 	#title{
 	width: 84%;
+	}
+	.w_info{
+		width: 95%;
 	}
 	.w_info div{
 	width:30%;
@@ -118,6 +124,8 @@ p{
 }
 
 #edit_warp {
-	padding-right: 30px;
-	padding-left: 30px;
+	padding: 10px;
+}
+#articleText{
+	display: none;
 }

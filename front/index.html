@@ -3,8 +3,8 @@
 <meta charset="utf-8">
 <head>
 	<title>健康之家</title>
-	<link rel="stylesheet" type="text/css" href="./css/shouye.css">
-	<script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="/front/css/shouye.css">
+	<script src="/front/js/jquery.js"></script>
 	<script language="javascript"  src="/front/js/index.js"></script>
 
 </head>
@@ -13,7 +13,7 @@
 
 	
 <header>
-	<img src="img/logo.jpg">
+	<img src="/front/img/logo.jpg">
 	<span class="name">健康之家</span>
 	<span class="search">
 		<input type="text" name="搜索">
@@ -29,7 +29,7 @@
 	</ul>
 </header>
 <nav>
-	<ul>
+	<ul id="nav">
 		<li class="current" id="n1"><a href="#">推荐</a></li>
 		<li id="n2"><a href="#">心理</a></li>
 		<li id="n3"><a href="#">真相</a></li>
@@ -42,29 +42,33 @@
 </nav>
 <main>
 	<div class="left">
-		<section>
+		<!-- <section>
 			<div class="l-top">
 				<img id="author_head_url" src="http://pic.58pic.com/58pic/15/22/50/37V58PICGmF_1024.jpg">
-				<h5 class="l2" id="like_cnt">520</h5>
 				
-				<p ><a id="tag" href="">健康问答</a></p>
 				
-				<h4 "><a href="#" id="title>得了甲亢不能生孩子？</a></h4>
+				
+				
+				<h4><a href="#">得了甲亢不能生孩子？</a></h4>
 				<p> <b id="author"> 祝亚桥</b><span id="author_desp1">广州市第一人民医院 生殖医学中心</span> </p>
 			</div>
 
 			<div class="l-buttom">
-				
-				<img id="cover_ur" src="http://pic.58pic.com/58pic/15/22/50/37V58PICGmF_1024.jpg">
-				
-				<p>在知乎，每天有数以万计的问题和回答产生，数以千万计的知友寻找自己关心的问题及其解答。在信息繁杂的中文互联网上，知友们保持着持续高质量的创作和讨论，不同领域的大批优质创作者涌现而出，并与这个世界分享他们的知识、经验和见解。而这一切，都只是通…</p>
-				
-				<span class="r" id="click_cnt">阅读（90）</span>
-				<span class="c">评论（未开放）</span>
+				<div class="summary">
+					<img  src="http://pic.58pic.com/58pic/15/22/50/37V58PICGmF_1024.jpg">
+					<span class="p">
+						在知乎，每天有数以万计的问题和回答产生，数以千万计的知友寻找自己关心的问题及其解答。在信息繁杂的中文互联网上，知友们保持着持续高质量的创作和讨论，不同领域的大批优质创作者涌现而出，并与这个世界分享他们的知识、经验和见解。而这一切，都只是通…
+					</span>				
+				</div>
+				<div class="bottom">
+					<span class="r" id="click_cnt">阅读（90）</span>
+					<span class="c">点赞（90）</span>
+				</div>
 			</div>
-		</section>
-		<section id="article"></section>
-		
+			
+				
+		</section> -->
+		<div id="articleList"></div>
 		
 	</div>
 
