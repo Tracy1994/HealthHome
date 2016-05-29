@@ -14,17 +14,22 @@ class ArticleMng extends CI_Model {
 		$this->load->model('DBOptMng', 'db_opt_mng');
 	}
 
-	public function get_detail($article_id)
+	public function get_info($article_id)
 	{
 		$arr_where = array('id' => $article_id);
-		$str_fields = 'id,title,author,author_desp,author_head_url,tags,create_time,cover_url,like_cnt,click_cnt,content';
+		$str_fields = 'id,title,author,author_desp,author_head_url,tags,create_time,cover_url,like_cnt,click_cnt';
 		$ret = $this->db_opt_mng->select($this->table_article_all_info, $arr_where, $str_fields);
-		if ($ret === false || count($ret) != 1)
+		if ($ret === false)
 		{
 			return false;
 		}
-		$article = $ret[0];
 
+		if (count($ret) == 0)
+		{
+			return array();
+		}
+
+		$article = $ret[0];
 		$arr_where = array('article_id' => $article_id, 'user_name' => get_user_name());
 		$ret = $this->db_opt_mng->get_count($this->table_article_like, $arr_where);
 		if ($ret === false)
@@ -37,6 +42,25 @@ class ArticleMng extends CI_Model {
 		}
 
 		return $article;
+	}
+
+	public function get_content($article_id)
+	{
+		$arr_where = array('id' => $article_id);
+		$str_fields = 'content';
+		$ret = $this->db_opt_mng->select($this->table_article, $arr_where, $str_fields);
+
+		if ($ret === false)
+		{
+			return false;
+		}
+
+		if (count($ret) == 0)
+		{
+			return '';
+		}
+
+		return $ret[0]['content'];
 	}
 
 	public function get_recommend_list($num, $offset)

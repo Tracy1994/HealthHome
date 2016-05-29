@@ -17,7 +17,7 @@ class Article extends CI_Controller {
 		$this->load->model('ArticleMng', 'article_mng');
 	}
 
-	public function get_detail()
+	public function get_info()
 	{
 		if (!isset($_REQUEST['article_id']))
 		{
@@ -25,7 +25,26 @@ class Article extends CI_Controller {
 			return false;
 		}
 
-		$ret = $this->article_mng->get_detail($_REQUEST['article_id']);
+		$ret = $this->article_mng->get_info($_REQUEST['article_id']);
+		if ($ret === false)
+		{
+			output_cgi_data(ERR_SYSTEM, 'system errror');
+			return false;
+		}
+
+		output_cgi_data(0, 'succ', $ret);
+		return true;
+	}
+
+	public function get_content()
+	{
+		if (!isset($_REQUEST['article_id']))
+		{
+			output_cgi_data(ERR_PARAMS, 'params error');
+			return false;
+		}
+
+		$ret = $this->article_mng->get_content($_REQUEST['article_id']);
 		if ($ret === false)
 		{
 			output_cgi_data(ERR_SYSTEM, 'system errror');
@@ -33,7 +52,7 @@ class Article extends CI_Controller {
 		}
 
 		$this->article_mng->click($_REQUEST['article_id']);
-		output_cgi_data(0, 'succ', $ret);
+		echo $ret;
 		return true;
 	}
 
