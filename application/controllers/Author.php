@@ -56,7 +56,7 @@ class Author extends CI_Controller {
 			return false;
 		}
 
-		if (!isset($_REQUEST['id']) || !isset($_REQUEST['author']) || !isset($_REQUEST['desp']))
+		if (!isset($_REQUEST['author']) || !isset($_REQUEST['desp']))
 		{
 			output_cgi_data(ERR_PARAMS, 'params error');
 			return false;
@@ -78,7 +78,11 @@ class Author extends CI_Controller {
 			return false;
 		}
 
-		$id = $_REQUEST['id'];
+		$id = 0;
+		if (isset($_REQUEST['id']))
+		{
+			$id = $_REQUEST['id'];
+		}
 		$author = $_REQUEST['author'];
 		$desp = $_REQUEST['desp'];
 		$url = '/headimgs/' + $headimg_name;

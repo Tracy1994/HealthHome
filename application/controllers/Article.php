@@ -125,23 +125,10 @@ class Article extends CI_Controller {
 		return true;
 	}
 
-	public function upload_cover()
+	private function upload_cover()
 	{
-		if (!check_login())
-		{
-			output_cgi_data(ERR_NO_LOGIN, 'user no login');
-			return false;
-		}
-
-		if (!check_role_editor())
-		{
-			output_cgi_data(ERR_PERMISSION_DENIED, 'upload cover img denied to you');
-			return false;
-		}
-
 		if (!$this->upload->do_upload('coverimg'))
 		{
-			output_cgi_data(ERR_UPLOAD_FILE, array('error' => $this->upload->display_errors()));
 			return false;
 		}
 
@@ -155,8 +142,7 @@ class Article extends CI_Controller {
 			return false;
 		}
 
-		output_cgi_data(0, 'succ', '/coverimgs/' + $coverimg_name);
-		return true;
+		return '/coverimgs/' + $coverimg_name;
 	}
 
 	public function publish()
@@ -174,16 +160,17 @@ class Article extends CI_Controller {
 		}
 
 		if (!isset($_REQUEST['article_id']) || !isset($_REQUEST['title']) || 
-			!isset($_REQUEST['author_id']) || !isset($_REQUEST['type_id']) || !isset($_REQUEST['content']))
+			!isset($_REQUEST['author_id']) || !isset($_REQUEST['type_id']) || 
+			!isset($_REQUEST['content']))
 		{
 			output_cgi_data(ERR_PARAMS, 'params error');
 			return false;
 		}
 
-		$cover_url = '';
-		if (isset($_REQUEST['cover_url']))
+		$cover_url = upload_cover();
+		if ($cover_url == false)
 		{
-			$cover_url = $_REQUEST['cover_url'];
+			$cover_url = '';
 		}
 
 		$ret = $this->article_mng->save(
