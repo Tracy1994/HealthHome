@@ -33,8 +33,8 @@ $(document).ready(function(){
 	$(function(){   
         var optionArticle = { 
        // target:        '#output',   // target element(s) to be updated with server response 
-        beforeSubmit:  showRequest,  // pre-submit callback 
-        success:       showResponse,  // post-submit callback
+        beforeSubmit:  showArticleRequest,  // pre-submit callback 
+        success:       showArticleResponse,  // post-submit callback
         resetForm: true, 
         dataType:  'json' 
  
@@ -61,8 +61,8 @@ $(document).ready(function(){
         }); 
     $(function(){
         var optionAuthor ={
-            beforeSubmit:  showRequest,  // pre-submit callback 
-            success:       showResponse,  // post-submit callback
+            beforeSubmit:  showAuthorRequest,  // pre-submit callback 
+            success:       showAuthorResponse,  // post-submit callback
             resetForm: true, 
             dataType:  'json' 
         }
@@ -74,7 +74,7 @@ $(document).ready(function(){
        
   
     // pre-submit callback 
-    function showRequest(formData,jqForm,optionAuthor){
+    function showAuthorRequest(formData,jqForm,optionAuthor){
         $("option").mounsedown(function(){
             console.log("index"+options.index)
         });
@@ -94,7 +94,7 @@ $(document).ready(function(){
             return false;
         }
     }
-    function showRequest(formData, jqForm, optionArticle) { 
+    function showArticleRequest(formData, jqForm, optionArticle) { 
         
         var classifly = $("#classifly").val();
         if(classifly==""){
@@ -122,7 +122,7 @@ $(document).ready(function(){
     }
         
         // post-submit callback 
-        function showResponse(responseText, statusText){ 
+        function showAuthorResponse(responseText, statusText){ 
           alert("提交成功！");
 
         // for normal html responses, the first argument to the success callback 
@@ -139,5 +139,8 @@ $(document).ready(function(){
         //alert('status: ' + statusText + '\n\nresponseText: \n' + responseText + 
         //    '\n\nThe output div should have already been updated with the responseText.'); 
         } 
+        function showArticleResponse(responseText,statusText){
+            alert("提交成功！")
+        }
 });
  
