@@ -6,20 +6,20 @@
 	#title{
 		width: 10449px;
 	}
-	.w_info{
-		width: 1200px;
+	#author_info .w_info{
+		width: 1300px;
 	}	
-	.w_info div{
+	#author_info .w_info div{
 		width:400px;
 	}
-	#head{
+	#author_info #head{
 		width:180px;
 	}	
-	.w_info input{
+	#author_info .w_info input{
 		width: 300px;
 	}
-	.w_info{
-		width: 1200px;
+	#my_form #classifly{
+		width: 128px;
 	}
 	#info_finish{
 		width: 50px;
@@ -33,17 +33,20 @@
 	#title{
 	width: 84%;
 	}
-	.w_info{
-		width: 95%;
+	#author_info .w_info{
+		width: 101%;
 	}
-	.w_info div{
+	#author_info .w_info div{
 	width:30%;
 	}
-	#head{
+	#author_info #head{
 	width:52%;
 	}
-	.w_info input{
+	#author_info .w_info input{
 		width: 72%;
+	}
+	#my_form #classifly{
+		width: 10%;
 	}
 	.w_info{
 		width: 100%;
@@ -77,50 +80,60 @@ p{
 	border-bottom: 1px solid #f5f5f5;
 	font-size: 22px;
 }
+/*整体格式
+-------------------------------------------------------------*/
+#author_info #info_finish,#my_form #submit_c{
+	background-color: rgb(0,179,138);
+	margin:4% 2%;
+	font-size:13px;
+	font-weight: bold;
+	color: white;
+	float: right;
+	top: 50%;
+	border: 0px;
+	height: 42px;
+	width: 68px;
+}
 /*作者信息 w_info
 -------------------------------------------------------------*/
-.w_info{
+
+#author_info .w_info{
 	border: 3px solid rgb(0,179,138);
 	height: 150px;
 	text-align: center;	
 }
-.w_info p{
+#author_info .w_info p{
 	display: inline-block;
 }
-.w_info div{	
+#author_info .w_info div{	
 	height: 130px;	
 	float: left; 
 }
-.w_info input{	
+#author_info .w_info #name,#author_info .w_info #bg{	
 	height: 30px;
 	margin: 5px 20px;
 }
+
 /*个人头像input box属性
 ------------------------------------------------------------------------------------*/
-#head{
+#author_info #head{
 	margin: 2% 29%;
 	color: rgb(120,120,120);	
 }
 /*个人信息完成提交按钮
 ---------------------------------------------------------------------------------------*/
-#info_finish{
-	background-color: rgb(0,179,138);
-	margin:4% 0%;
-	font-size:13px;
-	font-weight: bold;
-	color: white;
-	text-align: center;
-	border: 0px;
-	height: 42px;
 
-}
-#info_finish:hover{
+#author_info #info_finish:hover{
 	background-color: rgb(0,162,138)
 }
-/*--.text
+/*--文章内容
 --------------------------------------------------------------------------------*/
-.text{
-	margin-left: 30px;
+#my_form #classifly{
+	height: 30px;
+	font-size: 14px;
+	font-weight: normal;
+	position: relative;
+	bottom: 6px;
 }
 
 #edit_warp {
