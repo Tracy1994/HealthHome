@@ -64,7 +64,7 @@ class Author extends CI_Controller {
 
 		if (!$this->upload->do_upload('headimg'))
 		{
-			output_cgi_data(ERR_UPLOAD_FILE, array('error' => $this->upload->display_errors()));
+			output_cgi_data(ERR_UPLOAD_FILE, strip_tags($this->upload->display_errors()));
 			return false;
 		}
 
