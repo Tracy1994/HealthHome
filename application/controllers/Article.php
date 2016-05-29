@@ -133,8 +133,8 @@ class Article extends CI_Controller {
 		}
 
 		$data = $this->upload->data();
-		$coverimg_name = date('ymdHis', time()) + '_' + strval(rank(100000, 999999)) + $data['file_ext'];
-		$coverimg_path = $data['file_path'] + '../coverimgs/';
+		$coverimg_name = 'img'.date('YmdHis', time()).strval(mt_rand(100000, 999999)).$data['file_ext'];
+		$coverimg_path = $data['file_path'].'../coverimgs/';
 		$ret = rename($data['full_path'], $headimg_path.$headimg_name);
 		if ($ret === false)
 		{
@@ -142,7 +142,7 @@ class Article extends CI_Controller {
 			return false;
 		}
 
-		return '/coverimgs/' + $coverimg_name;
+		return '/coverimgs/'.$coverimg_name;
 	}
 
 	public function publish()
