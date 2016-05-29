@@ -7,6 +7,7 @@ class Author extends CI_Controller {
 	{
 		parent::__construct();
 
+		$this->load->helper(array('form', 'url'));
 		$config['upload_path']      = './uploads/';
         $config['allowed_types']    = 'gif|jpg|png';
         $config['max_size']     	= 1024;
@@ -69,8 +70,8 @@ class Author extends CI_Controller {
 		}
 
 		$data = $this->upload->data();
-		$headimg_name = date('ymdHis', time()) + '_' + strval(rank(100000, 999999)) + $data['file_ext'];
-		$headimg_path = $data['file_path'] + '../headimgs/';
+		$headimg_name = 'img'.date('YmdHis', time()).strval(mt_rand(100000, 999999)).$data['file_ext'];
+		$headimg_path = $data['file_path'].'../headimgs/';
 		$ret = rename($data['full_path'], $headimg_path.$headimg_name);
 		if ($ret === false)
 		{
@@ -85,7 +86,7 @@ class Author extends CI_Controller {
 		}
 		$author = $_REQUEST['author'];
 		$desp = $_REQUEST['desp'];
-		$url = '/headimgs/' + $headimg_name;
+		$url = '/headimgs/'.$headimg_name;
 		$ret = $this->author_mng->add_author($id, $author, $desp, $url);
 
 		if ($id == 0)

@@ -33,7 +33,7 @@ class AuthorMng extends CI_Model {
 			return $ret[0]['id'];
 		}
 
-		$arr_values['url'] = $url;
+		$arr_values['head_url'] = $url;
 		return $this->db_opt_mng->insert($this->table_name, $arr_values);
 	}
 
@@ -48,7 +48,7 @@ class AuthorMng extends CI_Model {
 		}
 
 		$ret = $this->db_opt_mng->select($this->table_name, $arr_where);
-		if (is_array($ret) && count($ret) != 1)
+		if (is_array($ret) && count($ret) > 0)
 		{
 			return $ret[0]['id'];
 		}
