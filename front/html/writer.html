@@ -19,7 +19,7 @@
 <header>
 	健康之家-文章编辑
 </header>
-<form id="author_info" name="form1" method="post" enctype="multipart/from-date" action="/author/save_author">		
+<form id="author_info" name="form1" method="post" enctype="multipart/form-date" action="/author/save_author">		
 	<p>作者信息</p>
 	<div class="w_info">
 		<div class="w_name">
@@ -41,21 +41,22 @@
 		<input id="info_finish" type="submit" name="info_finish" value="提交"> 	
 	</div>
 </form>
-<form id="my_form" action="/article/publish" name="form2" method="post" enctype="multipart/from-date">
-	<div>
-		<p>文章标题</p>
+<form id="my_form" action="/article/publish" name="form2" method="post" enctype="multipart/form-date">	
+	<p>文章标题</p>
+	<p>
 		<input id="classifly" list="classify" name="type_id" autofocus="autofocus" placeholder="请双击选择分类">
 		<datalist id="classify">
-			<option value="心理"></option>
-			<option value="真相"></option>
-			<option value="一图读懂"></option>
-			<option value="肿瘤"></option>
-			<option value="慢病"></option>
-			<option value="营养"></option>
-			<option value="母婴"></option>
-		</datalist>
-		<input id="title" type="text" name="title">	
-	</div>
+		<option value="心理"></option>
+		<option value="真相"></option>
+		<option value="一图读懂"></option>
+		<option value="肿瘤"></option>
+		<option value="慢病"></option>
+		<option value="营养"></option>
+		<option value="母婴"></option>
+	</datalist>
+	<input id="title" type="text" name="title">	
+	</p>
+		
 	
 	<p>文章内容</p>	
 	<!-- 定义一个div容器作为编辑器 -->
@@ -67,7 +68,7 @@
 	<input type="text" name="content" id="articleText">
 	<p>文章封面</p>		
 	<input id="corver" type="file" name="cover_url">
-	<input type="submit" name="submit_c">
+	<input id="submit_c" type="submit" name="submit_c">
 	
 </form>
 
