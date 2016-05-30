@@ -99,6 +99,7 @@ class Author extends CI_Controller {
 		}
 
 		output_cgi_data(0, 'succ', array('author_id' => $id));
+		$this->load->view('editor.php');
 		return true;
 	}
 }

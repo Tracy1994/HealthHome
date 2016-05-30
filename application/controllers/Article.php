@@ -7,6 +7,7 @@ class Article extends CI_Controller {
 	{
 		parent::__construct();
 
+		$this->load->helper(array('form', 'url'));
 		$config['upload_path']      = './uploads/';
 		$config['allowed_types']    = 'gif|jpg|png';
 		$config['max_size']     	= 1024;
