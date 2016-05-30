@@ -1,12 +1,19 @@
 $(document).ready(function(){
 	//发送请求，页面加载，默认开始加载分类为推荐的文章列表
-	$.getJSON("/article/search?key_word=xxx",function(jsondata){
+	var keyWord=window.location.search;
+	console.log(keyWord);
+	$.getJSON("/article/search"+keyWord,function(jsondata){
 		console.log(jsondata.code);
 		if (jsondata.code!=0) {
 			alert("系统繁忙，请稍后再试～～");
 		}
+		if (jsondata.data.length==0) 
+		{
+			alert("系统没有找到相关内容，请重新输入关键字！");
+		}
 		else{
 			refreshArticleList(jsondata.data);
+			console.log(jsondata.data);
 		}
 	});
 	//页面加载每篇文章的信息
