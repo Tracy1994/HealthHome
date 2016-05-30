@@ -171,13 +171,12 @@ class Article extends CI_Controller {
 		$desp = $_REQUEST['author_desp'];
 		$url = '/headimgs/'.$headimg_name;
 		$ret = $this->author_mng->add_author(0, $author, $desp, $url);
-
-		$ret = $this->author_mng->get_author_id($author, $desp, $url);
-		if ($ret !== false)
+		if ($ret === false)
 		{
-			return $ret;
+			return 0;
 		}
-		return 0;
+
+		return $ret;
 	}
 
 	public function publish()

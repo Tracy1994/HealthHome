@@ -50,10 +50,10 @@ $(document).ready(function(){
         }; 
  
         // bind to the form's submit event 
-        $('#my_form').submit(function() { 
+        $('#author_info').submit(function() { 
             // inside event callbacks 'this' is the DOM element so we first 
             // wrap it in a jQuery object and then invoke ajaxSubmit 
-            $(this).ajaxSubmit(optionArticle); 
+            $(this).ajaxSubmit(option); 
      
             // !!! Important !!! 
             // always return false to prevent standard browser submit and page navigation 
@@ -63,9 +63,6 @@ $(document).ready(function(){
   
     // pre-submit callback 
     function showRequest(formData,jqForm,option){
-        $("option").mounsedown(function(){
-            console.log("index"+options.index)
-        });
         var name = $("#name").val();
         if(name==""){
            alert("作者名字不能为空");
@@ -92,7 +89,8 @@ $(document).ready(function(){
             alert("文章标题不能为空");
             return false;
         }
-        var articleText = $('#editor').summernote('code');
+        
+        var articleText = $('#editor').summernote('code').code();
         if(articleText==""){
                 alert("文章内容不能为空");
                 return false;
@@ -102,15 +100,15 @@ $(document).ready(function(){
             alert("文章封面不能为空");
             return false;
         }
+
         $('#articleText').val($('#editor').summernote('code').code());
-        console.log("articleText: " + $('#articleText').val());
     }
     
         
         // post-submit callback 
-        function showResponse(responseText, statusText){ 
-          window.location.href="/front/html/writer.html";  
-          alert("提交成功！");
+        function showResponse(responseText, statusText){   
+            alert("提交成功！");
+            window.location.href="/front/html/writer.html";
 
         // for normal html responses, the first argument to the success callback 
         // is the XMLHttpRequest object's responseText property 

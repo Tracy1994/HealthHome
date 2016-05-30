@@ -34,10 +34,11 @@ class AuthorMng extends CI_Model {
 		}
 
 		$arr_values['head_url'] = $url;
-		return $this->db_opt_mng->insert($this->table_name, $arr_values);
+		$this->db_opt_mng->insert($this->table_name, $arr_values);
+		return $this->get_author_id($author, $desp);
 	}
 
-	public function get_author_id($author, $desp, $url)
+	public function get_author_id($author, $desp, $url = '')
 	{
 		$arr_where = array();
 		$arr_where['author'] = $author;
