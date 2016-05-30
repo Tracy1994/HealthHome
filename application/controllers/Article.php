@@ -16,6 +16,7 @@ class Article extends CI_Controller {
 		$this->load->library('upload', $config);
 
 		$this->load->model('ArticleMng', 'article_mng');
+		$this->load->model('AuthorMng', 'author_mng');
 	}
 
 	public function get_info()
@@ -127,16 +128,18 @@ class Article extends CI_Controller {
 	}
 
 	private function upload_cover()
-	{
+	{	
 		if (!$this->upload->do_upload('coverimg'))
 		{
+			output_cgi_data(ERR_UPLOAD_FILE, 'upload cover error', 
+				strip_tags($this->upload->display_errors()));
 			return false;
 		}
 
 		$data = $this->upload->data();
 		$coverimg_name = 'img'.date('YmdHis', time()).strval(mt_rand(100000, 999999)).$data['file_ext'];
 		$coverimg_path = $data['file_path'].'../coverimgs/';
-		$ret = rename($data['full_path'], $headimg_path.$headimg_name);
+		$ret = rename($data['full_path'], $coverimg_path.$coverimg_name);
 		if ($ret === false)
 		{
 			output_cgi_data(ERR_SYSTEM, 'system error');
@@ -144,6 +147,37 @@ class Article extends CI_Controller {
 		}
 
 		return '/coverimgs/'.$coverimg_name;
+	}
+
+	private function add_author()
+	{
+		if (!$this->upload->do_upload('headimg'))
+		{
+			output_cgi_data(ERR_UPLOAD_FILE, strip_tags($this->upload->display_errors()));
+			return false;
+		}
+
+		$data = $this->upload->data();
+		$headimg_name = 'img'.date('YmdHis', time()).strval(mt_rand(100000, 999999)).$data['file_ext'];
+		$headimg_path = $data['file_path'].'../headimgs/';
+		$ret = rename($data['full_path'], $headimg_path.$headimg_name);
+		if ($ret === false)
+		{
+			output_cgi_data(ERR_SYSTEM, 'system error');
+			return false;
+		}
+
+		$author = $_REQUEST['author'];
+		$desp = $_REQUEST['author_desp'];
+		$url = '/headimgs/'.$headimg_name;
+		$ret = $this->author_mng->add_author(0, $author, $desp, $url);
+
+		$ret = $this->author_mng->get_author_id($author, $desp, $url);
+		if ($ret !== false)
+		{
+			return $ret;
+		}
+		return 0;
 	}
 
 	public function publish()
@@ -160,30 +194,52 @@ class Article extends CI_Controller {
 			return false;
 		}
 
-		if (!isset($_REQUEST['article_id']) || !isset($_REQUEST['title']) || 
-			!isset($_REQUEST['author_id']) || !isset($_REQUEST['type_id']) || 
-			!isset($_REQUEST['content']))
+		if (!isset($_REQUEST['title']) || 
+			!isset($_REQUEST['author']) || !isset($_REQUEST['author_desp']) || 
+			!isset($_REQUEST['type']) || !isset($_REQUEST['content']))
 		{
 			output_cgi_data(ERR_PARAMS, 'params error');
 			return false;
 		}
 
-		$cover_url = upload_cover();
+		$article_id = 0;
+		if (isset($_REQUEST['article_id']))
+		{
+			$article_id = intval($_REQUEST['article_id']);
+		}
+
+		$type = $_REQUEST['type'];
+		$type_id = $GLOBALS['arr_types'][$type];
+		if ($type_id == null)
+		{
+			$type_id = 0;
+		}
+
+		$cover_url = $this->upload_cover();
 		if ($cover_url == false)
 		{
+			output_cgi_data(-1, 'cover url is empty');
 			$cover_url = '';
 		}
 
+		$author_id = $this->add_author();
+		if ($author_id === false)
+		{
+			output_cgi_data(-1, 'add user failed');
+			$author_id = 0;
+		}
+
 		$ret = $this->article_mng->save(
-			$_REQUEST['article_id'], $_REQUEST['title'], $_REQUEST['author_id'], 
-			$_REQUEST['type_id'], $cover_url, $content);
+			$article_id, $_REQUEST['title'], $author_id, 
+			$type_id, $cover_url, $_REQUEST['content']);
 		if ($ret === false)
 		{
 			output_cgi_data(ERR_SYSTEM, 'save article failed');
 			return false;
 		}
 
-		output_cgi_data(0, 'succ');
+		// $this->load->view('welcome_message');
+		output_cgi_data(0, 'succ', $ret);
 		return true;
 	}
 }

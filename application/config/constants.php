@@ -84,6 +84,15 @@ defined('EXIT_DATABASE')       OR define('EXIT_DATABASE', 8); // database error
 defined('EXIT__AUTO_MIN')      OR define('EXIT__AUTO_MIN', 9); // lowest automatically-assigned error code
 defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
 
+$arr_types = array(
+	'心理' => 1,
+	'真相' => 2,
+	'一图读懂' => 3,
+	'肿瘤' => 4,
+	'慢病' => 5,
+	'营养' => 6,
+	'母婴' => 7);
+
 define('ERR_SUCC', 0);
 define('ERR_PARAMS', -10001);
 define('ERR_SYSTEM', -10002);

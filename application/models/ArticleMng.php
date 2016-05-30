@@ -81,6 +81,15 @@ class ArticleMng extends CI_Model {
 
 	public function like($article_id)
 	{
+		$arr_where = array(
+			'article_id' => intval($article_id),
+			'user_name' => get_user_name());
+		$ret = $this->db_opt_mng->get_count($this->table_article_like, $arr_where);
+		if ($ret === false || $ret > 0)
+		{
+			return false;
+		}
+
 		$arr_value = array(
 			'article_id' => intval($article_id), 
 			'user_name' => get_user_name(),
@@ -140,7 +149,7 @@ class ArticleMng extends CI_Model {
 			'create_time' => date('y-m-d H:i:s', time()),
 			'modify_time' => date('y-m-d H:i:s', time()),
 			'summary' => $this->gen_summary($content),
-			'conver_url' => $cover_url,
+			'cover_url' => $cover_url,
 			'content' => $content);
 		return $this->db_opt_mng->insert($this->table_article, $arr_value);
 	}
@@ -156,7 +165,7 @@ class ArticleMng extends CI_Model {
 			'tags' => "",
 			'modify_time' => date('y-m-d H:i:s', time()),
 			'summary' => $this->gen_summary($content),
-			'conver_url' => $cover_url,
+			'cover_url' => $cover_url,
 			'content' => $content);
 		return $this->db_opt_mng->update($this->table_article, $arr_value, $arr_where);
 	}
@@ -165,11 +174,11 @@ class ArticleMng extends CI_Model {
 	{
 		if ($article_id == 0)
 		{
-			return insert_article($title, $author_id, $type_id, $cover_url, $content);
+			return $this->insert_article($title, $author_id, $type_id, $cover_url, $content);
 		}
 		else
 		{
-			return update_article($article_id, $title, $author_id, $type_id, $cover_url, $content);
+			return $this->update_article($article_id, $title, $author_id, $type_id, $cover_url, $content);
 		}
 
 		return true;
