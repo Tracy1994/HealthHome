@@ -90,13 +90,14 @@ $(document).ready(function(){
 		var down="<div class=\"article\">"+article+"</div>"
 		return down;
 	}
-	$("button").click(function(){
+	$("#love").click(function(){
 		var url="/article/like"+articleId
 		console.log(url);
-		$.get("url",function(data,status){
+		$.get(url,function(data,status){
+			console.log(data);
 			if (status==success) 
 			{
-				$("button").css("bacground-color","rgb(120,120,120)");
+				$("#love").css("bacground-color","rgb(120,120,120)");
 			}
 		});
 
