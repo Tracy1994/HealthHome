@@ -90,5 +90,15 @@ $(document).ready(function(){
 		var down="<div class=\"article\">"+article+"<button>赞</button></div>"
 		return down;
 	}
+	$("button").click(function(){
+		var url="/article/like"+articleId
+		$.get("url",function(data,status){
+			if (status==success) 
+			{
+				$("button").css("bacground-color","rgb(120,120,120)");
+			}
+		});
+
+	});
 
 });
