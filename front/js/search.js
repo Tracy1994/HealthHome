@@ -6,15 +6,40 @@ $(document).ready(function(){
 		console.log(jsondata.code);
 		if (jsondata.code!=0) {
 			alert("系统繁忙，请稍后再试～～");
+			return false;
 		}
 		if (jsondata.data.length==0) 
 		{
 			alert("系统没有找到相关内容，请重新输入关键字！");
+			return false;
 		}
 		else{
 			refreshArticleList(jsondata.data);
 			console.log(jsondata.data);
 		}
+
+	});
+	
+	$("#search").click(function(){
+		$("#articleList").empty();
+		var keyWord=$("#keyWord").val();
+		console.log(keyWord);
+		$.getJSON("/article/search?key_word="+keyWord,function(jsondata){
+			if (jsondata.code!=0) {
+				alert("系统繁忙，请稍后再试～～");
+				return false;
+			}
+			if (jsondata.data.length==0) 
+			{
+				alert("系统没有找到相关内容，请重新输入关键字！");
+				return false
+			}
+			else{
+				refreshArticleList(jsondata.data);
+				console.log(jsondata.data);
+			}
+
+		});
 	});
 	//页面加载每篇文章的信息
 	function refreshArticleList(articles){
