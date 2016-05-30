@@ -93,12 +93,14 @@ $(document).ready(function(){
 	$("#love").click(function(){
 		var url="/article/like"+articleId
 		console.log(url);
-		$.get(url,function(data,status){
-			console.log(data);
-			if (status==success) 
-			{
-				$("#love").css("bacground-color","rgb(120,120,120)");
-			}
+		$.getJSON(url,function(jsondata){
+			console.log(jsondata);
+			console.log(jsondata.code);
+			if (jsondata.code==0)
+
+			 {
+			 	$("#love").hide();
+			 }
 		});
 
 	});
