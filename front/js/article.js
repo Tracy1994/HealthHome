@@ -87,11 +87,12 @@ $(document).ready(function(){
 		return up;
 	}
 	function getArticle(article){
-		var down="<div class=\"article\">"+article+"<button>赞</button></div>"
+		var down="<div class=\"article\">"+article+"</div>"
 		return down;
 	}
 	$("button").click(function(){
 		var url="/article/like"+articleId
+		console.log(url);
 		$.get("url",function(data,status){
 			if (status==success) 
 			{
