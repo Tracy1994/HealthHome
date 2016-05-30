@@ -1,6 +1,6 @@
 $(document).ready(function(){
 	var articleId=window.location.search;
-	console.log(articleId);
+	console.log("articleId:"+articleId);
 	window.onload = function(){
 		//登录后改变html内容和退出登录
 		function getCookieValue(cname) {
@@ -87,7 +87,7 @@ $(document).ready(function(){
 		return up;
 	}
 	function getArticle(article){
-		var down="<div class=\"article\">"+article+"</div>"
+		var down="<div class=\"article\">"+article+"<button>赞</button></div>"
 		return down;
 	}
 

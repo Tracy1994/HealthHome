@@ -31,13 +31,13 @@ $(document).ready(function(){
         
     }
 	$(function(){   
-        var optionArticle = { 
+        var option = { 
        // target:        '#output',   // target element(s) to be updated with server response 
-        beforeSubmit:  showArticleRequest,  // pre-submit callback 
-        success:       showArticleResponse,  // post-submit callback
+        beforeSubmit:  showRequest,  // pre-submit callback 
+        success:       showResponse,  // post-submit callback
         resetForm: true, 
         dataType:  'json' 
- 
+        
         // other available options: 
         //url:       url         // override for form's 'action' attribute 
         //type:      type        // 'get' or 'post', override for form's 'method' attribute 
@@ -47,8 +47,8 @@ $(document).ready(function(){
  
         // $.ajax options can be used here too, for example: 
         //tim(eout:   3000 
-            }; 
-    });
+        }; 
+ 
         // bind to the form's submit event 
         $('#my_form').submit(function() { 
             // inside event callbacks 'this' is the DOM element so we first 
@@ -59,22 +59,10 @@ $(document).ready(function(){
             // always return false to prevent standard browser submit and page navigation 
             return false; 
         }); 
-    $(function(){
-        var optionAuthor ={
-            beforeSubmit:  showAuthorRequest,  // pre-submit callback 
-            success:       showAuthorResponse,  // post-submit callback
-            resetForm: true, 
-            dataType:  'json' 
-        }
-        $("author_info").submit(function(){
-            $(this).ajaxSubmit(optionAuthor);
-            return false;
-        });
-    });    
-       
+    });
   
     // pre-submit callback 
-    function showAuthorRequest(formData,jqForm,optionAuthor){
+    function showRequest(formData,jqForm,option){
         $("option").mounsedown(function(){
             console.log("index"+options.index)
         });
@@ -93,9 +81,6 @@ $(document).ready(function(){
            alert("作者名字不能为空");
             return false;
         }
-    }
-    function showArticleRequest(formData, jqForm, optionArticle) { 
-        
         var classifly = $("#classifly").val();
         if(classifly==""){
            alert("文章分类不能为空");
@@ -120,9 +105,11 @@ $(document).ready(function(){
         $('#articleText').val($('#editor').summernote('code').code());
         console.log("articleText: " + $('#articleText').val());
     }
+    
         
         // post-submit callback 
-        function showAuthorResponse(responseText, statusText){ 
+        function showResponse(responseText, statusText){ 
+          window.location.href="/front/html/writer.html";  
           alert("提交成功！");
 
         // for normal html responses, the first argument to the success callback 
@@ -139,8 +126,6 @@ $(document).ready(function(){
         //alert('status: ' + statusText + '\n\nresponseText: \n' + responseText + 
         //    '\n\nThe output div should have already been updated with the responseText.'); 
         } 
-        function showArticleResponse(responseText,statusText){
-            alert("提交成功！")
-        }
+        
 });
  

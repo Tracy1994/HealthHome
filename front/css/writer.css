@@ -34,10 +34,10 @@
 	width: 84%;
 	}
 	#author_info .w_info{
-		width: 101%;
+		width: 98%;
 	}
 	#author_info .w_info div{
-	width:30%;
+	width:33%;
 	}
 	#author_info #head{
 	width:52%;
@@ -45,7 +45,7 @@
 	#author_info .w_info input{
 		width: 72%;
 	}
-	#my_form #classifly{
+	#author_info #classifly{
 		width: 10%;
 	}
 	.w_info{
@@ -82,13 +82,13 @@ p{
 }
 /*整体格式
 -------------------------------------------------------------*/
-#author_info #info_finish,#my_form #submit_c{
+#author_info #submit_c{
 	background-color: rgb(0,179,138);
 	margin:4% 2%;
 	font-size:13px;
 	font-weight: bold;
 	color: white;
-	float: right;
+	float:left;
 	top: 50%;
 	border: 0px;
 	height: 42px;
@@ -128,7 +128,7 @@ p{
 }
 /*--文章内容
 --------------------------------------------------------------------------------*/
-#my_form #classifly{
+#author_info #classifly{
 	height: 30px;
 	font-size: 14px;
 	font-weight: normal;
@@ -136,9 +136,9 @@ p{
 	bottom: 6px;
 }
 
-#edit_warp {
+#author_info #edit_warp {
 	padding: 10px;
 }
-#articleText{
+#author_info #articleText{
 	display: none;
 }
