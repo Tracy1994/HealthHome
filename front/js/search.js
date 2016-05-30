@@ -1,8 +1,6 @@
-
-
 $(document).ready(function(){
 	//发送请求，页面加载，默认开始加载分类为推荐的文章列表
-	$.getJSON("/article/get_list?type_id=0",function(jsondata){
+	$.getJSON("/article/search?key_word=xxx",function(jsondata){
 		console.log(jsondata.code);
 		if (jsondata.code!=0) {
 			alert("系统繁忙，请稍后再试～～");
@@ -78,36 +76,9 @@ $(document).ready(function(){
 		
 		
 		//导航条的点击变色和发送请求
-		function MyTab(){
-			var spans = document.getElementById('nav').getElementsByTagName('li');
-			
-			// alert(spans.length)
-			console.log(spans);
-			
-			for(var i=0; i<spans.length;i++){
-				console.log("level 1 i:"+i);
-				spans[i].index = i;
-				spans[i].onclick = function(){
-					console.log("level 2 i: " + this.index);
-
-					$.getJSON("/article/get_list?type_id="+this.index,function(jsondata){
-						
-						refreshArticleList(jsondata.data);
-						
-					});		
-					for(var j=0; j<spans.length;j++){
-						spans[j].className = '';
-					}
-					this.className = 'current';
-				}
-			}
-		}		
-		MyTab();
+		
 		checkCookie();
 	}
-	$("#search").click(function(){
-	var keyWord=$("#keyWord").val();
-	window.location.href='/front/html/search.html?key_word='+keyWord
-	});
+	
 
 });
