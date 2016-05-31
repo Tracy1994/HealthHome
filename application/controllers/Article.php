@@ -208,10 +208,10 @@ class Article extends CI_Controller {
 		}
 
 		$type = $_REQUEST['type'];
-		$type_id = $GLOBALS['arr_types'][$type];
-		if ($type_id == null)
+		$type_id = 0;
+		if (array_key_exists($type, $GLOBALS['arr_types']))
 		{
-			$type_id = 0;
+			$type_id = $GLOBALS['arr_types'][$type];
 		}
 
 		$cover_url = $this->upload_cover();
