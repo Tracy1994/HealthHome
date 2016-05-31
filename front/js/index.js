@@ -107,7 +107,8 @@ $(document).ready(function(){
 	}
 	$("#search").click(function(){
 	var keyWord=$("#keyWord").val();
-	window.location.href='/front/html/search.html?key_word='+keyWord
+	window.open('/front/html/search.html?key_word='+keyWord);
+	
 	});
 
 });
