@@ -50,6 +50,7 @@ $(document).ready(function(){
 		if (jsondata.code!=0) {
 			alert("系统繁忙，请稍后再试～～");
 		}
+
 		else{
 			console.log(jsondata.data);
 			loadAuthor(jsondata.data);
@@ -77,11 +78,22 @@ $(document).ready(function(){
 		$("#author").append(authorDate);
 	}
 	function getAuthor(author){
+
 		var up="<section><div class=\"center\"><div class=\"title\"><h2>"+author.title+
 		"</h2><p><span id=\"left\"> 作者："+author.author+"</span><span id=\"right\"><span>"
 		+author.create_time+"</span><span>阅读（"	+author.click_cnt+"）</span></span></p>"
 		+"</div><img src=\""+author.cover_url+"\">"
+		console.log(author.has_like);
+		if (author.has_like==0) {
+			$('#love').attr('disable','false');
+			$('#love').css("background-color","rgb(0,179,138)");
+		}
+		else{
+			$("#love").attr('disable',"true");
+			$("#love").css("background-color","rgb(120,120,120)");
+		}
 		return up;
+
 	}
 	function getArticle(article){
 		var down="<div class=\"article\">"+article+"</div>"
@@ -96,7 +108,8 @@ $(document).ready(function(){
 			if (jsondata.code==0)
 
 			 {
-			 	$("#love").hide();
+			 	$("#love").attr('disable',"true");
+			 	$("#love").css("background-color","rgb(120,120,120)");
 			 }
 		});
 
