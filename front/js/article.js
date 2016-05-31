@@ -51,19 +51,16 @@ $(document).ready(function(){
 			alert("系统繁忙，请稍后再试～～");
 		}
 		else{
-			loadAuthor(jsondata.data);
 			console.log(jsondata.data);
+			loadAuthor(jsondata.data);
+			
 		}
 	});
 	$.get("/article/get_content"+articleId,function(strDate){
+
 		console.log("strDate:"+strDate);
-		if (strDate=="") {
-			alert("系统繁忙，请稍后再试～～");
-		}
-		else{
-			loadArticle(strDate);
-			
-		}
+		loadArticle(strDate);
+		
 	});
 	function loadArticle(articleDate){
 		
@@ -83,7 +80,7 @@ $(document).ready(function(){
 		var up="<section><div class=\"center\"><div class=\"title\"><h2>"+author.title+
 		"</h2><p><span id=\"left\"> 作者："+author.author+"</span><span id=\"right\"><span>"
 		+author.create_time+"</span><span>阅读（"	+author.click_cnt+"）</span></span></p>"
-		+"</div><img src=\""+author.click_cnt+"\">"
+		+"</div><img src=\""+author.cover_url+"\">"
 		return up;
 	}
 	function getArticle(article){
