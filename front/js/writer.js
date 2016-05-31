@@ -11,7 +11,7 @@ $(document).ready(function(){
         console.log(articleText);
         $('#articleText').val(articleText);
         var a=$('#articleText').val();
-        alert(a);
+        
     });
 	$.getJSON("/author/get_all_authors",function(jsondata){
         console.log(jsondata.code);
