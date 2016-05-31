@@ -3,8 +3,9 @@
 	header{
 			width: 1280px;
 		}
-	#title{
-		width: 10449px;
+	#author_info #title{
+		width: 1044px;
+
 	}
 	#author_info .w_info{
 		width: 1300px;
@@ -30,7 +31,7 @@
 	header{
 		width: 100%;
 	}
-	#title{
+	#author_info #title{
 	width: 84%;
 	}
 	#author_info .w_info{
@@ -135,7 +136,12 @@ p{
 	position: relative;
 	bottom: 6px;
 }
-
+#author_info #title{
+	font-size: 14px;
+	font-weight: normal;
+	position: relative;
+	bottom: 6px;
+}
 #author_info #edit_warp {
 	padding: 10px;
 }

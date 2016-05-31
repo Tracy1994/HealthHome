@@ -1,10 +1,18 @@
 $(document).ready(function(){
     var authorList = null;
+
     $('#editor').summernote({		
     	height: 480,                 // set editor height
     	minHeight: null,             // set minimum height of editor
     	maxHeight: null, 			// set maximum height of editor			
 	});
+    $('#submit_c').click(function(){
+        var articleText=$('#editor').summernote('code').code();
+        console.log(articleText);
+        $('#articleText').val(articleText);
+        var a=$('#articleText').val();
+        alert(a);
+    });
 	$.getJSON("/author/get_all_authors",function(jsondata){
         console.log(jsondata.code);
         if (jsondata.code!=0) 
@@ -30,7 +38,9 @@ $(document).ready(function(){
         return name;
         
     }
-	$(function(){   
+
+	$(function(){  
+
         var option = { 
        // target:        '#output',   // target element(s) to be updated with server response 
         beforeSubmit:  showRequest,  // pre-submit callback 
@@ -52,7 +62,8 @@ $(document).ready(function(){
         // bind to the form's submit event 
         $('#author_info').submit(function() { 
             // inside event callbacks 'this' is the DOM element so we first 
-            // wrap it in a jQuery object and then invoke ajaxSubmit 
+            // wrap it in a jQuery object and then invoke ajaxSubmit
+
             $(this).ajaxSubmit(option); 
      
             // !!! Important !!! 
@@ -63,6 +74,7 @@ $(document).ready(function(){
   
     // pre-submit callback 
     function showRequest(formData,jqForm,option){
+
         var name = $("#name").val();
         if(name==""){
            alert("作者名字不能为空");
@@ -92,16 +104,19 @@ $(document).ready(function(){
         
         var articleText = $('#editor').summernote('code').code();
         if(articleText==""){
-                alert("文章内容不能为空");
-                return false;
+            alert("文章内容不能为空");
+            return false;
         }
         var corver = $("#corver").val();
         if(corver==""){
             alert("文章封面不能为空");
             return false;
         }
+        
+           
+        
+        
 
-        $('#articleText').val($('#editor').summernote('code').code());
     }
     
         
