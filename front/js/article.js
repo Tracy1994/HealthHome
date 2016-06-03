@@ -107,6 +107,10 @@ $(document).ready(function(){
 			 {
 			 	alert('请登录！');
 			 }
+			 if (jsondata.code==-10006)
+			  {
+			  	alert('你已经赞过了哟～～');
+			  }
 			if (jsondata.code==0)
 
 			 {
