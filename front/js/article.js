@@ -38,12 +38,9 @@ $(document).ready(function(){
 		  		$("#register").attr("href","/login/logout");
 		  	}		  	
 		  	console.log("role:" + role);	  			  		
-		}
-		
-		
-		//导航条的点击变色和发送请求
-		
+		}		
 		checkCookie();
+
 	}	
 	$.getJSON("/article/get_info"+articleId,function(jsondata){
 
@@ -99,12 +96,17 @@ $(document).ready(function(){
 		var down="<div class=\"article\">"+article+"</div>"
 		return down;
 	}
+	//点赞
 	$("#love").click(function(){
 		var url="/article/like"+articleId
 		console.log(url);
 		$.getJSON(url,function(jsondata){
 			console.log(jsondata);
 			console.log(jsondata.code);
+			if (jsondata.code==-10003)
+			 {
+			 	alert('请登录！');
+			 }
 			if (jsondata.code==0)
 
 			 {
