@@ -26,7 +26,6 @@ $(document).ready(function(){
 		var section= "<section>"+
 			"<div class=\"l-top\">"+
 			"<img src=\"" + article.author_head_url + "\">"+
-			"<h5 class=\"l2\">" + article.like_cnt + "</h5>"+
 			"<h4><a href=\"/front/html/article.html?article_id=" + article.id + "\".id +>" +article.title+"</a></h4>"+
 			"<p><b>"+article.author+"</b><span>"+article.author_desp+"</span></p></div>"+
 			"<div class=\"l-buttom\"><div class=\"summary\">"+
