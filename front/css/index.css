@@ -31,7 +31,7 @@ header{
 		width: 100%;
 	}
 	nav li{
-		width:11%;
+		width:12%;
 	}
 	main{
 		width: 104%;
@@ -76,11 +76,11 @@ header .name{
 }
 
 header input{
-width: 408px;
-height: 35px;
-margin: 10px;
-border: 2px solid rgb(0,179,138);
-font-size: 15px;
+	width: 408px;
+	height: 35px;
+	margin: 10px;
+	border: 2px solid rgb(0,179,138);
+	font-size: 15px;
 
 }
 
@@ -143,6 +143,14 @@ nav  a{
 }
 nav  li{
 	background-color: white;
+	float: left;
+}
+nav li:hover{
+	background-color: rgb(0,179,138);
+
+}
+nav li:hover a{
+	color: white;
 }
 nav .current {
 	background-color: rgb(0,179,138);

@@ -38,7 +38,7 @@ header .name{
 	font-size: 27px;
 	margin: 12px;
 	color:white ;
-	font-family: "微软雅黑","黑体"；
+	font-family: "微软雅黑","黑体";
 }
 
 
@@ -60,7 +60,7 @@ header li{
 header a{
 	text-decoration: none;
 	color: white;
-	font-family: "微软雅黑","黑体"；
+	font-family: "微软雅黑","黑体";
 	font-size: 14px;
 }
 header li:hover a{
@@ -73,7 +73,7 @@ header li:hover a{
 section{
 	background-color:rgb(240,250,220);
 	width: 100%;
-		
+	
 }
 section .title{
 	width: 100%;
@@ -109,10 +109,12 @@ section .center{
 section img{
 	width: 800px;
 	height: 300px;
-	margin:10px;
+	margin:22px;
+
 }
 section .article{
 	margin:45px;
+
 }
 /*
 ------------------------------------------------------------------------------*/
