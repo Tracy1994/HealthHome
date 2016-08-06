@@ -140,6 +140,7 @@ class ArticleMng extends CI_Model {
 
 	private function insert_article($title, $author_id, $type_id, $cover_url, $content)
 	{
+		$uuid = get_uuid();
 		$arr_value = array(
 			'title' => $title,
 			'author_id' => $author_id,
@@ -150,8 +151,22 @@ class ArticleMng extends CI_Model {
 			'modify_time' => date('y-m-d H:i:s', time()),
 			'summary' => $this->gen_summary($content),
 			'cover_url' => $cover_url,
-			'content' => $content);
-		return $this->db_opt_mng->insert($this->table_article, $arr_value);
+			'content' => $content,
+			'uuid' => $uuid);
+		$ret = $this->db_opt_mng->insert($this->table_article, $arr_value);
+		if ($ret === false)
+		{
+			return false;
+		}
+
+		$arr_where = array('title' => $title, 'uuid' => $uuid);
+		$ret = $this->db_opt_mng->select($this->table_article, $arr_where, 'id');
+		if ($ret === false || count($ret) <= 0)
+		{
+			return true;
+		}
+		return $ret[0]['id'];
+
 	}
 
 	private function update_article($article_id, $title, $author_id, $type_id, $cover_url, $content)
@@ -167,7 +182,12 @@ class ArticleMng extends CI_Model {
 			'summary' => $this->gen_summary($content),
 			'cover_url' => $cover_url,
 			'content' => $content);
-		return $this->db_opt_mng->update($this->table_article, $arr_value, $arr_where);
+		$ret = $this->db_opt_mng->update($this->table_article, $arr_value, $arr_where);
+		if ($ret === false)
+		{
+			return false;
+		}
+		return $article_id;
 	}
 
 	public function save($article_id, $title, $author_id, $type_id, $cover_url, $content)
@@ -181,7 +201,7 @@ class ArticleMng extends CI_Model {
 			return $this->update_article($article_id, $title, $author_id, $type_id, $cover_url, $content);
 		}
 
-		return true;
+		return false;
 	}
 
 }

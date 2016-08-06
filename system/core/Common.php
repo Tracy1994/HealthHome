@@ -922,7 +922,7 @@ if ( ! function_exists('get_uuid'))
 			.substr($charid, 8, 4).$hyphen
 			.substr($charid,12, 4).$hyphen
 			.substr($charid,16, 4).$hyphen
-			.substr($charid,20,12)
+			.substr($charid,20,12);
 		return $uuid;
 	}
 }

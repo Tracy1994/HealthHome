@@ -7,16 +7,9 @@ class Article extends CI_Controller {
 	{
 		parent::__construct();
 
-		$this->load->helper(array('form', 'url'));
-		$config['upload_path']      = './uploads/';
-		$config['allowed_types']    = 'gif|jpg|png';
-		$config['max_size']     	= 1024;
-		$config['max_width']        = 1024;
-		$config['max_height']       = 1024;
-		$this->load->library('upload', $config);
-
 		$this->load->model('ArticleMng', 'article_mng');
 		$this->load->model('AuthorMng', 'author_mng');
+		$this->load->model('UploadMng', 'upload_mng');
 	}
 
 	public function get_info()
@@ -127,53 +120,20 @@ class Article extends CI_Controller {
 		return true;
 	}
 
-	private function upload_cover()
-	{	
-		if (!$this->upload->do_upload('coverimg'))
-		{
-			output_cgi_data(ERR_UPLOAD_FILE, 'upload cover error', 
-				strip_tags($this->upload->display_errors()));
-			return false;
-		}
-
-		$data = $this->upload->data();
-		$coverimg_name = 'img'.date('YmdHis', time()).strval(mt_rand(100000, 999999)).$data['file_ext'];
-		$coverimg_path = $data['file_path'].'../imgs/cover/';
-		$ret = rename($data['full_path'], $coverimg_path.$coverimg_name);
-		if ($ret === false)
-		{
-			output_cgi_data(ERR_SYSTEM, 'system error');
-			return false;
-		}
-
-		return '/coverimgs/'.$coverimg_name;
-	}
-
 	private function add_author()
 	{
-		if (!$this->upload->do_upload('headimg'))
+		$url = $this->upload_mng->upload_head_img();
+		if ($url === false)
 		{
-			output_cgi_data(ERR_UPLOAD_FILE, strip_tags($this->upload->display_errors()));
-			return false;
-		}
-
-		$data = $this->upload->data();
-		$headimg_name = 'img'.date('YmdHis', time()).strval(mt_rand(100000, 999999)).$data['file_ext'];
-		$headimg_path = $data['file_path'].'../headimgs/';
-		$ret = rename($data['full_path'], $headimg_path.$headimg_name);
-		if ($ret === false)
-		{
-			output_cgi_data(ERR_SYSTEM, 'system error');
 			return false;
 		}
 
 		$author = $_REQUEST['author'];
 		$desp = $_REQUEST['author_desp'];
-		$url = '/headimgs/'.$headimg_name;
-		$ret = $this->author_mng->add_author(0, $author, $desp, $url);
+		$ret = $this->author_mng->add_author($author, $desp, $url);
 		if ($ret === false)
 		{
-			return 0;
+			return false;
 		}
 
 		return $ret;
@@ -214,18 +174,18 @@ class Article extends CI_Controller {
 			$type_id = $GLOBALS['arr_types'][$type];
 		}
 
-		$cover_url = $this->upload_cover();
+		$cover_url = $this->upload_mng->upload_cover_img();
 		if ($cover_url == false)
 		{
 			output_cgi_data(-1, 'cover url is empty');
-			$cover_url = '';
+			return false;
 		}
 
 		$author_id = $this->add_author();
 		if ($author_id === false)
 		{
 			output_cgi_data(-1, 'add user failed');
-			$author_id = 0;
+			return false;
 		}
 
 		$ret = $this->article_mng->save(
@@ -237,8 +197,7 @@ class Article extends CI_Controller {
 			return false;
 		}
 
-		// $this->load->view('welcome_message');
-		output_cgi_data(0, 'succ', $ret);
+		output_cgi_data(0, 'succ', array('article_id' => $ret));
 		return true;
 	}
 }
