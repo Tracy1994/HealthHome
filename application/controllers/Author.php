@@ -70,8 +70,8 @@ class Author extends CI_Controller {
 		}
 
 		$data = $this->upload->data();
-		$headimg_name = 'img'.date('YmdHis', time()).strval(mt_rand(100000, 999999)).$data['file_ext'];
-		$headimg_path = $data['file_path'].'../headimgs/';
+		$headimg_name = 'head_'.date('YmdHis', time()).strval(mt_rand(100000, 999999)).$data['file_ext'];
+		$headimg_path = $data['file_path'].'../img/head/';
 		$ret = rename($data['full_path'], $headimg_path.$headimg_name);
 		if ($ret === false)
 		{

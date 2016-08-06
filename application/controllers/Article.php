@@ -138,7 +138,7 @@ class Article extends CI_Controller {
 
 		$data = $this->upload->data();
 		$coverimg_name = 'img'.date('YmdHis', time()).strval(mt_rand(100000, 999999)).$data['file_ext'];
-		$coverimg_path = $data['file_path'].'../coverimgs/';
+		$coverimg_path = $data['file_path'].'../imgs/cover/';
 		$ret = rename($data['full_path'], $coverimg_path.$coverimg_name);
 		if ($ret === false)
 		{
