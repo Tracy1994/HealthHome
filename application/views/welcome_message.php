@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <html lang="en">
 <head>
 	<script type="text/javascript">
-		window.location.href = "/front/index.html";
+		window.location.href = "/front.1/index.html";
 	</script>
 </head>
 <body>
