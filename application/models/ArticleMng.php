@@ -7,6 +7,8 @@ class ArticleMng extends CI_Model {
 	private $table_article_all_info = 'article_all_info';
 	private $table_article_like = 'article_like';
 	private $table_article_click = 'article_click';
+	private $field_all_info = 'id,type_id,title,author,author_desp,author_head_url,create_time,cover_url,like_cnt,click_cnt,comment_cnt,collect_cnt,summary';
+	private $field_simple_info = 'id,title,create_time';
 
 	public function ArticleMng()
 	{
@@ -17,8 +19,7 @@ class ArticleMng extends CI_Model {
 	public function get_info($article_id)
 	{
 		$arr_where = array('id' => $article_id);
-		$str_fields = 'id,title,author,author_desp,author_head_url,tags,create_time,cover_url,like_cnt,click_cnt';
-		$ret = $this->db_opt_mng->select($this->table_article_all_info, $arr_where, $str_fields);
+		$ret = $this->db_opt_mng->select($this->table_article_all_info, $arr_where, $this->field_all_info);
 		if ($ret === false)
 		{
 			return false;
@@ -65,18 +66,33 @@ class ArticleMng extends CI_Model {
 
 	public function get_recommend_list($num, $offset)
 	{
-		$arr_where = array('create_time >' => date('y-m-d H:i:s', time() - 31 * 3600 * 24));
-		$str_fields = 'id,title,author,author_desp,author_head_url,tags,create_time,summary,cover_url,like_cnt,click_cnt';
 		return $this->db_opt_mng->select_conditions(
-			$this->table_article_all_info, $arr_where, $str_fields, $num, $offset, 'like_cnt,click_cnt');
+			$this->table_article_all_info, array(), $this->field_all_info, $num, $offset, 
+			'like_cnt,collect_cnt,comment_cnt,click_cnt,create_time');
 	}
 
 	public function get_type_list($type_id, $num, $offset)
 	{
 		$arr_where = array('type_id' => intval($type_id));
-		$str_fields = 'id,title,author,author_desp,author_head_url,tags,create_time,summary,cover_url,like_cnt,click_cnt';
 		return $this->db_opt_mng->select_conditions(
-			$this->table_article_all_info, $arr_where, $str_fields, $num, $offset, 'create_time,like_cnt,click_cnt');
+			$this->table_article_all_info, $arr_where, $this->field_all_info, $num, $offset, 
+			'create_time,like_cnt,collect_cnt,comment_cnt,click_cnt');
+	}
+
+	public function get_latest_list($num, $offset, $detail = false)
+	{
+		if ($detail)
+		{
+			return $this->db_opt_mng->select_conditions(
+				$this->table_article_all_info, array(), $this->field_all_info, $num, $offset,
+				'create_time,like_cnt,collect_cnt,comment_cnt,click_cnt');
+		}
+		else
+		{
+			return $this->db_opt_mng->select_conditions(
+				$this->table_article, array(), $this->field_simple_info, $num, $offset, 'create_time');
+		}
+		return false;
 	}
 
 	public function like($article_id)
@@ -108,8 +124,7 @@ class ArticleMng extends CI_Model {
 
 	public function search($key_word)
 	{
-		$str_fields = 'id,title,author,author_head_url,tags,create_time,summary,cover_url,like_cnt,click_cnt';
-		$this->db->select($str_fields);
+		$this->db->select($this->field_all_info);
 
 		$arr_like = array(
 			'title' => $key_word,
@@ -118,7 +133,7 @@ class ArticleMng extends CI_Model {
 			'summary' => $key_word);
 		$this->db->or_like($arr_like);
 
-		$this->db->order_by('like_cnt,click_cnt,create_time', 'desc');
+		$this->db->order_by('like_cnt,collect_cnt,comment_cnt,click_cnt,create_time', 'desc');
 		$ret = $this->db->get($this->table_article_all_info);
 		if ($ret === false)
 		{
@@ -131,9 +146,9 @@ class ArticleMng extends CI_Model {
 	{
 		$str = strip_tags($content);
 		$len = strlen($str);
-		if ($len > 200)
+		if ($len > 100)
 		{
-			$len = 200;
+			$len = 100;
 		}
 		return mb_substr($str, 0, $len, 'utf-8');
 	}

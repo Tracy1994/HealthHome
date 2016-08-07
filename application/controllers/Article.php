@@ -62,7 +62,7 @@ class Article extends CI_Controller {
 		$ret = null;
 		$type_id = intval($_REQUEST['type_id']);
 		$page = isset($_REQUEST['page']) ? intval($_REQUEST['page']) : 1;
-		$num = isset($_REQUEST['num']) ? intval($_REQUEST['num']) : 10;
+		$num = isset($_REQUEST['num']) ? intval($_REQUEST['num']) : 0;
 		if ($type_id == 0)
 		{
 			$ret = $this->article_mng->get_recommend_list($num, $num * ($page-1));
@@ -81,6 +81,23 @@ class Article extends CI_Controller {
 		output_cgi_data(0, 'succ', $ret);
 		return true;
 	}
+
+	public function get_latest_list()
+	{
+		$num = isset($_REQUEST['num']) && intval($_REQUEST['num']) > 0 ? intval($_REQUEST['num']) : 10;
+		$page = isset($_REQUEST['page']) && intval($_REQUEST['page']) > 0 ? intval($_REQUEST['page']) : 1;
+		$detail = isset($_REQUEST['detail']) && intval($_REQUEST['detail']) == 1 ? true : false;
+
+		$ret = $this->article_mng->get_latest_list($num, $num * ($page-1), $detail);
+		if ($ret === false)
+		{
+			output_cgi_data(ERR_SYSTEM, 'system error');
+			return false;
+		}
+
+		output_cgi_data(0, 'succ', $ret);
+		return true;
+	} 
 
 	public function like()
 	{
