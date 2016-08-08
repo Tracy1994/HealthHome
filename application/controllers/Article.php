@@ -137,25 +137,6 @@ class Article extends CI_Controller {
 		return true;
 	}
 
-	private function add_author()
-	{
-		$url = $this->upload_mng->upload_head_img();
-		if ($url === false)
-		{
-			return false;
-		}
-
-		$author = $_REQUEST['author'];
-		$desp = $_REQUEST['author_desp'];
-		$ret = $this->author_mng->add_author($author, $desp, $url);
-		if ($ret === false)
-		{
-			return false;
-		}
-
-		return $ret;
-	}
-
 	public function publish()
 	{
 		if (!check_login())
@@ -194,14 +175,21 @@ class Article extends CI_Controller {
 		$cover_url = $this->upload_mng->upload_cover_img();
 		if ($cover_url == false)
 		{
-			output_cgi_data(-1, 'cover url is empty');
+			output_cgi_data(ERR_UPLOAD_FILE, 'upload cover failed, '.$this->upload_mng->get_err_msg());
 			return false;
 		}
 
-		$author_id = $this->add_author();
+		$head_url = $this->upload_mng->upload_head_img();
+		if ($head_url === false)
+		{
+			output_cgi_data(ERR_UPLOAD_FILE, 'upload author head failed, '.$this->upload_mng->get_err_msg());
+			return false;
+		}
+
+		$author_id = $this->author_mng->add_author($_REQUEST['author'], $_REQUEST['author_desp'], $head_url);
 		if ($author_id === false)
 		{
-			output_cgi_data(-1, 'add user failed');
+			output_cgi_data(ERR_SYSTEM, 'add user failed');
 			return false;
 		}
 
