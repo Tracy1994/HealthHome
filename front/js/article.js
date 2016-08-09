@@ -49,7 +49,7 @@ $(document).ready(function(){
 		}
 
 		else{
-			console.log(jsondata.data);
+			console.log( "jsondata"+jsondata.data());
 			loadAuthor(jsondata.data);
 			
 		}

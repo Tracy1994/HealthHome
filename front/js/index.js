@@ -1,8 +1,10 @@
 
 
 $(document).ready(function(){
+	console.log(document.cookie);
 	//发送请求，页面加载，默认开始加载分类为推荐的文章列表
 	$.getJSON("/article/get_list?type_id=0",function(jsondata){
+		console.log("jsondata"+ jsondata.data);
 		console.log(jsondata.code);
 		if (jsondata.code!=0) {
 			alert("系统繁忙，请稍后再试～～");
@@ -40,6 +42,7 @@ $(document).ready(function(){
 		//登录后改变html内容和退出登录
 		function getCookieValue(cname) {
 			var name = cname + "=";
+
 			var ca = document.cookie.split(';');
 			for(var i=0; i<ca.length; i++) 
 		  	{

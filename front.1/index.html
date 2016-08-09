@@ -4,15 +4,16 @@
 	<meta charset="utf-8" >
 	<title>index</title>
 	<link rel="stylesheet" type="text/css" href="/front.1/css/index.css">
-	<link rel="stylesheet" href="http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap.min.css">
-	<script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
-	<script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap.min.css">	
 </head>
 <body  data-spy="scroll" data-target="#myScrollspy" data-offset="20">
 	<nav class="navbar navbar-default navbar-fixed-top " role="navigation">
 		<div class="container">
 			<div class="navbar-brand">
-				<img src="/front/img/logo.jpg" class="navbar-left">
+				<span>
+					<img src="/front.1/resource/index_img/logo.jpg" class="navbar-left">
+				</span>
+				
 				<span class="name  navbar-left">健康之家</span>
 			</div>
 
@@ -26,29 +27,18 @@
 			</form>   
 			<ul class="nav navbar-nav navbar-right">
 
-				<li class="active">
-					<a href="#">首页</a>
+				<li class="active" id="js_index">
+					<a href="/front.1/index.html">首页</a>
 				</li>			
-				<li>
-					<a href="#">注册</a>
+				<li id="js_register">
+					<a href="/front.1/html/register.html" >注册</a>
 				</li>
 				<li>
-					<a href="#" class="btn dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">
-						<span class="glyphicon glyphicon-user"></span> User
-						<span class="caret"></span>					
-					</a>
-					<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">		<li role="presentation" >
-					       <a role="menuitem" tabindex="-1" href="#">我的收藏</a>
-					    </li>
-					    <li role="presentation">
-					       <a role="menuitem" tabindex="-1" href="#">退出登录</a>
-					    </li>
-					    <li role="presentation">
-					       <a role="menuitem" tabindex="-1" href="#">
-					            编辑
-					       </a>
-					    </li>					      
-					</ul>
+
+				<script type="text/javascript">
+
+				</script>
+					
 				</li>
 			</ul>
 		</div>
@@ -64,7 +54,7 @@
 		<li><a href="#">营养</a></li>
 		<li><a href="#">母婴</a></li>
 	</ul>
-	<div id="myCarousel" class="carousel slide ">
+	<div id="myCarousel" class="carousel slide">
 		<ol class="carousel-indicators">
 		     <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
 		     <li data-target="#myCarousel" data-slide-to="1"></li>
@@ -73,16 +63,16 @@
 		</ol> 
 		<div class="carousel-inner">
 			<div class="item active">
-	        	<img src="./resource/1.jpg" alt="First slide">	         
+	        	<img src="./resource/index_img/1.jpg" alt="First slide">	         
 	    	</div>
 	        <div class="item">
-	         <img src="./resource/2.jpg" alt="Second slide">
+	         <img src="./resource/index_img/2.jpg" alt="Second slide">
 	        </div>
 	        <div class="item">
-	         <img src="./resource/3.jpg" alt="Third slide">
+	         <img src="./resource/index_img/3.jpg" alt="Third slide">
 	        </div>
 	        <div class="item">
-	         <img src="./resource/4.jpg" alt="Third slide">
+	         <img src="./resource/index_img/4.jpg" alt="Third slide">
 	        </div>	        
 		</div>
 		<div class="img_info">
@@ -116,87 +106,29 @@
 			</div>
 			<div class="col-sm-9 article">					
 				<table class="table table-hover table-responsive">
-					<tbody>						
-						<tr>
+					<tbody id="js_article_list">						
+						<!-- <tr>
 							<td class="js_td">
 								<a href="">
 									<div class="col-xs-4 article_cover">
-										<img src="/front.1/resource/test.jpg" class="img-responsive" alt="Image">
+										<img src="/front.1/resource/index_img/test.jpg" class="img-responsive" alt="Image">
 									</div>
 									<div class="col-xs-8 article_brief">
 										<h3>
 										this is is the title of this article
 										</h3>
 										<p>
-										this is is the detail infomation of this article.this is is the detail infomation of this article.this is is the detail infomation of this article.
+										this is is the detail infomation of this article.
 										</p>
 									</div>
 									<span class="read">
-										<span class="glyphicon glyphicon-eye-open">阅读（1024）</span>
-										<span class="glyphicon glyphicon-thumbs-up">点赞（1024）</span>
+										<span class="glyphicon glyphicon-eye-open"></span><span>  阅读（1024）</span>
+										<span class="glyphicon glyphicon-thumbs-up"></span><span>  点赞（1024）</span>
 									</span>
 								</a>
 								
-							</td>
-							
-						</tr>
-						<tr>
-							<td class="js_td">
-								<a href="">
-									<div class="col-xs-4 article_cover">
-										<img src="/front.1/resource/test.jpg" class="img-responsive" alt="Image">
-									</div>
-									<div class="col-xs-8 article_brief">
-										<h3>
-										this is is the title of this article
-										</h3>
-										<p>
-										this is is the detail infomation of this article.this is is the detail infomation of this article.this is is the detail infomation of this article.
-										</p>
-									</div>
-								</a>
-								
-							</td>
-							
-						</tr>
-						<tr>
-							<td class="js_td">
-								<a href="">
-									<div class="col-xs-4 article_cover">
-										<img src="/front.1/resource/test.jpg" class="img-responsive" alt="Image">
-									</div>
-									<div class="col-xs-8 article_brief">
-										<h3>
-										this is is the title of this article
-										</h3>
-										<p>
-										this is is the detail infomation of this article.this is is the detail infomation of this article.this is is the detail infomation of this article.
-										</p>
-									</div>
-								</a>
-								
-							</td>
-							
-						</tr>
-						<tr>
-							<td class="js_td">
-								<a href="">
-									<div class="col-xs-4 article_cover">
-										<img src="/front.1/resource/test.jpg" class="img-responsive" alt="Image">
-									</div>
-									<div class="col-xs-8 article_brief">
-										<h3>
-										this is is the title of this article
-										</h3>
-										<p>
-										this is is the detail infomation of this article.this is is the detail infomation of this article.this is is the detail infomation of this article.
-										</p>
-									</div>
-								</a>
-								
-							</td>
-							
-						</tr>
+							</td>							
+						</tr> -->
 					</tbody>
 				</table>				
 			</div>
@@ -219,37 +151,8 @@
 			
 		</div>
 	</div>
-	
-	
-	<script type="text/javascript">
-		$(function(){
-			$("#myCarousel").carousel("cycle");
-		});
-		// window.onload=function(){
-		// 	$("#js_nav2").css("display","none");
-		// 	$("#js_recomand").css("display","none");
-			
-		// }
-		window.onscroll=function(){
-			var top=$("body").scrollTop();
-			console.log(top);			
-			if (top>=400) {
-				$("#js_nav2").show();
-				$("#js_recomand").show();
-			}
-			else{
-				$("#js_nav2").hide();
-				$("#js_recomand").hide();
-			}
-		}
-		$(".js_td").hover(function(){
-			// $(".article_cover img").css("opacity","0.5");
-			$(this).find("img").css("opacity","0.7");
-			
-		});	
-		$(".js_td").mouseleave(function(){
-			$(this).find("img").css("opacity","1")
-		});
-	</script>
+	<script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>	
+	<script type="text/javascript" src="/front.1/js/index.js"></script>
 </body>
 </html>

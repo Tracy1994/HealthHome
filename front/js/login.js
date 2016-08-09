@@ -55,7 +55,7 @@
 					console.log(resp);
 					console.log(xmlhttp.readyState);
 					if (xmlhttp.readyState == 4 && xmlhttp.status==200) {
-						var code = eval("(" + resp + ")").code;
+						var code = JSON.parse(resp).code;
 						console.log(code);
 						if (code == 0) {
 							alert("请30分钟内到邮箱点击链接，激活账号，完成注册！");

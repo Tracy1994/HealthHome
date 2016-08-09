@@ -1,6 +1,9 @@
 body{
 	position: relative;
 }
+a:hover{
+	text-decoration: none;
+}
 .box1{
 	height: 52px;
 }
@@ -23,7 +26,7 @@ body{
 }
 .nav2 ul.nav-pills{
 	width: 8em;
-	left: 55px;
+	left: 0px;
 }
 .recomand ul.nav-pills{
  	width: 15em;
@@ -31,22 +34,18 @@ body{
 
 /*---article
 -----------------------------------------------------*/
-
 .article .article_cover img{
-	padding: 20px;
+	padding: 10px;
 	
 }
 .article td {
-	transition:width 1s;
-	-webkit-transition:width 1s; /* Safari */
+	
 }
 .article_cover td:hover{
 	
 } 
 .read{
-	float: right;
-	position: relative;
-	top: 30px;
+	float: right;	
 }
 /*--Carousel
 -----------------------------------------------------------*/

@@ -121,7 +121,8 @@ $(document).ready(function(){
     
         
         // post-submit callback 
-        function showResponse(responseText, statusText){   
+        function showResponse(responseText, statusText){ 
+        console.log(responseText,statusText);  
             alert("提交成功！");
             window.location.href="/front/html/writer.html";
 
