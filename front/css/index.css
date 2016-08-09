@@ -3,7 +3,7 @@
 	vertical-align: middle;
 }
 /*--css3响应式设计
--------------------------------------------*/
+------------------------------------------------*/
 header{
 		width: 1280px;
 	}
@@ -46,15 +46,11 @@ header{
 		width: 97%;
 	}
 }
-body{
-	position: relative;
-}
 /*---header
 ---------------------------------------------------------------------------------------------------*/
 header{
 	height: 62px;
-	top: 0px;
-	position: fixed;
+	position: relative;
 	background-color: rgb(240,250,220);
 	border-bottom: rgb(70,70,70);
 }
