@@ -1,9 +1,6 @@
 body{
 	position: relative;
 }
-a:hover{
-	text-decoration: none;
-}
 .box1{
 	height: 52px;
 }
@@ -23,10 +20,11 @@ a:hover{
     top: 65px;
     position: fixed;
     border: solid 1px rgb(120,120,120);
+    
 }
 .nav2 ul.nav-pills{
 	width: 8em;
-	left: 0px;
+	left: 55px;
 }
 .recomand ul.nav-pills{
  	width: 15em;
@@ -34,18 +32,22 @@ a:hover{
 
 /*---article
 -----------------------------------------------------*/
+
 .article .article_cover img{
-	padding: 10px;
+	padding: 20px;
 	
 }
 .article td {
-	
+	transition:width 1s;
+	-webkit-transition:width 1s; /* Safari */
 }
 .article_cover td:hover{
 	
 } 
 .read{
-	float: right;	
+	float: right;
+	position: relative;
+	top: 30px;
 }
 /*--Carousel
 -----------------------------------------------------------*/

@@ -18,54 +18,58 @@ $.getJSON("/article/get_list?type_id=0",function(jsondata){
 
 //加载一篇文章
 function loadArticle(article){
-
 	var tr=document.createElement("tr");
-		tr.setAttribute("id","js_tr");
+	tr.setAttribute("class","js_tr");
 	var td=document.createElement("td");
 	debugger;	
-		td.setAttribute("class","js_td");
+	td.setAttribute("class","js_td");
 	var link=document.createElement("a");
 	// debugger;
-		link.setAttribute("href",'/front.1/html/article.html?article_id=' + article.id);
+	link.setAttribute("href",'/front.1/html/article.html?article_id=' + article.id);
 	var box_l=document.createElement("div");
-		box_l.setAttribute("class","col-xs-4 article_cover");
-		img=document.createElement("img");
-		img.setAttribute("src",article.cover_url);
-		img.setAttribute("alt","Image");
-		img.setAttribute("class","img-responsive");
+	box_l.setAttribute("class","col-xs-4 article_cover");
+	img=document.createElement("img");
+	img.setAttribute("src",article.cover_url);
+	img.setAttribute("alt","Image");
+	img.setAttribute("class","img-responsive");
 	var box_r=document.createElement("div");
-		box_r.setAttribute("class","col-xs-8 article_brief");
-		title=document.createElement("h3");
-		title_text=document.createTextNode(article.title);
-		summary=document.createElement("p");
-		summary_txt=document.createTextNode(article.summary);
-		read=document.createElement("span");
-		read.setAttribute("class","read");
-		span1=document.createElement("span");
-		span1.setAttribute("class","glyphicon glyphicon-eye-open");
-		span_r=document.createElement("span");
-		span_r_txt=document.createTextNode('  阅读（ '+article.click_cnt+' )  ');
-		span2=document.createElement("span");
-		span2.setAttribute("class","glyphicon glyphicon-thumbs-up");
-		span_l=document.createElement("span");
-		span_l_txt=document.createTextNode('  点赞（ '+article.like_cnt+' )');
-		tr.appendChild(td);
-		td.appendChild(link);
-		link.appendChild(box_l);		
-		link.appendChild(box_r);
-		link.appendChild(read);
-		box_l.appendChild(img);
-		box_r.appendChild(title);		
-		box_r.appendChild(summary);
-		title.appendChild(title_text);
-		summary.appendChild(summary_txt);		
-		read.appendChild(span1);
-		read.appendChild(span_r);
-		span_r.appendChild(span_r_txt);
-		read.appendChild(span2);
-		read.appendChild(span_l);
-		span_l.appendChild(span_l_txt);	
-		return tr;
+	box_r.setAttribute("class","col-xs-8 article_brief");
+	title=document.createElement("h3");
+	title_text=document.createTextNode(article.title);
+	summary=document.createElement("p");
+	summary_txt=document.createTextNode(article.summary);
+	read=document.createElement("span");
+	read.setAttribute("class","read");
+	span1=document.createElement("span");
+	span1.setAttribute("class","glyphicon glyphicon-eye-open");
+	span_r=document.createElement("span");
+	span_r_txt=document.createTextNode('  阅读（ '+article.click_cnt+' )  ');
+	span2=document.createElement("span");
+	span2.setAttribute("class","glyphicon glyphicon-thumbs-up");
+	span_l=document.createElement("span");
+	span_l_txt=document.createTextNode('  点赞（ '+article.like_cnt+' )');
+
+	tr.appendChild(td);
+	td.appendChild(link);
+
+	link.appendChild(box_l);		
+	link.appendChild(box_r);
+	link.appendChild(read);
+
+	box_l.appendChild(img);
+	box_r.appendChild(title);		
+	box_r.appendChild(summary);
+	title.appendChild(title_text);
+	summary.appendChild(summary_txt);		
+	read.appendChild(span1);
+	read.appendChild(span_r);
+	span_r.appendChild(span_r_txt);
+	read.appendChild(span2);
+	read.appendChild(span_l);
+	span_l.appendChild(span_l_txt);
+
+
+	return tr;
 		
 }
 //页面加载每篇文章的信息
@@ -75,6 +79,16 @@ function refreshArticleList(articles){
 		var articleDiv = loadArticle(articles[i]);
 		$("#js_article_list").append(articleDiv);
 	}
+
+	$(".js_tr").hover(function(){
+
+		// $(".article_cover img").css("opacity","0.5");
+		$(this).find("img").css("opacity","0.7");
+		
+	});	
+	$(".js_tr").mouseleave(function(){
+		$(this).find("img").css("opacity","1")
+	});
 
 	// for (var i = 2; i < articles.length; i++) {
 	// 	window.onscroll=function(){
@@ -113,37 +127,40 @@ function getCookieValue(cname) {
 	return "";
 }
 
-function checkCookie() {
+function buildDropdownMeum() {
 	console.log("role:" + role);
 	var user_name=getCookieValue("user_name");
 	console.log(user_name);
 	var role=getCookieValue("role");
 	console.log("user_name is "+user_name);
+
 	if (user_name=="") {
 		var li=document.createElement("li");
 		var link=document.createElement("a");
-			link.setAttribute("href","./html/login.html");	
+		link.setAttribute("href","./html/login.html");	
 		var link_span=document.createElement("span");
-			link_span.setAttribute("class","glyphicon glyphicon-user");
-			link_span_text=document.createTextNode("请登录");
-			link_span.appendChild(link_span_text);
-			link.appendChild(link_span);
-			li.appendChild(link);
+		link_span.setAttribute("class","glyphicon glyphicon-user");
+		link_span_text=document.createTextNode("请登录");
+		link_span.appendChild(link_span_text);
+		link.appendChild(link_span);
+		li.appendChild(link);
 		$("#js_register").after(li);
 	}
+
 	if (user_name!="" && role==1) {
 		$("#js_register").css("display","none");
 		// 按钮部分
 		var li=document.createElement("li");
 		var link=document.createElement("a");
-			link.setAttribute("class","btn dropdown-toggle");
-			link.setAttribute("id","dropdownMenu1");
-			link.setAttribute("data-toggle","dropdown");			
+		link.setAttribute("class","btn dropdown-toggle");
+		link.setAttribute("id","dropdownMenu1");
+		link.setAttribute("data-toggle","dropdown");
+
 		var	link_txt=document.createTextNode(user_name);			
 		var	span1=document.createElement("span");
-			span1.setAttribute("class","glyphicon glyphicon-user");
+		span1.setAttribute("class","glyphicon glyphicon-user");
 		var span2=document.createElement("span");
-			span2.setAttribute("class","caret");
+		span2.setAttribute("class","caret");
 		// $(user_name).before(span1);
 		// $(user_name).after(span2);
 		$("#js_index").after(li);
@@ -153,61 +170,73 @@ function checkCookie() {
 		link.appendChild(span2);
 		// 下拉菜单部分
 		var ul=document.createElement("ul");
-			ul.setAttribute("class","dropdown-menu");
-			ul.setAttribute("role","menu");
-			ul.setAttribute("aria-labelledby","dropdownMenu1");
+		ul.setAttribute("class","dropdown-menu");
+		ul.setAttribute("role","menu");
+		ul.setAttribute("aria-labelledby","dropdownMenu1");
+
 		var li_collection=document.createElement("li");
-			li_collection.setAttribute("role","presentation");
+		li_collection.setAttribute("role","presentation");
+
 		var a_collection=document.createElement("a");
-			a_collection.setAttribute("role","menuiteme");
-			a_collection.setAttribute("tabindex","-1");
-			a_collection.setAttribute("href","./html/collection.html");
-			a_collection_text=document.createTextNode("我的收藏");
+		a_collection.setAttribute("role","menuiteme");
+		a_collection.setAttribute("tabindex","-1");
+		a_collection.setAttribute("href","./html/collection.html");
+		a_collection_text=document.createTextNode("我的收藏");
 		li_collection.appendChild(a_collection);
 		a_collection.appendChild(a_collection_text);
+
 		var li_edit=document.createElement("li");
-			li_edit.setAttribute("role","presentation");
+		li_edit.setAttribute("role","presentation");
+
 		var a_edit=document.createElement("a");
-			a_edit.setAttribute("role","menuiteme");
-			a_edit.setAttribute("tabindex","-1");
-			a_edit.setAttribute("href","./html/edit.html");
-			a_edit_text=document.createTextNode("我的编辑");
+		a_edit.setAttribute("role","menuiteme");
+		a_edit.setAttribute("tabindex","-1");
+		a_edit.setAttribute("href","./html/edit.html");
+		a_edit_text=document.createTextNode("我的编辑");
 		li_edit.appendChild(a_edit);
 		a_edit.appendChild(a_edit_text);
+
 		var li_article=document.createElement("li");
-			li_article.setAttribute("role","presentation");
+		li_article.setAttribute("role","presentation");
+
 		var a_article=document.createElement("a");
-			a_article.setAttribute("role","menuiteme");
-			a_article.setAttribute("tabindex","-1");
-			a_article.setAttribute("href","./html/edit.html");
-			a_article_text=document.createTextNode("发布文章");
+		a_article.setAttribute("role","menuiteme");
+		a_article.setAttribute("tabindex","-1");
+		a_article.setAttribute("href","./html/edit.html");
+		a_article_text=document.createTextNode("发布文章");
 		li_article.appendChild(a_article);
-		a_article.appendChild(a_article_tearticle
+		a_article.appendChild(a_article_tearticle);
+
 		var li_edit_c=document.createElement("li");
-			li_edit_c.setAttribute("role","presentation");
+		li_edit_c.setAttribute("role","presentation");
+
 		var a_edit_c=document.createElement("a");
-			a_edit_c.setAttribute("role","menuiteme");
-			a_edit_c.setAttribute("tabindex","-1");
-			a_edit_c.setAttribute("href","./html/carousel.html");
-			a_edit_c_text=document.createTextNode("发布轮播");
+		a_edit_c.setAttribute("role","menuiteme");
+		a_edit_c.setAttribute("tabindex","-1");
+		a_edit_c.setAttribute("href","./html/carousel.html");
+		a_edit_c_text=document.createTextNode("发布轮播");
 		li_edit_c.appendChild(a_edit_c);
 		a_edit_c.appendChild(a_edit_c_text);
+
 		var li_logout=document.createElement("li");
-			li_logout.setAttribute("role","presentation");
+		li_logout.setAttribute("role","presentation");
+
 		var a_logout=document.createElement("a");
-			a_logout.setAttribute("role","menuiteme");
-			a_logout.setAttribute("tabindex","-1");
-			a_logout.setAttribute("href","/login/logout");
-			a_logout.setAttribute("return","false");
-			a_logout_text=document.createTextNode("退出登录");
+		a_logout.setAttribute("role","menuiteme");
+		a_logout.setAttribute("tabindex","-1");
+		a_logout.setAttribute("href","/login/logout");
+		a_logout.setAttribute("return","false");
+		a_logout_text=document.createTextNode("退出登录");
+
 		li_logout.appendChild(a_logout);
 		a_logout.appendChild(a_logout_text);
 		ul.appendChild(li_collection);
 		ul.appendChild(li_edit);		
 		ul.appendChild(li_edit_c);
 		ul.appendChild(li_logout);
-		$("#dropdownMenu1").after(ul);
+		$("#js_index").after(ul);
 	}
+
 	if (user_name!="" && role!=1) {
 		$("#js_register").css("display","none");
 		var li=document.createElement("li");
@@ -251,7 +280,7 @@ function checkCookie() {
 		a_logout.appendChild(a_logout_text);
 		ul.appendChild(li_collection);
 		ul.appendChild(li_logout);
-		$("#dropdownMenu1").after(ul);
+		$("#js_index").after(ul);
 	} 		  		  			  		
 }
 // 鼠标滑动，控制左右两侧导航栏出现和隐藏
@@ -269,15 +298,6 @@ window.onscroll= function (){
 }
 
 addLoadEvent(getCookieValue);
-addLoadEvent(checkCookie);
-$("#js_tr").hover(function(){
-
-	// $(".article_cover img").css("opacity","0.5");
-	$(this).find("img").css("opacity","0.7");
-	
-});	
-$("#js_tr").mouseleave(function(){
-	$(this).find("img").css("opacity","1")
-});
+addLoadEvent(buildDropdownMeum);
 
 
