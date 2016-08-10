@@ -101,4 +101,8 @@ define('ERR_PERMISSION_DENIED', -10004);
 define('ERR_UPLOAD_FILE', -10005);
 define('ERR_NO_RIGHT', -10006);
 
-define('HOST_IP', '123.207.111.128');
+define('STATE_CREATE', 1);
+define('STATE_PUBLISH', 2);
+define('STATE_DELETE', 3);
+
+define('HOST', $_SERVER['HTTP_HOST'] == 'health.home.com' || $_SERVER['HTTP_HOST'] == '123.207.111.128' ? '123.207.111.128' : 'test.health.home.com');

@@ -17,7 +17,7 @@ class Register extends CI_Controller {
 		$this->email->from('kljianhui@163.com', '健康之家');
 		$this->email->to($email);
 		$this->email->subject('健康之家注册激活');
-		$str_message='http://'.HOST_IP.'/register/active_account?user_name='.$user_name.'&active_code='.$active_code;
+		$str_message='http://'.HOST.'/register/active_account?user_name='.$user_name.'&active_code='.$active_code;
 		$this->email->message('<p>'.$str_message.'</p>');
 		$ret = $this->email->send();
 		return $ret;
