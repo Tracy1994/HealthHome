@@ -69,5 +69,6 @@ class Login extends CI_Controller {
 		setcookie('user_name',  '', time()-3600, '/');
 		setcookie('role', '', time()-3600, '/');
 		// $this->load->view('welcome_message');
+		output_cgi_data(0, 'succ');
 	}
 }
