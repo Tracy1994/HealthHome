@@ -12,7 +12,7 @@
 	<nav class="navbar navbar-default navbar-fixed-top " role="navigation">
 		<div class="container">
 			<div class="navbar-brand">
-				<img src="/front/img/logo.jpg" class="navbar-left">
+				<img src="/front.1/resource/logo.jpg" class="navbar-left">
 				<span class="name  navbar-left">健康之家</span>
 			</div>
 
@@ -117,7 +117,7 @@
 			<div class="col-sm-9 article">					
 				<table class="table table-hover table-responsive">
 					<tbody>						
-						<tr>
+						<!-- <tr>
 							<td class="js_td">
 								<a href="">
 									<div class="col-xs-4 article_cover">
@@ -139,64 +139,8 @@
 								
 							</td>
 							
-						</tr>
-						<tr>
-							<td class="js_td">
-								<a href="">
-									<div class="col-xs-4 article_cover">
-										<img src="/front.1/resource/test.jpg" class="img-responsive" alt="Image">
-									</div>
-									<div class="col-xs-8 article_brief">
-										<h3>
-										this is is the title of this article
-										</h3>
-										<p>
-										this is is the detail infomation of this article.this is is the detail infomation of this article.this is is the detail infomation of this article.
-										</p>
-									</div>
-								</a>
-								
-							</td>
-							
-						</tr>
-						<tr>
-							<td class="js_td">
-								<a href="">
-									<div class="col-xs-4 article_cover">
-										<img src="/front.1/resource/test.jpg" class="img-responsive" alt="Image">
-									</div>
-									<div class="col-xs-8 article_brief">
-										<h3>
-										this is is the title of this article
-										</h3>
-										<p>
-										this is is the detail infomation of this article.this is is the detail infomation of this article.this is is the detail infomation of this article.
-										</p>
-									</div>
-								</a>
-								
-							</td>
-							
-						</tr>
-						<tr>
-							<td class="js_td">
-								<a href="">
-									<div class="col-xs-4 article_cover">
-										<img src="/front.1/resource/test.jpg" class="img-responsive" alt="Image">
-									</div>
-									<div class="col-xs-8 article_brief">
-										<h3>
-										this is is the title of this article
-										</h3>
-										<p>
-										this is is the detail infomation of this article.this is is the detail infomation of this article.this is is the detail infomation of this article.
-										</p>
-									</div>
-								</a>
-								
-							</td>
-							
-						</tr>
+						</tr> -->
+						
 					</tbody>
 				</table>				
 			</div>
@@ -221,35 +165,35 @@
 	</div>
 	
 	
-	<script type="text/javascript">
-		$(function(){
-			$("#myCarousel").carousel("cycle");
-		});
-		// window.onload=function(){
-		// 	$("#js_nav2").css("display","none");
-		// 	$("#js_recomand").css("display","none");
+	<script type="text/javascript" src="./js/index.js">
+		// $(function(){
+		// 	$("#myCarousel").carousel("cycle");
+		// });
+		// // window.onload=function(){
+		// // 	$("#js_nav2").css("display","none");
+		// // 	$("#js_recomand").css("display","none");
 			
+		// // }
+		// window.onscroll=function(){
+		// 	var top=$("body").scrollTop();
+		// 	console.log(top);			
+		// 	if (top>=400) {
+		// 		$("#js_nav2").show();
+		// 		$("#js_recomand").show();
+		// 	}
+		// 	else{
+		// 		$("#js_nav2").hide();
+		// 		$("#js_recomand").hide();
+		// 	}
 		// }
-		window.onscroll=function(){
-			var top=$("body").scrollTop();
-			console.log(top);			
-			if (top>=400) {
-				$("#js_nav2").show();
-				$("#js_recomand").show();
-			}
-			else{
-				$("#js_nav2").hide();
-				$("#js_recomand").hide();
-			}
-		}
-		$(".js_td").hover(function(){
-			// $(".article_cover img").css("opacity","0.5");
-			$(this).find("img").css("opacity","0.7");
+		// $(".js_td").hover(function(){
+		// 	// $(".article_cover img").css("opacity","0.5");
+		// 	$(this).find("img").css("opacity","0.7");
 			
-		});	
-		$(".js_td").mouseleave(function(){
-			$(this).find("img").css("opacity","1")
-		});
+		// });	
+		// $(".js_td").mouseleave(function(){
+		// 	$(this).find("img").css("opacity","1")
+		// });
 	</script>
 </body>
 </html>
