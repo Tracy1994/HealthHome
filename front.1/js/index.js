@@ -21,10 +21,10 @@ function loadArticle(article){
 	var tr=document.createElement("tr");
 	tr.setAttribute("class","js_tr");
 	var td=document.createElement("td");
-	debugger;	
+	;	
 	td.setAttribute("class","js_td");
 	var link=document.createElement("a");
-	// debugger;
+	// ;
 	link.setAttribute("href",'/front.1/html/article.html?article_id=' + article.id);
 	var box_l=document.createElement("div");
 	box_l.setAttribute("class","col-xs-4 article_cover");
@@ -133,11 +133,29 @@ function buildDropdownMeum() {
 	console.log(user_name);
 	var role=getCookieValue("role");
 	console.log("user_name is "+user_name);
-
+	// <li>
+	// 	<a href="#" class="btn dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">
+	// 		<span class="glyphicon glyphicon-user"></span> User
+	// 		<span class="caret"></span>					
+	// 	</a>
+	// 	<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">		<li role="presentation" >
+	// 	       <a role="menuitem" tabindex="-1" href="#">我的收藏</a>
+	// 	    </li>
+	// 	    <li role="presentation">
+	// 	       <a role="menuitem" tabindex="-1" href="#">退出登录</a>
+	// 	    </li>
+	// 	    <li role="presentation">
+	// 	       <a role="menuitem" tabindex="-1" href="#">
+	// 	            编辑
+	// 	       </a>
+	// 	    </li>					      
+	// 	</ul>
+	// </li>
 	if (user_name=="") {
+		//当用户未登录时
 		var li=document.createElement("li");
 		var link=document.createElement("a");
-		link.setAttribute("href","./html/login.html");	
+		link.setAttribute("href","/front.1/html/login.html");	
 		var link_span=document.createElement("span");
 		link_span.setAttribute("class","glyphicon glyphicon-user");
 		link_span_text=document.createTextNode("请登录");
@@ -146,7 +164,7 @@ function buildDropdownMeum() {
 		li.appendChild(link);
 		$("#js_register").after(li);
 	}
-
+	//当用户为编辑时
 	if (user_name!="" && role==1) {
 		$("#js_register").css("display","none");
 		// 按钮部分
@@ -155,19 +173,18 @@ function buildDropdownMeum() {
 		link.setAttribute("class","btn dropdown-toggle");
 		link.setAttribute("id","dropdownMenu1");
 		link.setAttribute("data-toggle","dropdown");
-
 		var	link_txt=document.createTextNode(user_name);			
 		var	span1=document.createElement("span");
 		span1.setAttribute("class","glyphicon glyphicon-user");
 		var span2=document.createElement("span");
 		span2.setAttribute("class","caret");
-		// $(user_name).before(span1);
-		// $(user_name).after(span2);
+		
 		$("#js_index").after(li);
 		li.appendChild(link);
 		link.appendChild(span1);
 		link.appendChild(link_txt);
 		link.appendChild(span2);
+
 		// 下拉菜单部分
 		var ul=document.createElement("ul");
 		ul.setAttribute("class","dropdown-menu");
@@ -185,17 +202,6 @@ function buildDropdownMeum() {
 		li_collection.appendChild(a_collection);
 		a_collection.appendChild(a_collection_text);
 
-		var li_edit=document.createElement("li");
-		li_edit.setAttribute("role","presentation");
-
-		var a_edit=document.createElement("a");
-		a_edit.setAttribute("role","menuiteme");
-		a_edit.setAttribute("tabindex","-1");
-		a_edit.setAttribute("href","./html/edit.html");
-		a_edit_text=document.createTextNode("我的编辑");
-		li_edit.appendChild(a_edit);
-		a_edit.appendChild(a_edit_text);
-
 		var li_article=document.createElement("li");
 		li_article.setAttribute("role","presentation");
 
@@ -205,7 +211,7 @@ function buildDropdownMeum() {
 		a_article.setAttribute("href","./html/edit.html");
 		a_article_text=document.createTextNode("发布文章");
 		li_article.appendChild(a_article);
-		a_article.appendChild(a_article_tearticle);
+		a_article.appendChild(a_article_text);
 
 		var li_edit_c=document.createElement("li");
 		li_edit_c.setAttribute("role","presentation");
@@ -224,31 +230,31 @@ function buildDropdownMeum() {
 		var a_logout=document.createElement("a");
 		a_logout.setAttribute("role","menuiteme");
 		a_logout.setAttribute("tabindex","-1");
-		a_logout.setAttribute("href","/login/logout");
-		a_logout.setAttribute("return","false");
+		a_logout.setAttribute("onclick","logOut()");
 		a_logout_text=document.createTextNode("退出登录");
 
 		li_logout.appendChild(a_logout);
 		a_logout.appendChild(a_logout_text);
 		ul.appendChild(li_collection);
-		ul.appendChild(li_edit);		
+		ul.appendChild(li_article);		
 		ul.appendChild(li_edit_c);
 		ul.appendChild(li_logout);
-		$("#js_index").after(ul);
+		$("#dropdownMenu1").after(ul);
 	}
-
+	//当用户已登录，用户为非编辑时
 	if (user_name!="" && role!=1) {
+		//按钮部分
 		$("#js_register").css("display","none");
 		var li=document.createElement("li");
 		var link=document.createElement("a");
-			link.setAttribute("class","btn dropdown-toggle");
-			link.setAttribute("id","dropdownMenu1");
-			link.setAttribute("data-toggle","dropdown");			
+		link.setAttribute("class","btn dropdown-toggle");
+		link.setAttribute("id","dropdownMenu1");
+		link.setAttribute("data-toggle","dropdown");			
 		var	link_txt=document.createTextNode(user_name);			
 		var	span1=document.createElement("span");
-			span1.setAttribute("class","glyphicon glyphicon-user");
+		span1.setAttribute("class","glyphicon glyphicon-user");
 		var span2=document.createElement("span");
-			span2.setAttribute("class","caret");
+		span2.setAttribute("class","caret");
 		$("#js_index").after(li);
 		li.appendChild(link);
 		link.appendChild(span1);
@@ -256,32 +262,47 @@ function buildDropdownMeum() {
 		link.appendChild(span2);
 		// 下拉菜单部分
 		var ul=document.createElement("ul");
-			ul.setAttribute("class","dropdown-menu");
-			ul.setAttribute("role","menu");
-			ul.setAttribute("aria-labelledby","dropdownMenu1");
+		ul.setAttribute("class","dropdown-menu");
+		ul.setAttribute("role","menu");
+		ul.setAttribute("aria-labelledby","dropdownMenu1");
 		var li_collection=document.createElement("li");
-			li_collection.setAttribute("role","presentation");
+		li_collection.setAttribute("role","presentation");
 		var a_collection=document.createElement("a");
-			a_collection.setAttribute("role","menuiteme");
-			a_collection.setAttribute("tabindex","-1");
-			a_collection.setAttribute("href","./html/collection.html");
-			a_collection_text=document.createTextNode("我的收藏");
+		a_collection.setAttribute("role","menuiteme");
+		a_collection.setAttribute("tabindex","-1");
+		a_collection.setAttribute("href","./html/collection.html");
+		a_collection_text=document.createTextNode("我的收藏");
 		li_collection.appendChild(a_collection);
 		a_collection.appendChild(a_collection_text);
+
 		var li_logout=document.createElement("li");
 			li_logout.setAttribute("role","presentation");
+
 		var a_logout=document.createElement("a");
 			a_logout.setAttribute("role","menuiteme");
 			a_logout.setAttribute("tabindex","-1");
-			a_logout.setAttribute("href","/login/logout");
-			a_logout.setAttribute("return","false");
+			a_logout.setAttribute("onclick","logOut()");			
 			a_logout_text=document.createTextNode("退出登录");
+
 		li_logout.appendChild(a_logout);
 		a_logout.appendChild(a_logout_text);
 		ul.appendChild(li_collection);
 		ul.appendChild(li_logout);
-		$("#js_index").after(ul);
+		$("#dropdownMenu1").after(ul);
 	} 		  		  			  		
+}
+//点击退出登录，实现退出登录
+function logOut(){
+	var r=confirm("是否确认退出登录？")
+	  if (r==true)
+	    {
+	    	$.getJSON("/login/logout",function(jsondata){
+	    		if (jsondata.code==0) {
+	    			window.location.href="/front.1/index.html";
+	    		}
+	    	});
+	    
+	    }
 }
 // 鼠标滑动，控制左右两侧导航栏出现和隐藏
 window.onscroll= function (){
