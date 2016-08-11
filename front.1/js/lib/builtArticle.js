@@ -1,10 +1,33 @@
+//获取json对象
+$.getJSON("/article/get_list?type_id=0",function(jsondata){
+		console.log("jsondata.date"+ jsondata.data);
+		
+		console.log(jsondata);
+		if (jsondata.code!=0) {
+			alert("系统繁忙，请稍后再试～～");
+		}
+		else{
+			refreshArticleList(jsondata.data);
+		}
+});
+//页面加载每篇文章的信息
+function refreshArticleList(articles){
+	$("#articleList").empty();
+	for (var i = 0; i < 3; i++) {
+		var articleDiv = loadArticle(articles[i]);
+		$("#js_article_list").append(articleDiv);
+	}
 
-$(function(){
-	$("#myCarousel").carousel("cycle");
-	$("#js_nav2").css("display","none");
-	$("#js_recomand").css("display","none");
-
-	function loadArticle(article){
+	$(".js_tr").hover(function(){
+		// $(".article_cover img").css("opacity","0.5");
+		$(this).find("img").css("opacity","0.7");
+		
+	});	
+	$(".js_tr").mouseleave(function(){
+		$(this).find("img").css("opacity","1")
+	});
+}
+function loadArticle(article){
 		var tr=document.createElement("tr");
 		tr.setAttribute("class","js_tr");
 
@@ -56,42 +79,6 @@ $(function(){
 		read.appendChild(span_l);
 		span_l.appendChild(span_l_txt);
 
-
 		return tr;
 			
 	}
-	
-		// for (var i = 2; i < articles.length; i++) {
-		// 	window.onscroll=function(){
-		// 		var height=document.getElementById("js_tr").offsetHeight;
-		// 		console.log(height);
-		// 	// 	if () {}
-		// 	// }
-		// }
-	
-
-		//登录后改变顶部内容和退出登录
-
-
-	// 鼠标滑动，控制左右两侧导航栏出现和隐藏
-	window.onscroll= function (){
-		var top=$("body").scrollTop();
-		console.log(top);			
-		if (top>=400) {
-			$("#js_nav2").show();
-			$("#js_recomand").show();
-		}
-		else{
-			$("#js_nav2").hide();
-			$("#js_recomand").hide();
-		}
-	}
-
-});
-//获取json对象
-
-
-//加载一篇文章
-
-
-
