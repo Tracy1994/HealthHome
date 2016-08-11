@@ -21,7 +21,7 @@ function loadArticle(article){
 	var tr=document.createElement("tr");
 	tr.setAttribute("class","js_tr");
 	var td=document.createElement("td");
-	;	
+		
 	td.setAttribute("class","js_td");
 	var link=document.createElement("a");
 	// ;
@@ -133,24 +133,7 @@ function buildDropdownMeum() {
 	console.log(user_name);
 	var role=getCookieValue("role");
 	console.log("user_name is "+user_name);
-	// <li>
-	// 	<a href="#" class="btn dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">
-	// 		<span class="glyphicon glyphicon-user"></span> User
-	// 		<span class="caret"></span>					
-	// 	</a>
-	// 	<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">		<li role="presentation" >
-	// 	       <a role="menuitem" tabindex="-1" href="#">我的收藏</a>
-	// 	    </li>
-	// 	    <li role="presentation">
-	// 	       <a role="menuitem" tabindex="-1" href="#">退出登录</a>
-	// 	    </li>
-	// 	    <li role="presentation">
-	// 	       <a role="menuitem" tabindex="-1" href="#">
-	// 	            编辑
-	// 	       </a>
-	// 	    </li>					      
-	// 	</ul>
-	// </li>
+	
 	if (user_name=="") {
 		//当用户未登录时
 		var li=document.createElement("li");
