@@ -67,7 +67,7 @@ class DBOptMng extends CI_Model
 		return $this->select_conditions($table_name, $arr_where, $str_fields, 0, 0, $str_order_by, $str_order_type);
 	}
 
-	public function update($table_name, $arr_values,$table_name, $arr_where, $str_fields = '', $order_by = '',  $arr_where)
+	public function update($table_name, $arr_values, $arr_where)
 	{
 		if (!is_array($arr_values) || count($arr_values) <= 0)
 		{
