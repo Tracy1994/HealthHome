@@ -13,24 +13,7 @@ function getCookieValue(cname) {
 	  }
 	return "";
 }
-// <li class="dropdown">
-// 					<a href="#" class="btn dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">
-// 						<span class="glyphicon glyphicon-user"></span> User
-// 						<span class="caret"></span>					
-// 					</a>
-// 					<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">		<li role="presentation" >
-// 					       <a role="menuitem" tabindex="-1" href="#">我的收藏</a>
-// 					    </li>
-// 					    <li role="presentation">
-// 					       <a role="menuitem" tabindex="-1" href="#">退出登录</a>
-// 					    </li>
-// 					    <li role="presentation">
-// 					       <a role="menuitem" tabindex="-1" href="#">
-// 					            编辑
-// 					       </a>
-// 					    </li>					      
-// 					</ul>
-// 				</li>
+
 function creatButton(text){
 	// 按钮部分	
 	var link=document.createElement("a");
@@ -69,7 +52,8 @@ function logInLink(){
 	var li=document.createElement("li");
 	var link=document.createElement("a");		
 	link.setAttribute("href","/front.1/html/login.html");
-	var link_span_text=document.createTextNode("请登录");					
+	var link_span_text=document.createTextNode("请登录");
+
 	var	span1=document.createElement("span");
 	span1.setAttribute("class","glyphicon glyphicon-user");
 	var span2=document.createElement("span");
@@ -99,12 +83,26 @@ function buildDropdownMeum(dropdown){
 	//当用户为编辑时
 	if (user_name!="" && role==1) {
 		$("#js_register").css("display","none");
+		var li=document.createElement("li");
+		li.setAttribute("class","dropdown");
+		var ul=document.createElement("ul");
+		ul.setAttribute("class","dropdown-menu");
+		ul.setAttribute("role","menu");
+		ul.setAttribute("aria-labelledby","dropdownMenu1");
+		
 		var button=creatButton(user_name);
 		var collection=dropdownList("href","/front.1/html/collection.html","我的收藏");
 		var articleList=dropdownList("href","/front.1/html/articleList.html","发布文章");
 		var carousePreview=dropdownList("href","/front.1/html/carousePreview.html","发布轮播");
 		var logOut=dropdownList("onclick","logOut()","退出登录");
 		
+		$("#js_index").after(li);
+		li.appendChild(button);
+		li.appendChild(ul);
+		ul.appendChild(collection);
+		ul.appendChild(articleList);
+		ul.appendChild(carousePreview);
+		ul.appendChild(logOut);	
 		
 	}
 	//当用户已登录，用户为非编辑时

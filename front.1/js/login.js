@@ -92,11 +92,15 @@
 					var resp = xmlhttp.responseText;
 					console.log(resp);										
 					if (xmlhttp.readyState==4 && xmlhttp.status==200) {
-						var code=eval("(" + resp + ")").code;
+						var code=JSON.parse(resp).code;
 						console.log(code);
 						if (code == 0){
-							debugger;
-							window.location.href='/front.1/index.html';													
+							alert("登录成功！");
+							window.location.href='/front.1/index.html';	
+							return false;												
+						}
+						if (code==-10001) {
+							alert("未注册，请注册！")
 						}
 						else {
 							alert("登录不成功，请重试！");
