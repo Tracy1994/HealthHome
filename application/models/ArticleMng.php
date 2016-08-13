@@ -78,45 +78,71 @@ class ArticleMng extends CI_Model {
 	public function get_recommend_list($num, $offset)
 	{
 		$arr_where = array('state' => STATE_PUBLISH);
-		return $this->db_opt_mng->select_conditions(
+		$items = $this->db_opt_mng->select_conditions(
 			$this->table_article_all_info, $arr_where, $this->field_info_list, $num, $offset, 
 			'like_cnt,collect_cnt,comment_cnt,click_cnt,create_time');
+		if ($items === false)
+		{
+			return false;
+		}
+
+		$count = $this->db_opt_mng->get_count($this->table_article, $arr_where);
+		if ($count === false)
+		{
+			return false;
+		}
+
+		return array('count' => $count, 'items' => $items);
 	}
 
 	public function get_type_list($type_id, $num, $offset)
 	{
 		$arr_where = array('type_id' => intval($type_id), 'state' => STATE_PUBLISH);
-		return $this->db_opt_mng->select_conditions(
+		$items = $this->db_opt_mng->select_conditions(
 			$this->table_article_all_info, $arr_where, $this->field_info_list, $num, $offset, 
 			'create_time,like_cnt,collect_cnt,comment_cnt,click_cnt');
+		if ($items === false)
+		{
+			return false;
+		}
+
+		$count = $this->db_opt_mng->get_count($this->table_article, $arr_where);
+		if ($count === false)
+		{
+			return false;
+		}
+
+		return array('count' => $count, 'items' => $items);
 	}
 
 	public function get_latest_list($num, $offset, $detail = false)
 	{
 		$arr_where = array('state' => STATE_PUBLISH);
+		$count = $this->db_opt_mng->get_count($this->article, $arr_where);
+		if ($count === false)
+		{
+			return false;
+		}
+
+		$items = null;
 		if ($detail)
 		{
-			return $this->db_opt_mng->select_conditions(
+			$items = $this->db_opt_mng->select_conditions(
 				$this->table_article_all_info, $arr_where, $this->field_info_list, $num, $offset,
 				'create_time,like_cnt,collect_cnt,comment_cnt,click_cnt');
 		}
 		else
 		{
-			return $this->db_opt_mng->select_conditions(
+			$items = $this->db_opt_mng->select_conditions(
 				$this->table_article, $arr_where, $this->field_info_min, $num, $offset, 'create_time');
 		}
-		return false;
-	}
 
-	public function get_list_count($type_id)
-	{
-		$arr_where = array('state' => STATE_PUBLISH);
-		if (intval($type_id) > 0)
+		if ($items === false)
 		{
-			$arr_where['type_id'] = $type_id;
+			return false;
 		}
-
-		return $this->db_opt_mng->get_count($this->table_article, $arr_where);
+		
+		return array('count' => $count, 'items' => $items);
 	}
 
 	public function like($article_id)
@@ -159,42 +185,38 @@ class ArticleMng extends CI_Model {
 		return $this->db_opt_mng->insert($this->table_article_click, $arr_value);
 	}
 
-	public function search($key_word, $num = 0, $offset = 0)
+	public function search($key_word, $num, $offset = 0)
 	{
-		$this->db->select($this->field_info_list);
-		$this->db->where(array('state' => STATE_PUBLISH));
-
-		$arr_like = array(
-			'title' => $key_word,
-			'author' => $key_word,
-			'summary' => $key_word);
-		$this->db->or_like($arr_like);
-
-		if (intval($num) > 0 && intval($offset) >= 0)
-		{
-			$this->db->limit($num, $offset);
-		}
-
-		$this->db->order_by('like_cnt,collect_cnt,comment_cnt,click_cnt,create_time', 'desc');
-		$ret = $this->db->get($this->table_article_all_info);
+		$ret = $this->db->select($this->field_info_list)->from($this->table_article_all_info)
+			->where('state', STATE_PUBLISH)
+			->or_group_start()
+				->like('title', $key_word)
+				->like('author', $key_word)
+				->like('summary', $key_word)
+			->group_end()
+			->limit($num, $offset)
+			->get();
 		if ($ret === false)
 		{
-			return array();
+			return false;
 		}
-		return $ret->result_array();
-	}
+		$items = $ret->result_array();
 
-	public function get_search_count($key_word)
-	{
-		$this->db->where(array('state' => STATE_PUBLISH));
-		$arr_like = array(
-			'title' => $key_word,
-			'author' => $key_word,
-			'summary' => $key_word);
-		$this->db->or_like($arr_like);
+		$count = $this->db->select($this->field_info_list)->from($this->table_article_all_info)
+			->where('state', STATE_PUBLISH)
+			->or_group_start()
+				->like('title', $key_word)
+				->like('author', $key_word)
+				->like('summary', $key_word)
+			->group_end()
+			->limit($num, $offset)
+			->count_all_results();
+		if ($count === false)
+		{
+			$count = count($items);
+		}
 
-		$this->db->from($this->table_article_author_info);
-		return $this->db->count_all_results();
+		return array('count' => $count, 'items' => $items);
 	}
 
 	private function gen_summary($content)

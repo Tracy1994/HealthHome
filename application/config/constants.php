@@ -105,4 +105,8 @@ define('STATE_CREATE', 1);
 define('STATE_PUBLISH', 2);
 define('STATE_DELETE', 3);
 
+define('PRI_LOW', 1);
+define('PRI_MIDDLE', 2);
+define('PRI_HIGH', 3);
+
 define('HOST', $_SERVER['HTTP_HOST'] == 'health.home.com' || $_SERVER['HTTP_HOST'] == '123.207.111.128' ? '123.207.111.128' : 'test.health.home.com');

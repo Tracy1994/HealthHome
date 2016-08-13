@@ -11,7 +11,7 @@ class CarouselMng extends CI_Model {
 		$this->load->model('DBOptMng', 'db_opt_mng');
 	}
 
-	public function add($article_id, $begin_time, $end_time, $img_url)
+	public function add($article_id, $begin_time, $end_time, $priority, $img_url)
 	{
 		$arr_values = array(
 			'article_id' => $article_id,
@@ -22,11 +22,12 @@ class CarouselMng extends CI_Model {
 			'begin_time' => $begin_time,
 			'end_time' => $end_time,
 			'img_url' => $img_url,
-			'state' => STATE_PUBLISH);
+			'state' => STATE_PUBLISH,
+			'priority' => $priority);
 		return $this->db_opt_mng->insert($this->table_name, $arr_values);
 	}
 
-	public function modify($id, $article_id, $begin_time, $end_time, $img_url = '')
+	public function modify($id, $article_id, $begin_time, $end_time, $priority, $img_url = '')
 	{
 		$arr_where = array('id' => $id);
 		$arr_values = array(
@@ -34,7 +35,8 @@ class CarouselMng extends CI_Model {
 			'modify_user' => get_user_name(),
 			'modify_time' => date('y-m-d H:i:s', time()),
 			'begin_time' => $begin_time,
-			'end_time' => $end_time);
+			'end_time' => $end_time,
+			'priority' => $priority);
 		
 		if (strlen($img_url) > 0)
 		{
@@ -58,7 +60,13 @@ class CarouselMng extends CI_Model {
 			'begin_time<=' => $now, 
 			'end_time >=' => $now,
 			'state' => STATE_PUBLISH);
-		return $this->db_opt_mng->select_order($this->table_name, $arr_where, 'create_time');
+		$ret = $this->db_opt_mng->select_order($this->table_name, $arr_where, 'priority,create_time');
+		if ($ret === false)
+		{
+			return false;
+		}
+
+		return array('count' => count($ret), 'items' => $ret);
 	}
 
 	public function get_history_list($num, $offset)

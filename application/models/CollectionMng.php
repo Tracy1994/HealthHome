@@ -28,9 +28,22 @@ class CollectionMng extends CI_Model {
 		return $this->db_opt_mng->delete($this->table_name, $arr_where);
 	}
 
-	public function get_my_collection()
+	public function get_my_collection($num, $offset)
 	{
 		$arr_where = array('user_name' => get_user_name());
-		return $this->db_opt_mng->select($this->table_name, $arr_where, 'article_id,collect_time');
+		$items = $this->db_opt_mng->select_conditions(
+			$this->table_name, $arr_where, 'article_id,collect_time', $num, $offset, 'collect_time');
+		if ($items === false)
+		{
+			return false;
+		}
+
+		$count = $this->db_opt_mng->get_count($this->table_name, $arr_where);
+		if ($count === false)
+		{
+			return false;
+		}
+
+		return array('count' => $count, 'items' => $items);
 	}
 }

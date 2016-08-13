@@ -90,37 +90,26 @@ class Article extends CI_Controller {
 			return false;
 		}
 
-		$items = null;
+		$ret = null;
 		$type_id = intval($_REQUEST['type_id']);
 		$page = isset($_REQUEST['page']) ? intval($_REQUEST['page']) : 1;
-		$num = isset($_REQUEST['num']) ? intval($_REQUEST['num']) : 0;
+		$num = isset($_REQUEST['num']) ? intval($_REQUEST['num']) : 10;
 
 		if ($type_id == 0)
 		{
-			$items = $this->article_mng->get_recommend_list($num, $num * ($page-1));
+			$ret = $this->article_mng->get_recommend_list($num, $num * ($page-1));
 		}
 		else
 		{
-			$items = $this->article_mng->get_type_list($type_id, $num, $num * ($page-1));
+			$ret = $this->article_mng->get_type_list($type_id, $num, $num * ($page-1));
 		}
-		if ($items === false)
+		if ($ret === false)
 		{
 			output_cgi_data(ERR_SYSTEM, 'get article list failed');
 			return false;
 		}
 
-		$count = count($items);
-		if (isset($_REQUEST['num']) && isset($_REQUEST['page']))
-		{
-			$count = $this->article_mng->get_list_count($type_id);
-			if ($count === false)
-			{
-				output_cgi_data(ERR_SYSTEM, 'get list count failed');
-				return false;
-			}
-		}
-
-		output_cgi_data(0, 'succ', array('count' => $count, 'items' => $items));
+		output_cgi_data(0, 'succ', $ret);
 		return true;
 	}
 
@@ -128,29 +117,18 @@ class Article extends CI_Controller {
 	{
 		$num = isset($_REQUEST['num']) && intval($_REQUEST['num']) > 0 ? intval($_REQUEST['num']) : 10;
 		$page = isset($_REQUEST['page']) && intval($_REQUEST['page']) > 0 ? intval($_REQUEST['page']) : 1;
-		$detail = isset($_REQUEST['detail']) && intval($_REQUEST['detail']) == 1 ? true : false;
+		$detail = isset($_REQUEST['detail']) && intval($_REQUEST['detail']) == 0 ? false : true;
 
-		$items = $this->article_mng->get_latest_list($num, $num * ($page-1), $detail);
-		if ($items === false)
+		$ret = $this->article_mng->get_latest_list($num, $num * ($page-1), $detail);
+		if ($ret === false)
 		{
 			output_cgi_data(ERR_SYSTEM, 'system error');
 			return false;
 		}
 
-		$count = count($items);
-		if (isset($_REQUEST['num']) && isset($_REQUEST['page']))
-		{
-			$count = $this->article_mng->get_list_count(0);
-			if ($count === false)
-			{
-				output_cgi_data(ERR_SYSTEM, 'get list count failed');
-				return false;
-			}
-		}
-
-		output_cgi_data(0, 'succ', array('count' => $count, 'items' => $items));
+		output_cgi_data(0, 'succ', $ret);
 		return true;
-	} 
+	}
 
 	public function like()
 	{
@@ -184,28 +162,17 @@ class Article extends CI_Controller {
 			return false;
 		}
 
-		$num = isset($_REQUEST['num']) ? intval($_REQUEST['num']) : 0;
-		$page = isset($_REQUEST['page']) ? intval($_REQUEST['page']) : 1;
+		$num = isset($_REQUEST['num']) && intval($_REQUEST['num']) > 0 ? intval($_REQUEST['num']) : 10;
+		$page = isset($_REQUEST['page']) && intval($_REQUEST['page']) > 0 ? intval($_REQUEST['page']) : 1;
 		$key_word = $_REQUEST['key_word'];
-		$items = $this->article_mng->search($key_word, $num, $page);
-		if ($items === false)
+		$ret = $this->article_mng->search($key_word, $num, $num * ($page - 1));
+		if ($ret === false)
 		{
 			output_cgi_data(ERR_SYSTEM, 'get search result failed');
 			return false;
 		}
 
-		$count = count($items);
-		if (isset($_REQUEST['num']) && isset($_REQUEST['page']))
-		{
-			$count = $this->article_mng->get_search_count($key_word);
-			if ($count === false)
-			{
-				output_cgi_data(ERR_SYSTEM, 'get search result count failed');
-				return false;
-			}
-		}
-
-		output_cgi_data(0, 'succ', array('count' => $count, 'items' => $items));
+		output_cgi_data(0, 'succ', $ret);
 		return true;
 	}
 
