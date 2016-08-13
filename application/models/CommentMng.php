@@ -22,7 +22,8 @@ class CommentMng extends CI_Model {
 			'article_id' => $article_id,
 			'comment_time' => date('y-m-d H:i:s', time()),
 			'parent_id' => $parent_id,
-			'content' => $content);
+			'content' => $content,
+			'state' => STATE_PUBLISH);
 		$ret = $this->db_opt_mng->insert($this->table_comment, $arr_values);
 		if ($ret === false)
 		{
@@ -33,8 +34,9 @@ class CommentMng extends CI_Model {
 
 	public function remove($id)
 	{
-		$arr_where = array('comment_id' => $id, 'user_name' => get_user_name());
-		$ret = $this->db_opt_mng->delete($this->table_like, $arr_where);
+		$arr_values = array('state' => STATE_DELETE);
+		$arr_where = array('parent_id' => $id);
+		$ret = $this->db_opt_mng->update($this->table_comment, $arr_values, $arr_where);
 		if ($ret === false)
 		{
 			return false;
@@ -66,7 +68,9 @@ class CommentMng extends CI_Model {
 
 	public function get_article_comment($article_id, $check = true)
 	{
-		$arr_where = array('article_id' => $article_id);
+		$arr_where = array(
+			'article_id' => $article_id,
+			'state' => STATE_PUBLISH);
 		$ret = $this->db_opt_mng->select($this->table_all_info, $arr_where);
 		if ($ret === false || $check === false)
 		{
