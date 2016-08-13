@@ -67,6 +67,23 @@ function logInLink(){
 	return li;
 }
 
+
+		  		  			  		
+
+//点击退出登录，实现退出登录
+function logOut(){
+	var r=confirm("是否确认退出登录？")
+	  if (r==true)
+	    {
+	    	$.getJSON("/login/logout",function(jsondata){
+	    		if (jsondata.code==0) {
+	    			window.location.href="/front.1/index.html";
+	    		}
+	    	});
+	    
+	    }
+}
+
 function buildDropdownMeum(dropdown){
 	
 	
@@ -128,23 +145,8 @@ function buildDropdownMeum(dropdown){
 		ul.appendChild(logOut);		
 	} 	
 }
-		  		  			  		
-
-//点击退出登录，实现退出登录
-function logOut(){
-	var r=confirm("是否确认退出登录？")
-	  if (r==true)
-	    {
-	    	$.getJSON("/login/logout",function(jsondata){
-	    		if (jsondata.code==0) {
-	    			window.location.href="/front.1/index.html";
-	    		}
-	    	});
-	    
-	    }
-}
-addLoadEvent(getCookieValue);
 addLoadEvent(buildDropdownMeum);
-addLoadEvent(creatButton);	
+
+	
 
 

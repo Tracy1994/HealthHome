@@ -1,23 +1,32 @@
-function buildBtn(event,url,glyphicon){
+	// <button type="button" class="btn btn-default btn-sm ">
+ //  	<a href="#" class="tooltip-hide control" data-toggle="tooltip" data-placement="top" title="删除">
+ //  	    <span class="glyphicon glyphicon-remove"></span>
+ //  	</a>
+	// </button>
+function buildBtn(event,func,glyphicon,title){
+	debugger;
 	var btn=document.createElement("button");
 	btn.setAttribute("type","button");
 	btn.setAttribute("class","btn btn-default btn-sm");
-
+	
 	var link=document.createElement("a");
-	link.setAttribute("onclick","remove()");
+	link.setAttribute("onMouseOver","$(this).tooltip('show')");		
 	link.setAttribute("class","tooltip-hide control");	
 	link.setAttribute("data-toggle","tooltip");
 	link.setAttribute("data-placement","top");
+	link.setAttribute("title",title);
+	link.setAttribute(event,func);
 
 	var span=document.createElement("span");
 	span.setAttribute("class","glyphicon "+glyphicon);
 
-	btn.appendChild(link);
+	
 	link.appendChild(span);
-
+	btn.appendChild(link);
 	return btn;
 }
-function buildBtnGroup(){
+
+function buildBtnGroup(article){
 	
 	var btn_box=document.createElement("div");
 	btn_box.setAttribute("class","col-xs-2 control");
@@ -28,8 +37,10 @@ function buildBtnGroup(){
 	var btn_group=document.createElement("div");
 	btn_group.setAttribute("class","btn-group");
 
-	var btn_remove=buildBtn("onclick","remove()","glyphicon-remove");
-	var btn_pencil=buildBtn("href","#","glyphicon-pencil");
+	var btn_remove=buildBtn("onclick", "removeArticle( '" + JSON.stringify(article) + "')", "glyphicon-remove", "删除");
+	// console.log("removeArticle('" + JSON.stringify(article) + "')");
+	// console.log('removeArticle(' + JSON.stringify(article) + ')');
+	var btn_pencil=buildBtn("href","#","glyphicon-pencil","修改");
 
 	btn_box.appendChild(box2);
 	btn_box.appendChild(btn_group);
@@ -39,11 +50,15 @@ function buildBtnGroup(){
 
 	return btn_box;
 }
-function remove(article){
+
+function removeArticle(strArticle){
+	var article = JSON.parse(strArticle);
 	var r=confirm("是否确认删除该篇文章？")
-	  if (r==true)
+	  if (r==true)	  	
 	    {
+	    debugger;	    	
 	    	$.getJSON("/article/remove?article_id=" + article.id , function(jsondata){
+
 	    		if (jsondata.code==0) {
 	    			alert("已删除");
 	    			window.location.href="/front.1/html/articleList.html";
@@ -62,7 +77,7 @@ function loadArticle(article){
 		var td=document.createElement("td");		
 		td.setAttribute("class","js_td");
 
-		var btn_group=buildBtnGroup();
+		var btn_group=buildBtnGroup(article);
 
 		tr.appendChild(td);
 		
@@ -80,9 +95,10 @@ function loadArticle(article){
 		link.appendChild(box_r);
 		box_r.appendChild(read);
 
-		return tr;
-			
-	}
+		return tr;			
+}
+$(function (){ $("[data-toggle='tooltip']").tooltip(); });
+$(function(){$('.tooltip-hide').tooltip('hide');});
 	// <tr>
 	// 	<td class="js_td">
 	// 		<a href="">
