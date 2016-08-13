@@ -68,7 +68,7 @@ function logInLink(){
 }
 
 function buildDropdownMeum(dropdown){
-	debugger;
+	
 	
 	console.log("role:" + role);
 	var user_name=getCookieValue("user_name");
@@ -89,7 +89,7 @@ function buildDropdownMeum(dropdown){
 		ul.setAttribute("class","dropdown-menu");
 		ul.setAttribute("role","menu");
 		ul.setAttribute("aria-labelledby","dropdownMenu1");
-		
+
 		var button=creatButton(user_name);
 		var collection=dropdownList("href","/front.1/html/collection.html","我的收藏");
 		var articleList=dropdownList("href","/front.1/html/articleList.html","发布文章");

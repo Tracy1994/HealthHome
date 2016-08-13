@@ -1,0 +1,18 @@
+/*--btn-group
+-----------------------------------------------------*/
+.box1{
+	height: 52px;
+}
+.control {
+	position: relative;
+	padding: 10px;	
+}
+
+.box2{
+	height: 40px;
+}
+/*---article
+-----------------------------------------------------*/
+.article .article_cover img{
+	padding: 10px;	
+}
