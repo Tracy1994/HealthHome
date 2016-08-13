@@ -14,13 +14,18 @@ class Article extends CI_Controller {
 
 	public function get_info()
 	{
+		return $this->get_info_detail();
+	}
+
+	public function get_info_list()
+	{
 		if (!isset($_REQUEST['article_id']))
 		{
 			output_cgi_data(ERR_PARAMS, 'params error');
 			return false;
 		}
 
-		$ret = $this->article_mng->get_info($_REQUEST['article_id']);
+		$ret = $this->article_mng->get_info_list($_REQUEST['article_id']);
 		if ($ret === false)
 		{
 			output_cgi_data(ERR_SYSTEM, 'system errror');
@@ -28,6 +33,32 @@ class Article extends CI_Controller {
 		}
 
 		output_cgi_data(0, 'succ', $ret);
+		return true;
+	}
+
+	public function get_info_detail()
+	{
+		if (!isset($_REQUEST['article_id']))
+		{
+			output_cgi_data(ERR_PARAMS, 'params error');
+			return false;
+		}
+
+		$info = $this->article_mng->get_info_detail($_REQUEST['article_id']);
+		if ($info === false)
+		{
+			output_cgi_data(ERR_SYSTEM, 'system errror');
+			return false;
+		}
+
+		$info['has_like'] = 0;
+		if (check_login())
+		{
+			$has_like = $this->article_mng->check_like($_REQUEST['article_id']);
+			$info['has_like'] = $has_like ? 1 : 0;
+		}
+
+		output_cgi_data(0, 'succ', $info);
 		return true;
 	}
 
@@ -59,26 +90,37 @@ class Article extends CI_Controller {
 			return false;
 		}
 
-		$ret = null;
+		$items = null;
 		$type_id = intval($_REQUEST['type_id']);
 		$page = isset($_REQUEST['page']) ? intval($_REQUEST['page']) : 1;
 		$num = isset($_REQUEST['num']) ? intval($_REQUEST['num']) : 0;
+
 		if ($type_id == 0)
 		{
-			$ret = $this->article_mng->get_recommend_list($num, $num * ($page-1));
+			$items = $this->article_mng->get_recommend_list($num, $num * ($page-1));
 		}
 		else
 		{
-			$ret = $this->article_mng->get_type_list($type_id, $num, $num * ($page-1));
+			$items = $this->article_mng->get_type_list($type_id, $num, $num * ($page-1));
 		}
-
-		if ($ret === false)
+		if ($items === false)
 		{
-			output_cgi_data(ERR_SYSTEM, 'system error');
+			output_cgi_data(ERR_SYSTEM, 'get article list failed');
 			return false;
 		}
 
-		output_cgi_data(0, 'succ', $ret);
+		$count = count($items);
+		if (isset($_REQUEST['num']) && isset($_REQUEST['page']))
+		{
+			$count = $this->article_mng->get_list_count($type_id);
+			if ($count === false)
+			{
+				output_cgi_data(ERR_SYSTEM, 'get list count failed');
+				return false;
+			}
+		}
+
+		output_cgi_data(0, 'succ', array('count' => $count, 'items' => $items));
 		return true;
 	}
 
@@ -88,14 +130,25 @@ class Article extends CI_Controller {
 		$page = isset($_REQUEST['page']) && intval($_REQUEST['page']) > 0 ? intval($_REQUEST['page']) : 1;
 		$detail = isset($_REQUEST['detail']) && intval($_REQUEST['detail']) == 1 ? true : false;
 
-		$ret = $this->article_mng->get_latest_list($num, $num * ($page-1), $detail);
-		if ($ret === false)
+		$items = $this->article_mng->get_latest_list($num, $num * ($page-1), $detail);
+		if ($items === false)
 		{
 			output_cgi_data(ERR_SYSTEM, 'system error');
 			return false;
 		}
 
-		output_cgi_data(0, 'succ', $ret);
+		$count = count($items);
+		if (isset($_REQUEST['num']) && isset($_REQUEST['page']))
+		{
+			$count = $this->article_mng->get_list_count(0);
+			if ($count === false)
+			{
+				output_cgi_data(ERR_SYSTEM, 'get list count failed');
+				return false;
+			}
+		}
+
+		output_cgi_data(0, 'succ', array('count' => $count, 'items' => $items));
 		return true;
 	} 
 
@@ -131,9 +184,28 @@ class Article extends CI_Controller {
 			return false;
 		}
 
+		$num = isset($_REQUEST['num']) ? intval($_REQUEST['num']) : 0;
+		$page = isset($_REQUEST['page']) ? intval($_REQUEST['page']) : 1;
 		$key_word = $_REQUEST['key_word'];
-		$ret = $this->article_mng->search($key_word);
-		output_cgi_data(0, 'succ', $ret);
+		$items = $this->article_mng->search($key_word, $num, $page);
+		if ($items === false)
+		{
+			output_cgi_data(ERR_SYSTEM, 'get search result failed');
+			return false;
+		}
+
+		$count = count($items);
+		if (isset($_REQUEST['num']) && isset($_REQUEST['page']))
+		{
+			$count = $this->article_mng->get_search_count($key_word);
+			if ($count === false)
+			{
+				output_cgi_data(ERR_SYSTEM, 'get search result count failed');
+				return false;
+			}
+		}
+
+		output_cgi_data(0, 'succ', array('count' => $count, 'items' => $items));
 		return true;
 	}
 
@@ -203,6 +275,37 @@ class Article extends CI_Controller {
 		}
 
 		output_cgi_data(0, 'succ', array('article_id' => $ret));
+		return true;
+	}
+
+	public function remove()
+	{
+		if (!check_login())
+		{
+			output_cgi_data(ERR_NO_LOGIN, 'user no login');
+			return false;
+		}
+
+		if (!check_role_editor())
+		{
+			output_cgi_data(ERR_PERMISSION_DENIED, 'remove article is denied to you');
+			return false;
+		}
+
+		if (!isset($_REQUEST['article_id']) || intval($_REQUEST['article_id']) <= 0)
+		{
+			output_cgi_data(ERR_PARAMS, 'params error');
+			return false;
+		}
+
+		$ret = $this->article_mng->remove($_REQUEST['article_id']);
+		if ($ret === false)
+		{
+			output_cgi_data(ERR_SYSTEM, 'remove article failed');
+			return false;
+		}
+
+		output_cgi_data(0, 'succ');
 		return true;
 	}
 }

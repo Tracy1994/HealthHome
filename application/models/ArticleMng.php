@@ -7,8 +7,13 @@ class ArticleMng extends CI_Model {
 	private $table_article_all_info = 'article_all_info';
 	private $table_article_like = 'article_like';
 	private $table_article_click = 'article_click';
-	private $field_all_info = 'id,type_id,title,author,author_desp,author_head_url,create_time,cover_url,like_cnt,click_cnt,comment_cnt,collect_cnt,summary';
-	private $field_simple_info = 'id,title,create_time';
+	private $table_article_author_info = 'article_author_info';
+	private $table_comment = 'comment';
+	private $table_comment_like = 'comment_like';
+
+	private $field_info_detail = 'id,type_id,title,author,author_desp,author_head_url,create_time,cover_url,like_cnt,click_cnt,comment_cnt,collect_cnt';
+	private $field_info_list = 'id,type_id,title,create_time,cover_url,like_cnt,click_cnt,comment_cnt,collect_cnt,summary';
+	private $field_info_min = 'id,title,create_time';
 
 	public function ArticleMng()
 	{
@@ -16,10 +21,10 @@ class ArticleMng extends CI_Model {
 		$this->load->model('DBOptMng', 'db_opt_mng');
 	}
 
-	public function get_info($article_id)
+	public function get_info_list($article_id)
 	{
 		$arr_where = array('id' => $article_id);
-		$ret = $this->db_opt_mng->select($this->table_article_all_info, $arr_where, $this->field_all_info);
+		$ret = $this->db_opt_mng->select($this->table_article_all_info, $arr_where, $this->field_info_list);
 		if ($ret === false)
 		{
 			return false;
@@ -30,19 +35,25 @@ class ArticleMng extends CI_Model {
 			return array();
 		}
 
-		$article = $ret[0];
-		$arr_where = array('article_id' => $article_id, 'user_name' => get_user_name());
-		$ret = $this->db_opt_mng->get_count($this->table_article_like, $arr_where);
+		return $ret[0];
+	}
+
+	public function get_info_detail($article_id)
+	{
+		$arr_where = array('id' => $article_id);
+		$ret = $this->db_opt_mng->select(
+			$this->table_article_all_info, $arr_where, $this->field_info_detail);
 		if ($ret === false)
 		{
-			$article['has_like'] = 0;
-		}
-		else
-		{
-			$article['has_like'] = $ret;
+			return false;
 		}
 
-		return $article;
+		if (count($ret) == 0)
+		{
+			return array();
+		}
+
+		return $ret[0];
 	}
 
 	public function get_content($article_id)
@@ -66,33 +77,46 @@ class ArticleMng extends CI_Model {
 
 	public function get_recommend_list($num, $offset)
 	{
+		$arr_where = array('state' => STATE_PUBLISH);
 		return $this->db_opt_mng->select_conditions(
-			$this->table_article_all_info, array(), $this->field_all_info, $num, $offset, 
+			$this->table_article_all_info, $arr_where, $this->field_info_list, $num, $offset, 
 			'like_cnt,collect_cnt,comment_cnt,click_cnt,create_time');
 	}
 
 	public function get_type_list($type_id, $num, $offset)
 	{
-		$arr_where = array('type_id' => intval($type_id));
+		$arr_where = array('type_id' => intval($type_id), 'state' => STATE_PUBLISH);
 		return $this->db_opt_mng->select_conditions(
-			$this->table_article_all_info, $arr_where, $this->field_all_info, $num, $offset, 
+			$this->table_article_all_info, $arr_where, $this->field_info_list, $num, $offset, 
 			'create_time,like_cnt,collect_cnt,comment_cnt,click_cnt');
 	}
 
 	public function get_latest_list($num, $offset, $detail = false)
 	{
+		$arr_where = array('state' => STATE_PUBLISH);
 		if ($detail)
 		{
 			return $this->db_opt_mng->select_conditions(
-				$this->table_article_all_info, array(), $this->field_all_info, $num, $offset,
+				$this->table_article_all_info, $arr_where, $this->field_info_list, $num, $offset,
 				'create_time,like_cnt,collect_cnt,comment_cnt,click_cnt');
 		}
 		else
 		{
 			return $this->db_opt_mng->select_conditions(
-				$this->table_article, array(), $this->field_simple_info, $num, $offset, 'create_time');
+				$this->table_article, $arr_where, $this->field_info_min, $num, $offset, 'create_time');
 		}
 		return false;
+	}
+
+	public function get_list_count($type_id)
+	{
+		$arr_where = array('state' => STATE_PUBLISH);
+		if (intval($type_id) > 0)
+		{
+			$arr_where['type_id'] = $type_id;
+		}
+
+		return $this->db_opt_mng->get_count($this->table_article, $arr_where);
 	}
 
 	public function like($article_id)
@@ -113,6 +137,19 @@ class ArticleMng extends CI_Model {
 		return $this->db_opt_mng->insert($this->table_article_like, $arr_value);
 	}
 
+	public function check_like($article_id)
+	{
+		$arr_where = array(
+			'article_id' => intval($article_id),
+			'user_name' => get_user_name());
+		$count = $this->db_opt_mng->get_count($this->table_article_like, $arr_where);
+		if ($count === false || $count === 0)
+		{
+			return false;
+		}
+		return true;
+	}
+
 	public function click($article_id)
 	{
 		$arr_value = array(
@@ -122,16 +159,21 @@ class ArticleMng extends CI_Model {
 		return $this->db_opt_mng->insert($this->table_article_click, $arr_value);
 	}
 
-	public function search($key_word)
+	public function search($key_word, $num = 0, $offset = 0)
 	{
-		$this->db->select($this->field_all_info);
+		$this->db->select($this->field_info_list);
+		$this->db->where(array('state' => STATE_PUBLISH));
 
 		$arr_like = array(
 			'title' => $key_word,
 			'author' => $key_word,
-			'tags' => $key_word,
 			'summary' => $key_word);
 		$this->db->or_like($arr_like);
+
+		if (intval($num) > 0 && intval($offset) >= 0)
+		{
+			$this->db->limit($num, $offset);
+		}
 
 		$this->db->order_by('like_cnt,collect_cnt,comment_cnt,click_cnt,create_time', 'desc');
 		$ret = $this->db->get($this->table_article_all_info);
@@ -140,6 +182,19 @@ class ArticleMng extends CI_Model {
 			return array();
 		}
 		return $ret->result_array();
+	}
+
+	public function get_search_count($key_word)
+	{
+		$this->db->where(array('state' => STATE_PUBLISH));
+		$arr_like = array(
+			'title' => $key_word,
+			'author' => $key_word,
+			'summary' => $key_word);
+		$this->db->or_like($arr_like);
+
+		$this->db->from($this->table_article_author_info);
+		return $this->db->count_all_results();
 	}
 
 	private function gen_summary($content)
@@ -153,7 +208,7 @@ class ArticleMng extends CI_Model {
 		return mb_substr($str, 0, $len, 'utf-8');
 	}
 
-	private function insert_article($title, $author_id, $type_id, $cover_url, $content)
+	private function add($title, $author_id, $type_id, $cover_url, $content)
 	{
 		$uuid = get_uuid();
 		$arr_value = array(
@@ -167,7 +222,8 @@ class ArticleMng extends CI_Model {
 			'summary' => $this->gen_summary($content),
 			'cover_url' => $cover_url,
 			'content' => $content,
-			'uuid' => $uuid);
+			'uuid' => $uuid,
+			'state' => STATE_PUBLISH);
 		$ret = $this->db_opt_mng->insert($this->table_article, $arr_value);
 		if ($ret === false)
 		{
@@ -184,7 +240,7 @@ class ArticleMng extends CI_Model {
 
 	}
 
-	private function update_article($article_id, $title, $author_id, $type_id, $cover_url, $content)
+	private function modify($article_id, $title, $author_id, $type_id, $cover_url, $content)
 	{
 		$arr_where = array('id' => $article_id);
 		$arr_value = array(
@@ -209,14 +265,32 @@ class ArticleMng extends CI_Model {
 	{
 		if ($article_id == 0)
 		{
-			return $this->insert_article($title, $author_id, $type_id, $cover_url, $content);
+			return $this->add($title, $author_id, $type_id, $cover_url, $content);
 		}
 		else
 		{
-			return $this->update_article($article_id, $title, $author_id, $type_id, $cover_url, $content);
+			return $this->modify($article_id, $title, $author_id, $type_id, $cover_url, $content);
 		}
 
 		return false;
+	}
+
+	public function remove($article_id)
+	{
+		$arr_where = array('id' => $article_id);
+		$arr_value = array('state' => STATE_DELETE);
+		
+		// 标记文章状态为删除
+		$ret = $this->db_opt_mng->update($this->table_article, $arr_value, $arr_where);
+		if ($ret === false)
+		{
+			return false;
+		}
+
+		// 标记文章评论数据为删除
+		$this->db_opt_mng->update($this->table_comment, $arr_value, $arr_where);
+		
+		return true;
 	}
 
 }
