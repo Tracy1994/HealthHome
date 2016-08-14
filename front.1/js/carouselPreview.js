@@ -171,8 +171,6 @@ function buildBtnGroup(article){
 	btn_group.setAttribute("class","btn-group");
 
 	var btn_remove=buildBtn("onclick", "removeArticle( '" + JSON.stringify(article) + "')", "glyphicon-remove", "删除");
-	// console.log("removeArticle('" + JSON.stringify(article) + "')");
-	// console.log('removeArticle(' + JSON.stringify(article) + ')');
 	var btn_pencil=buildBtn("href","#","glyphicon-pencil","修改");
 
 	btn_box.appendChild(box2);
