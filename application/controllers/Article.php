@@ -190,20 +190,17 @@ class Article extends CI_Controller {
 			return false;
 		}
 
-		if (!isset($_REQUEST['title']) || 
-			!isset($_REQUEST['author']) || !isset($_REQUEST['author_desp']) || 
-			!isset($_REQUEST['type']) || !isset($_REQUEST['content']))
+		if (!isset($_REQUEST['title']) || strlen($_REQUEST['title']) == 0 ||
+			!isset($_REQUEST['author']) || strlen($_REQUEST['author']) == 0 ||
+			!isset($_REQUEST['author_desp']) || strlen($_REQUEST['author_desp']) == 0 ||
+			!isset($_REQUEST['type_id']) || intval($_REQUEST['type_id']) <= 0 ||
+			!isset($_REQUEST['content']) || strlen($_REQUEST['content']) == 0)
 		{
 			output_cgi_data(ERR_PARAMS, 'params error');
 			return false;
 		}
 
-		$type = $_REQUEST['type'];
-		$type_id = 0;
-		if (array_key_exists($type, $GLOBALS['arr_types']))
-		{
-			$type_id = $GLOBALS['arr_types'][$type];
-		}
+		$type_id = intval($_REQUEST['type_id']);
 
 		$cover_url = $this->upload_mng->upload_cover_img();
 		if ($cover_url == false)
@@ -253,24 +250,20 @@ class Article extends CI_Controller {
 			return false;
 		}
 
-		if (!isset($_REQUEST['article_id']) || !isset($_REQUEST['title']) || 
-			!isset($_REQUEST['author']) || !isset($_REQUEST['author_desp']) || 
-			!isset($_REQUEST['type']) || !isset($_REQUEST['content']))
+		if (!isset($_REQUEST['article_id']) || intval($_REQUEST['article_id']) <= 0 ||
+			!isset($_REQUEST['title']) || strlen($_REQUEST['title']) == 0 ||
+			!isset($_REQUEST['author']) || strlen($_REQUEST['author']) == 0 ||
+			!isset($_REQUEST['author_desp']) || strlen($_REQUEST['author_desp']) == 0 ||
+			!isset($_REQUEST['type_id']) || intval($_REQUEST['type_id']) <= 0 ||
+			!isset($_REQUEST['content']) || strlen($_REQUEST['content']) == 0)
 		{
 			output_cgi_data(ERR_PARAMS, 'params error');
 			return false;
 		}
-
 	
 		$article_id = intval($_REQUEST['article_id']);
-		$type = $_REQUEST['type'];
-		$type_id = 0;
-		if (array_key_exists($type, $GLOBALS['arr_types']))
-		{
-			$type_id = $GLOBALS['arr_types'][$type];
-		}
+		$type_id = intval($_REQUEST['type_id']);
 
-		// var_dump(isset($_FILES['coverimg']) ? $_FILES['coverimg'] : 'no file upload');
 		$cover_url = '';
 		if (isset($_FILES['coverimg']))
 		{
