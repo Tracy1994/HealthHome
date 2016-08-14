@@ -193,14 +193,33 @@ class Article extends CI_Controller {
 		if (!isset($_REQUEST['title']) || strlen($_REQUEST['title']) == 0 ||
 			!isset($_REQUEST['author']) || strlen($_REQUEST['author']) == 0 ||
 			!isset($_REQUEST['author_desp']) || strlen($_REQUEST['author_desp']) == 0 ||
-			!isset($_REQUEST['type_id']) || intval($_REQUEST['type_id']) <= 0 ||
+			((!isset($_REQUEST['type_id']) || intval($_REQUEST['type_id']) <= 0) && 
+			 (!isset($_REQUEST['type']) || strlen($_REQUEST['type']) == 0)) ||
 			!isset($_REQUEST['content']) || strlen($_REQUEST['content']) == 0)
 		{
 			output_cgi_data(ERR_PARAMS, 'params error');
 			return false;
 		}
 
-		$type_id = intval($_REQUEST['type_id']);
+		// 与第一版兼容
+		$type_id = 0;
+		if (isset($_REQUEST['type_id']))
+		{
+			$type_id = intval($_REQUEST['type_id']);
+		}
+		else
+		{
+			$type = $_REQUEST['type'];
+			if (array_key_exists($type, $GLOBALS['arr_types']))
+			{
+				$type_id = $GLOBALS['arr_types'][$type];
+			}
+			else
+			{
+				output_cgi_data(ERR_PARAMS, 'params type error');
+				return false;
+			}
+		}
 
 		$cover_url = $this->upload_mng->upload_cover_img();
 		if ($cover_url == false)
