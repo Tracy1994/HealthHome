@@ -2,6 +2,9 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class UploadMng extends CI_Model {
+	
+	private $str_err_msg;
+
 	public function UploadMng()
 	{
 		parent::__construct();
@@ -14,10 +17,16 @@ class UploadMng extends CI_Model {
         $this->load->library('upload', $config);
 	}
 
+	public function get_err_msg()
+	{
+		return $this->str_err_msg;
+	}
+
 	public function upload_cover_img()
 	{	
 		if (!$this->upload->do_upload('coverimg'))
 		{
+			$this->str_err_msg = strip_tags($this->upload->display_errors());
 			return false;
 		}
 
@@ -27,6 +36,7 @@ class UploadMng extends CI_Model {
 		$ret = rename($data['full_path'], $coverimg_path.$coverimg_name);
 		if ($ret === false)
 		{
+			$this->str_err_msg = 'rename file failed';
 			return false;
 		}
 
@@ -37,6 +47,7 @@ class UploadMng extends CI_Model {
 	{
 		if (!$this->upload->do_upload('headimg'))
 		{
+			$this->str_err_msg = strip_tags($this->upload->display_errors());
 			return false;
 		}
 
@@ -46,6 +57,7 @@ class UploadMng extends CI_Model {
 		$ret = rename($data['full_path'], $headimg_path.$headimg_name);
 		if ($ret === false)
 		{
+			$this->str_err_msg = 'rename file failed';
 			return false;
 		}
 
@@ -56,6 +68,7 @@ class UploadMng extends CI_Model {
 	{
 		if (!$this->upload->do_upload('articleimg'))
 		{
+			$this->str_err_msg = strip_tags($this->upload->display_errors());
 			return false;
 		}
 
@@ -65,6 +78,7 @@ class UploadMng extends CI_Model {
 		$ret = rename($data['full_path'], $articleimg_path.$articleimg_name);
 		if ($ret === false)
 		{
+			$this->str_err_msg = 'rename file failed';
 			return false;
 		}
 

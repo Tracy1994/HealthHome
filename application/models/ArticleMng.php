@@ -118,7 +118,7 @@ class ArticleMng extends CI_Model {
 	public function get_latest_list($num, $offset, $detail = false)
 	{
 		$arr_where = array('state' => STATE_PUBLISH);
-		$count = $this->db_opt_mng->get_count($this->article, $arr_where);
+		$count = $this->db_opt_mng->get_count($this->table_article, $arr_where);
 		if ($count === false)
 		{
 			return false;
@@ -230,7 +230,7 @@ class ArticleMng extends CI_Model {
 		return mb_substr($str, 0, $len, 'utf-8');
 	}
 
-	private function add($title, $author_id, $type_id, $cover_url, $content)
+	public function add($title, $author_id, $type_id, $cover_url, $content)
 	{
 		$uuid = get_uuid();
 		$arr_value = array(
@@ -262,7 +262,7 @@ class ArticleMng extends CI_Model {
 
 	}
 
-	private function modify($article_id, $title, $author_id, $type_id, $cover_url, $content)
+	public function modify($article_id, $title, $author_id, $type_id, $content, $cover_url = '')
 	{
 		$arr_where = array('id' => $article_id);
 		$arr_value = array(
@@ -273,8 +273,12 @@ class ArticleMng extends CI_Model {
 			'tags' => "",
 			'modify_time' => date('y-m-d H:i:s', time()),
 			'summary' => $this->gen_summary($content),
-			'cover_url' => $cover_url,
 			'content' => $content);
+		if (strlen($head_url) > 0)
+		{
+			$arr_value['cover_url'] = $cover_url;
+		}
+
 		$ret = $this->db_opt_mng->update($this->table_article, $arr_value, $arr_where);
 		if ($ret === false)
 		{

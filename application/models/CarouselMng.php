@@ -35,9 +35,13 @@ class CarouselMng extends CI_Model {
 			'modify_user' => get_user_name(),
 			'modify_time' => date('y-m-d H:i:s', time()),
 			'begin_time' => $begin_time,
-			'end_time' => $end_time,
-			'priority' => $priority);
+			'end_time' => $end_time);
 		
+		if (intval($priority) > 0)
+		{
+			$arr_values['priority'] = $priority;
+		}
+
 		if (strlen($img_url) > 0)
 		{
 			$arr_values['img_url'] = $img_url;

@@ -33,6 +33,12 @@ class Carousel extends CI_Controller {
 			return false;
 		}
 
+		$priority = PRI_MIDDLE;
+		if (isset($_REQUEST['priority']))
+		{
+			$priority = intval($_REQUEST['priority']);
+		}
+
 		$carousel_url = $this->upload_mng->upload_carousel_img();
 		if ($carousel_url === false)
 		{
@@ -41,7 +47,7 @@ class Carousel extends CI_Controller {
 		}
 
 		$ret = $this->carousel_mng->add($_REQUEST['article_id'], $_REQUEST['begin_time'],
-		                                $_REQUEST['end_time'], $carousel_url);
+		                                $_REQUEST['end_time'], $priority, $carousel_url);
 		if ($ret === false)
 		{
 			output_cgi_data(ERR_SYSTEM, 'add carousel failed');
@@ -75,8 +81,11 @@ class Carousel extends CI_Controller {
 			return false;
 		}
 
+		$priority = isset($_REQUEST['priority']) && intval($_REQUEST['priority']) > 0 ?
+			intval($_REQUEST['priority']) : 0;
+
 		$carousel_url = '';
-		if (isset($_REQUEST['carouselimg']) && strlen($_REQUEST['carouselimg']) > 0)
+		if (isset($_FILES['carouselimg']))
 		{
 			$carousel_url = $this->upload_mng->upload_carousel_img();
 			if ($carousel_url === false)
@@ -87,7 +96,8 @@ class Carousel extends CI_Controller {
 		}
 
 		$ret = $this->carousel_mng->modify($_REQUEST['carousel_id'], $_REQUEST['article_id'],
-			                               $_REQUEST['begin_time'], $_REQUEST['end_time'], $carousel_url);
+			                               $_REQUEST['begin_time'], $_REQUEST['end_time'], 
+			                               $priority, $carousel_url);
 		if ($ret === false)
 		{
 			output_cgi_data(ERR_SYSTEM, 'modify carousel info failed');

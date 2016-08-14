@@ -198,12 +198,6 @@ class Article extends CI_Controller {
 			return false;
 		}
 
-		$article_id = 0;
-		if (isset($_REQUEST['article_id']))
-		{
-			$article_id = intval($_REQUEST['article_id']);
-		}
-
 		$type = $_REQUEST['type'];
 		$type_id = 0;
 		if (array_key_exists($type, $GLOBALS['arr_types']))
@@ -225,15 +219,15 @@ class Article extends CI_Controller {
 			return false;
 		}
 
-		$author_id = $this->author_mng->add_author($_REQUEST['author'], $_REQUEST['author_desp'], $head_url);
+		$author_id = $this->author_mng->add($_REQUEST['author'], $_REQUEST['author_desp'], $head_url);
 		if ($author_id === false)
 		{
 			output_cgi_data(ERR_SYSTEM, 'add user failed');
 			return false;
 		}
 
-		$ret = $this->article_mng->save(
-			$article_id, $_REQUEST['title'], $author_id, 
+		$ret = $this->article_mng->add(
+			$_REQUEST['title'], $author_id, 
 			$type_id, $cover_url, $_REQUEST['content']);
 		if ($ret === false)
 		{
@@ -242,6 +236,105 @@ class Article extends CI_Controller {
 		}
 
 		output_cgi_data(0, 'succ', array('article_id' => $ret));
+		return true;
+	}
+
+	public function modify()
+	{
+		if (!check_login())
+		{
+			output_cgi_data(ERR_NO_LOGIN, 'user no login');
+			return false;
+		}
+
+		if (!check_role_editor())
+		{
+			output_cgi_data(ERR_PERMISSION_DENIED, 'save article is denied to you');
+			return false;
+		}
+
+		if (!isset($_REQUEST['article_id']) || !isset($_REQUEST['title']) || 
+			!isset($_REQUEST['author']) || !isset($_REQUEST['author_desp']) || 
+			!isset($_REQUEST['type']) || !isset($_REQUEST['content']))
+		{
+			output_cgi_data(ERR_PARAMS, 'params error');
+			return false;
+		}
+
+	
+		$article_id = intval($_REQUEST['article_id']);
+		$type = $_REQUEST['type'];
+		$type_id = 0;
+		if (array_key_exists($type, $GLOBALS['arr_types']))
+		{
+			$type_id = $GLOBALS['arr_types'][$type];
+		}
+
+		// var_dump(isset($_FILES['coverimg']) ? $_FILES['coverimg'] : 'no file upload');
+		$cover_url = '';
+		if (isset($_FILES['coverimg']))
+		{
+			$cover_url = $this->upload_mng->upload_cover_img();
+			if ($cover_url == false)
+			{
+				output_cgi_data(ERR_UPLOAD_FILE, 'upload cover failed, '.$this->upload_mng->get_err_msg());
+				return false;
+			}
+		}
+
+		$head_url = '';
+		if (isset($_FILES['headimg']))
+		{
+			$head_url = $this->upload_mng->upload_head_img();
+			if ($head_url === false)
+			{
+				output_cgi_data(ERR_UPLOAD_FILE, 'upload author head failed, '.$this->upload_mng->get_err_msg());
+				return false;
+			}
+		}
+
+		$author_id = $this->author_mng->modify($_REQUEST['author'], $_REQUEST['author_desp'], $head_url);
+		if ($author_id === false)
+		{
+			output_cgi_data(ERR_SYSTEM, 'add user failed');
+			return false;
+		}
+
+		$ret = $this->article_mng->modify($article_id,
+			$_REQUEST['title'], $author_id, 
+			$type_id, $_REQUEST['content'], $cover_url);
+		if ($ret === false)
+		{
+			output_cgi_data(ERR_SYSTEM, 'save article failed');
+			return false;
+		}
+
+		output_cgi_data(0, 'succ', array('article_id' => $ret));
+		return true;
+	}
+
+	public function upload_content_img()
+	{
+		if (!check_login())
+		{
+			output_cgi_data(ERR_NO_LOGIN, 'user no login');
+			return false;
+		}
+
+		if (!check_role_editor())
+		{
+			output_cgi_data(ERR_PERMISSION_DENIED, 'upload content is denied to you');
+			return false;
+		}
+
+		$img_url = $this->upload_mng->upload_article_img();
+		if ($img_url === false)
+		{
+			output_cgi_data(ERR_UPLOAD_FILE, $this->upload_mng->get_err_msg());
+			return false;
+		}
+
+		output_cgi_data(0, 'succ', array('img_url' => $img_url));
 		return true;
 	}
 
