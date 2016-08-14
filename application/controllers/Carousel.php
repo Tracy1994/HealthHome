@@ -11,7 +11,7 @@ class Carousel extends CI_Controller {
 		$this->load->model('UploadMng', 'upload_mng');
 	}
 
-	public function add()
+	public function publish()
 	{
 		if (!check_login())
 		{
