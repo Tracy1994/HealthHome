@@ -68,7 +68,10 @@ class Collection extends CI_Controller {
 			return false;
 		}
 
-		$ret = $this->collection_mng->get_my_collection();
+		$num = isset($_REQUEST['num']) && intval($_REQUEST['num']) > 0 ? intval($_REQUEST['num']) : 10;
+		$page = isset($_REQUEST['page']) && intval($_REQUEST['page']) > 0 ? intval($_REQUEST['page']) : 1;
+
+		$ret = $this->collection_mng->get_my_collection($num, $num * ($page - 1));
 		if ($ret === false)
 		{
 			output_cgi_data(ERR_SYSTEM, 'system errror');
