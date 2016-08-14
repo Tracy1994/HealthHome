@@ -56,7 +56,10 @@ body{
 }
 .img_info{
 	position: absolute;
-	left: 60%;
-	color: rgb(255,255,255);
-	bottom: 50%;	
+	left: 10%;
+	color: rgb(255,255,255);		
+}
+.carousel_time span{
+	font-size: 15px;
+	font-weight: bold;
 }

@@ -1,75 +1,160 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-	<title>carousel</title>
-	<link rel="stylesheet" href="http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap.min.css">
-	<script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
-	<script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+	<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+	<title>carousel preview</title>
+	
+	<link rel="stylesheet" type="text/css" href="/front.1/css/carouselPreview.css">		
+	<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<script src="/front.1/js/lib/jquery-3.0.0.min.js"></script>	
+	<script type="text/javascript" src="/front.1/js/lib/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/front.1/js/lib/addLoadEvent.js"></script>
+	<script type="text/javascript" src="/front.1/js/carouselPreview.js"></script>
+	<script type="text/javascript" src="/front.1/js/lib/buildDropdownMeum.js"></script>
+	<!-- <script type="text/javascript" src="/front.1/js/lib/buildArticle.js"></script> -->	
 </head>
 <body>
-<div class="container">
-	<form action="" method="POST" role="form">
-		<legend>Form title</legend>
-
-		<div class="form-group">
-			<div class="row">
-				<div class="col-xs-5">
-					<div class="input-group input-group-xs">
-						<span class="input-group-addon">开始日期</span>
-						<input type="date" name="" id="input" class="form-control" value="" required="required" pattern="" title="">
-					</div>
-				</div>
-				<div class="col-xs-2"></div>
-				<div class="col-xs-5">
-					<div class="input-group input-group-xs">
-						<span class="input-group-addon">结束日期</span>
-						<input type="date" name="" id="input" class="form-control" value="" required="required" pattern="" title="">
-					</div>
-				</div>
+	<nav class="navbar navbar-default navbar-fixed-top " role="navigation">
+		
+		<div class="container">
+			<div class="navbar-brand">
+				<span><img src="/front.1/resource/logo.jpg" class="navbar-left"></span>
+				<span class="name  navbar-left">健康之家-轮播列表</span>
+				
 			</div>
 			
-			<div class="col-lg-6">
-	            <div class="input-group">
-	               <div class="input-group-btn">
-	                  <button type="button" class="btn btn-default 
-	                     dropdown-toggle" data-toggle="dropdown">
-	                     文章 
-	                     <span class="caret"></span>
-	                  </button>
-	                  <ul class="dropdown-menu">
-	                     <li><a href="#">文章 1</a></li>
-	                     <li><a href="#">文章 </a></li>
-	                     <li><a href="#">文章 </a></li>
-	                     <li><a href="#">文章 </a></li>
-	                  </ul>
-	               </div><!-- /btn-group -->
-	               <input type="text" class="form-control">
-	            </div><!-- /input-group -->
-	        </div><!-- /.col-lg-6 --><br>
-	        <table width="100%" border="0" cellspacing="0" cellpadding="0">
-	         	<tbody>
-	         		<tr>
-	         			<td height="101" align="center">
-	         				<div id="localImag">
-	         					<img id="preview" src="/front.1/resource/index_img/test.jpg" width="150" height="180" style="display: block; width: 150px; height: 180px;">
-	         				</div>
-	         			</td>
-	         		</tr>
-	         		<tr>
-	         			<td align="center" style="padding-top:10px;">
-	         				<input type="file" name="file" id="doc" style="width:150px;" onchange="javascript:setImagePreview();">
-	         			</td>
-	         		</tr>
-	         	</tbody>
-	         </table>
-		</div>
-		<button type="submit" class="btn btn-primary">Submit</button>
-	</form>
-</div>
+			<ul class="nav navbar-nav navbar-right">
 
+				<li id="js_index">
+					<a href="/front.1/index.html" >首页</a>
+				</li>			
+				<li id="js_register">
+					<a href="/front.1/html/register.html" ">注册</a>
+				</li>
+				<li>
+					<a href="/front.1/html/carouselEdit.html">编辑轮播</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+	<div class="box1"></div>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12 article">					
+				<table class="table table-hover table-responsive">
+					<tbody id="js_article_list">						
+						<tr>
+							<td class="js_td">
+								<a href="">									
+									<div class="col-xs-7 carousel_pic">
+										<img src="/front.1/resource/1.jpg" class="img-responsive" alt="Image">
+										<div class="img_info">
+											<div class="writer_name">泥石流</div>
+											<div class="writer_info">泥石流</div>
+											<h4>奥运会泥石流</h4>
+											<div class="detile">泥石流女神泥石流，女神泥石流女神泥石流女，神泥石流女神泥石流女神泥石流女神泥石流女神。</div>
+										</div>
+									</div>
+																				
+								</a>
+								<div class="col-xs-4 control">
+									<div class="box2">
+										<div class="col-xs-12">投放时间：2016/06/01</div>
+										<div class="col-xs-12">开始时间：2016/06/01</div>
+										<div class="col-xs-12">结束时间：2016/06/01</div>
+									</div>
+									<div class="btn-group ">
+										<button type="button" class="btn btn-default btn-sm ">
+									  	<a href="#" class="tooltip-hide control" data-toggle="tooltip" data-placement="top" title="删除">
+									  	    <span class="glyphicon glyphicon-remove"></span>
+									  	</a>
+										</button>
+										<button type="button" class="btn btn-default btn-sm ">
+										  	<a href="#" class="tooltip-hide control" data-toggle="tooltip" data-placement="top" title="修改">
+										  	    <span class="glyphicon glyphicon-pencil"></span>
+										  	</a>
+										</button>
+									</div>							
+								</div>
+								<div class="col-xs-1"></div>
+							</td>
+						</tr>
+						<tr>
+							<td class="js_td">
+								<a href="">									
+									<div class="col-xs-7 carousel_pic">
+										<img src="/front.1/resource/1.jpg" class="img-responsive" alt="Image">
+										<div class="img_info">
+											<div >泥石流</div>
+											<div >泥石流</div>
+											<h4>奥运会泥石流</h4>
+											<div >泥石流女神泥石流，女神泥石流女神泥石流女，神泥石流女神泥石流女神泥石流女神泥石流女神。</div>
+										</div>
+									</div>
+																				
+								</a>
+								<div class="col-xs-4 control">
+									<div class="box2">
+										<div class="col-xs-12">投放时间：2016/06/01</div>
+										<div class="col-xs-12">开始时间：2016/06/01</div>
+										<div class="col-xs-12">结束时间：2016/06/01</div>
+									</div>
+									<div class="btn-group ">
+										<button type="button" class="btn btn-default btn-sm ">
+									  	<a href="#" class="tooltip-hide control" data-toggle="tooltip" data-placement="top" title="删除">
+									  	    <span class="glyphicon glyphicon-remove"></span>
+									  	</a>
+										</button>
+										<button type="button" class="btn btn-default btn-sm ">
+										  	<a href="#" class="tooltip-hide control" data-toggle="tooltip" data-placement="top" title="修改">
+										  	    <span class="glyphicon glyphicon-pencil"></span>
+										  	</a>
+										</button>
+									</div>							
+								</div>
+								<div class="col-xs-1"></div>
+							</td>
+						</tr>
+						<tr>
+							<td class="js_td">
+								<a href="">									
+									<div class="col-xs-7 carousel_pic">
+										<img src="/front.1/resource/1.jpg" class="img-responsive" alt="Image">
+										<div class="img_info">
+											<div class="writer_name">泥石流</div>
+											<div class="writer_info">泥石流</div>
+											<h4>奥运会泥石流</h4>
+											<div class="detile">泥石流女神泥石流，女神泥石流女神泥石流女，神泥石流女神泥石流女神泥石流女神泥石流女神。</div>
+										</div>
+									</div>
+																				
+								</a>
+								<div class="col-xs-4 control">
+									<div class="box2">
+										<div class="col-xs-12">投放时间：2016/06/01</div>
+										<div class="col-xs-12">开始时间：2016/06/01</div>
+										<div class="col-xs-12">结束时间：2016/06/01</div>
+									</div>
+									<div class="btn-group ">
+										<button type="button" class="btn btn-default btn-sm ">
+									  	<a href="#" class="tooltip-hide control" data-toggle="tooltip" data-placement="top" title="删除">
+									  	    <span class="glyphicon glyphicon-remove"></span>
+									  	</a>
+										</button>
+										<button type="button" class="btn btn-default btn-sm ">
+										  	<a href="#" class="tooltip-hide control" data-toggle="tooltip" data-placement="top" title="修改">
+										  	    <span class="glyphicon glyphicon-pencil"></span>
+										  	</a>
+										</button>
+									</div>							
+								</div>
+								<div class="col-xs-1"></div>
+							</td>
+						</tr>
+					</tbody>
+				</table>				
+			</div>
+		</div>
+	</div>
 </body>
-<script type="text/javascript" src="/front.1/js/js-lib/setImagePreview.js">
-	
-</script>
 </html>

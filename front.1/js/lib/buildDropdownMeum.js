@@ -110,7 +110,7 @@ function buildDropdownMeum(dropdown){
 		var button=creatButton(user_name);
 		var collection=dropdownList("href","/front.1/html/collection.html","我的收藏");
 		var articleList=dropdownList("href","/front.1/html/articleList.html","发布文章");
-		var carousePreview=dropdownList("href","/front.1/html/carousePreview.html","发布轮播");
+		var carousePreview=dropdownList("href","/front.1/html/carouselPreview.html","发布轮播");
 		var logOut=dropdownList("onclick","logOut()","退出登录");
 		
 		$("#js_index").after(li);

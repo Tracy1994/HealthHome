@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+	<title>carousel</title>
+	<link rel="stylesheet" href="http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap.min.css">
+	<script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/front.1/js/js-lib/setImagePreview.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top " role="navigation">
+	
+	<div class="container">
+		<div class="navbar-brand">
+			<span><img src="/front.1/resource/logo.jpg" class="navbar-left"></span>
+			<span class="name  navbar-left">健康之家-发布轮播</span>
+			
+		</div>
+		
+		<ul class="nav navbar-nav navbar-right">
+
+			<li id="js_index">
+				<a href="/front.1/index.html" >首页</a>
+			</li>			
+			<li id="js_register">
+				<a href="/front.1/html/register.html" ">注册</a>
+			</li>
+			
+		</ul>
+	</div>
+</nav>
+<div class="container">
+	<form action="" method="POST" role="form">
+		<div class="form-group">
+			<div class="row">
+				<div class="col-xs-5">
+					<div class="input-group input-group-xs">
+						<span class="input-group-addon">开始日期</span>
+						<input type="date" name="" id="input" class="form-control" value="" required="required" pattern="" title="">
+					</div>
+				</div>
+
+				<div class="col-xs-5">
+					<div class="input-group input-group-xs">
+						<span class="input-group-addon">结束日期</span>
+						<input type="date" name="" id="input" class="form-control" value="" required="required" pattern="" title="">
+					</div>
+				</div>
+			</div>
+			
+			<div class="col-lg-6">
+	            <div class="input-group">
+	               <div class="input-group-btn">
+	                  <button type="button" class="btn btn-default 
+	                     dropdown-toggle" data-toggle="dropdown">
+	                     文章 
+	                     <span class="caret"></span>
+	                  </button>
+	                  <ul class="dropdown-menu">
+	                     <li><a href="#">文章 1</a></li>
+	                     <li><a href="#">文章 </a></li>
+	                     <li><a href="#">文章 </a></li>
+	                     <li><a href="#">文章 </a></li>
+	                  </ul>
+	               </div><!-- /btn-group -->
+	               <input type="text" class="form-control">
+	            </div><!-- /input-group -->
+	        </div><!-- /.col-lg-6 --><br>
+	        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+	         	<tbody>
+	         		<tr>
+	         			<td height="101" align="center">
+	         				<div id="localImag">
+	         					<img id="preview" src="/front.1/resource/index_img/test.jpg" width="150" height="180" style="display: block; width: 150px; height: 180px;">
+	         				</div>
+	         			</td>
+	         		</tr>
+	         		<tr>
+	         			<td align="center" style="padding-top:10px;">
+	         				<input type="file" name="file" id="doc" style="width:150px;" onchange="javascript:setImagePreview();">
+	         			</td>
+	         		</tr>
+	         	</tbody>
+	         </table>
+		</div>
+		<button type="submit" class="btn btn-primary">Submit</button>
+	</form>
+</div>
+
+</body>
+
+</html>

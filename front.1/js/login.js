@@ -95,7 +95,7 @@
 						var code=JSON.parse(resp).code;
 						console.log(code);
 						if (code == 0){
-							alert("登录成功！");
+							
 							window.location.href='/front.1/index.html';	
 							return false;												
 						}

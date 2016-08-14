@@ -4,7 +4,7 @@
  //  	</a>
 	// </button>
 function buildBtn(event,func,glyphicon,title){
-	debugger;
+	//debuger;
 	var btn=document.createElement("button");
 	btn.setAttribute("type","button");
 	btn.setAttribute("class","btn btn-default btn-sm");
@@ -56,7 +56,7 @@ function removeArticle(strArticle){
 	var r=confirm("是否确认删除该篇文章？")
 	  if (r==true)	  	
 	    {
-	    debugger;	    	
+	    //debuger;	    	
 	    	$.getJSON("/article/remove?article_id=" + article.id , function(jsondata){
 
 	    		if (jsondata.code==0) {

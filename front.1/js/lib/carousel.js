@@ -26,7 +26,7 @@ function sideBtnRight(){
 
 	return right;
 }
-function imgIndo(){
+function imgInfo(){
 	var img_info=document.createElement("div");
 	img_info.setAttribute("class","img_info");
 
@@ -94,7 +94,7 @@ function builtCarousel(){
 
 	var carousel_indicators=carouselIndicators();
 	var carousel_inner=carouselInner();
-	var img_info=imgIndo();
+	var img_info=imgInfo();
 	var btn_l=sideBtnLeft();
 	var btn_r=sideBtnRight();
 
