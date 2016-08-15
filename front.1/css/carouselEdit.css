@@ -1,0 +1,45 @@
+.box1{
+	height: 52px;
+}
+/*--input轮播图片预览
+--------------------------------------------------*/
+#doc{
+	
+}
+.control{
+	padding: 5px 10px;
+}
+.select_article .btn{
+	margin-top: 20px;
+	padding: 6px 88px;
+}
+.time{
+	margin: 10px 0px;
+}
+
+.prefer .btn{
+	padding: 6px 215px;	
+}
+.prefer input[type=radio]{
+	font-size: 15px;
+	margin: 15px 50px;
+}
+.submit .btn{
+	padding: 6px 228px;
+	margin: 10px 0px;
+}
+/*--type=file input design its style
+------------------------------------------*/
+.file {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    text-decoration: none;
+}
+.file input {
+    position: absolute;
+    font-size: 100px;
+    right: 0;
+    top: 0;
+    opacity: 0;
+}

@@ -2,11 +2,17 @@
 <html>
 <head>
 <meta charset="utf-8">
-	<title>carousel</title>
-	<link rel="stylesheet" href="http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap.min.css">
-	<script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
-	<script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="/front.1/js/js-lib/setImagePreview.js"></script>
+	<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+	<title>carousel edit</title>
+	<link rel="stylesheet" type="text/css" href="/front.1/css/carouselEdit.css">	
+	<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<script src="/front.1/js/lib/jquery-3.0.0.min.js"></script>	
+	<script type="text/javascript" src="/front.1/js/lib/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/front.1/js/lib/addLoadEvent.js"></script>
+	<script type="text/javascript" src="/front.1/js/carouselEdit.js"></script>
+	<script type="text/javascript" src="/front.1/js/lib/buildDropdownMeum.js"></script>
+	<!-- <script type="text/javascript" src="/front.1/js/lib/buildArticle.js"></script> -->
+	
 </head>
 <body>
 <nav class="navbar navbar-default navbar-fixed-top " role="navigation">
@@ -30,62 +36,161 @@
 		</ul>
 	</div>
 </nav>
+<div class="box1"></div>
 <div class="container">
-	<form action="" method="POST" role="form">
-		<div class="form-group">
-			<div class="row">
-				<div class="col-xs-5">
-					<div class="input-group input-group-xs">
-						<span class="input-group-addon">开始日期</span>
-						<input type="date" name="" id="input" class="form-control" value="" required="required" pattern="" title="">
+	<div class="row">
+		<div class="col-xs-8  col-xs-offset-2">			
+			<form action="" method="POST" role="form">
+				<div class="form-group">
+					<div class="col-xs-12">
+						<div id="localImag">
+							<img id="preview" src="/front.1/resource/1.jpg"   class="img-responsive">
+						</div>										
 					</div>
-				</div>
-
-				<div class="col-xs-5">
-					<div class="input-group input-group-xs">
-						<span class="input-group-addon">结束日期</span>
-						<input type="date" name="" id="input" class="form-control" value="" required="required" pattern="" title="">
+					<div class="col-xs-8  col-xs-offset-2">
+						<div class="row select_article">
+							<a href="javascript:;" class="file btn btn-default">选择轮播图片
+							    <input type="file" name="file" id="doc" onchange="javascript:setImagePreview();">
+							</a>
+							
+							<a class="btn btn-default" data-toggle="modal" href='#modal-id'>选择文章</a>
+							<div class="modal fade" id="modal-id">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+											<h4 class="modal-title">文章列表</h4>
+										</div>
+										<div class="modal-body">
+											<ul class="list-group">
+												<li class="list-group-item">
+													<div class="row">
+														<div class="col-xs-9">
+															这是文章的标题
+														</div>
+														<div class="col-xs-3">
+															<div class="btn-group ">
+																<button type="button" class="btn btn-default btn-sm" data-toggle="collapse"  data-target="#demo">
+															  	<a href="#" class="tooltip-hide control" data-toggle="tooltip" data-placement="top" title="详情">
+															  	    <span class="glyphicon glyphicon-list"></span>
+															  	</a>
+																</button>
+																<button type="button" class="btn btn-default btn-sm ">
+																  	<a href="#" class="tooltip-hide control" data-toggle="tooltip" data-placement="top" title="发布">
+																  	    <span class="glyphicon glyphicon-check"></span>
+																  	</a>
+																</button>
+															</div>	
+														</div>
+													</div>
+													<div id="demo" class="collapse">					
+														<p>
+															这是段落内容这是段落内容这是段落内容这是段落内容这是段落内容这是段落内容这是段落内容这是段落内容这是段落内容这是段落内容	
+														</p>											 
+													 	<span class="read">
+													 		<span class="glyphicon glyphicon-eye-open">阅读（1024）</span>
+													 		<span class="glyphicon glyphicon-thumbs-up">点赞（1024）</span>
+													 	</span>
+													</div>
+												</li>
+												<li class="list-group-item">
+													<div class="row">
+														<div class="col-xs-9">
+															这是文章的标题
+														</div>
+														<div class="col-xs-3">
+															<div class="btn-group ">
+																<button type="button" class="btn btn-default btn-sm" data-toggle="collapse"  data-target="#demo">
+															  	<a href="#" class="tooltip-hide control" data-toggle="tooltip" data-placement="top" title="详情">
+															  	    <span class="glyphicon glyphicon-list"></span>
+															  	</a>
+																</button>
+																<button type="button" class="btn btn-default btn-sm ">
+																  	<a href="#" class="tooltip-hide control" data-toggle="tooltip" data-placement="top" title="发布">
+																  	    <span class="glyphicon glyphicon-check"></span>
+																  	</a>
+																</button>
+															</div>	
+														</div>
+													</div>
+													<div id="demo" class="collapse">						<p>
+															这是段落内容这是段落内容这是段落内容这是段落内容这是段落内容这是段落内容这是段落内容这是段落内容这是段落内容这是段落内容	
+														</p>											 
+													 	<span class="read">
+													 		<span class="glyphicon glyphicon-eye-open">阅读（1024）</span>
+													 		<span class="glyphicon glyphicon-thumbs-up">点赞（1024）</span>
+													 	</span>
+													</div>
+												</li>
+												<li class="list-group-item">
+													<div class="row">
+														<div class="col-xs-9">
+															这是文章的标题
+														</div>
+														<div class="col-xs-3">
+															<div class="btn-group ">
+																<button type="button" class="btn btn-default btn-sm" data-toggle="collapse"  data-target="#demo">
+															  	<a href="#" class="tooltip-hide control" data-toggle="tooltip" data-placement="top" title="详情">
+															  	    <span class="glyphicon glyphicon-list"></span>
+															  	</a>
+																</button>
+																<button type="button" class="btn btn-default btn-sm ">
+																  	<a href="#" class="tooltip-hide control" data-toggle="tooltip" data-placement="top" title="发布">
+																  	    <span class="glyphicon glyphicon-check"></span>
+																  	</a>
+																</button>
+															</div>	
+														</div>
+													</div>
+													<div id="demo" class="collapse">						<p>
+															这是段落内容这是段落内容这是段落内容这是段落内容这是段落内容这是段落内容这是段落内容这是段落内容这是段落内容这是段落内容	
+														</p>											 
+													 	<span class="read">
+													 		<span class="glyphicon glyphicon-eye-open">阅读（1024）</span>
+													 		<span class="glyphicon glyphicon-thumbs-up">点赞（1024）</span>
+													 	</span>
+													</div>
+												</li>
+											</ul>
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-default" data-dismiss="modal">关闭窗口</button>
+											
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row time">
+							<div class="input-group input-group-xs">
+								<span class="input-group-addon">开始日期</span>
+								<input type="date" name="" id="input" class="form-control" value="" required="required" pattern="" title="">
+							</div>
+						</div>
+						<div class="row time">
+							<div class="input-group input-group-xs">
+								<span class="input-group-addon">结束日期</span>
+								<input type="date" name="" id="input" class="form-control" value="" required="required" pattern="" title="">
+							</div>
+						</div>
+						<div class="row prefer">
+							<button type="button" class="btn btn-default" data-toggle="collapse" data-target="#prefer">选择优先级</button>
+							    <div id="prefer" class="collapse">
+						    		<input type="radio" name="sex" value="male">高级
+						    		<input type="radio" name="sex" value="male">中级
+						    		<input type="radio" name="sex" value="female">低级
+							    </div>
+						</div>
+						<div class="row submit">
+							<button type="submit" class="btn btn-default ">Submit</button>
+						</div>		
 					</div>
-				</div>
-			</div>
-			
-			<div class="col-lg-6">
-	            <div class="input-group">
-	               <div class="input-group-btn">
-	                  <button type="button" class="btn btn-default 
-	                     dropdown-toggle" data-toggle="dropdown">
-	                     文章 
-	                     <span class="caret"></span>
-	                  </button>
-	                  <ul class="dropdown-menu">
-	                     <li><a href="#">文章 1</a></li>
-	                     <li><a href="#">文章 </a></li>
-	                     <li><a href="#">文章 </a></li>
-	                     <li><a href="#">文章 </a></li>
-	                  </ul>
-	               </div><!-- /btn-group -->
-	               <input type="text" class="form-control">
-	            </div><!-- /input-group -->
-	        </div><!-- /.col-lg-6 --><br>
-	        <table width="100%" border="0" cellspacing="0" cellpadding="0">
-	         	<tbody>
-	         		<tr>
-	         			<td height="101" align="center">
-	         				<div id="localImag">
-	         					<img id="preview" src="/front.1/resource/index_img/test.jpg" width="150" height="180" style="display: block; width: 150px; height: 180px;">
-	         				</div>
-	         			</td>
-	         		</tr>
-	         		<tr>
-	         			<td align="center" style="padding-top:10px;">
-	         				<input type="file" name="file" id="doc" style="width:150px;" onchange="javascript:setImagePreview();">
-	         			</td>
-	         		</tr>
-	         	</tbody>
-	         </table>
-		</div>
-		<button type="submit" class="btn btn-primary">Submit</button>
-	</form>
+						
+				
+			</form>
+		</div>		
+	</div>
+	
 </div>
 
 </body>
