@@ -40,3 +40,37 @@ function setImagePreview(avalue) {
 
 $(function (){ $("[data-toggle='tooltip']").tooltip(); });
 $(function(){$('.tooltip-hide').tooltip('hide');});
+$(".js_detail").click(function(){
+	debugger;
+	$('.tooltip-hide').tooltip('hide');
+});
+// <li class="list-group-item">
+// 	<div class="row">
+// 		<div class="col-xs-9">
+// 			这是文章的标题
+// 		</div>
+// 		<div class="col-xs-3">
+// 			<div class="btn-group ">
+// 				<button type="button" class="btn btn-default btn-sm js_dail" data-toggle="collapse"  data-target="#demo">
+// 			  	<a href="#" class="tooltip-hide control" data-toggle="tooltip" data-placement="top" title="详情">
+// 			  	    <span class="glyphicon glyphicon-list"></span>
+// 			  	</a>
+// 				</button>
+// 				<button type="button" class="btn btn-default btn-sm ">
+// 				  	<a href="#" class="tooltip-hide control" data-toggle="tooltip" data-placement="top" title="发布">
+// 				  	    <span class="glyphicon glyphicon-check"></span>
+// 				  	</a>
+// 				</button>
+// 			</div>	
+// 		</div>
+// 	</div>
+// 	<div id="demo" class="collapse">					
+// 		<p>
+// 			这是段落内容这是段落内容这是段落内容这是段落内容这是段落内容这是段落内容这是段落内容这是段落内容这是段落内容这是段落内容	
+// 		</p>											 
+// 	 	<span class="read">
+// 	 		<span class="glyphicon glyphicon-eye-open">阅读（1024）</span>
+// 	 		<span class="glyphicon glyphicon-thumbs-up">点赞（1024）</span>
+// 	 	</span>
+// 	</div>
+// </li>

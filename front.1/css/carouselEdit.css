@@ -3,30 +3,46 @@
 }
 /*--input轮播图片预览
 --------------------------------------------------*/
-#doc{
-	
+#localImag{
+	border: solid 1px rgb()
 }
-.control{
+.select_article .control 
+{
 	padding: 5px 10px;
 }
-.select_article .btn{
+.select_article  .article,
+.select_article  .img{
 	margin-top: 20px;
-	padding: 6px 88px;
+	width: 49%;
+	left: 2px;
 }
 .time{
 	margin: 10px 0px;
 }
 
 .prefer .btn{
-	padding: 6px 215px;	
+	padding: 6px ;	
+	border: solid 1px rgb(204,204,204);
+	background-color: rgb(223,223,223);
+	border-radius: 5px;
+	float: left;
+}
+.prefer .selection{
+	display: block;
+	float: left;
+	border: solid 1px rgb(204,204,204);
+	border-radius: 5px;
+	vertical-align: middle;
+	width: 82%;
+	margin-left:6px; 
+	line-height: 32px;
 }
 .prefer input[type=radio]{
-	font-size: 15px;
-	margin: 15px 50px;
+	margin: 1% 5%;
 }
 .submit .btn{
-	padding: 6px 228px;
 	margin: 10px 0px;
+	width: 100%;
 }
 /*--type=file input design its style
 ------------------------------------------*/
@@ -38,7 +54,7 @@
 }
 .file input {
     position: absolute;
-    font-size: 100px;
+    
     right: 0;
     top: 0;
     opacity: 0;
