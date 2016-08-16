@@ -84,4 +84,25 @@ class UploadMng extends CI_Model {
 
 		return '/imgs/article/'.$articleimg_name;
 	}
+
+	public function upload_carousel_img()
+	{
+		if (!$this->upload->do_upload('carouselimg'))
+		{
+			$this->str_err_msg = strip_tags($this->upload->display_errors());
+			return false;
+		}
+
+		$data = $this->upload->data();
+		$carouselimg_name = 'carousel_'.date('YmdHis', time()).strval(mt_rand(100000, 999999)).$data['file_ext'];
+		$carouselimg_path = $data['file_path'].'../imgs/article/';
+		$ret = rename($data['full_path'], $carouselimg_path.$acarouselimg_name);
+		if ($ret === false)
+		{
+			$this->str_err_msg = 'rename file failed';
+			return false;
+		}
+
+		return '/imgs/carousel/'.$carouselimg_name;
+	}
 }

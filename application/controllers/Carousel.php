@@ -11,7 +11,7 @@ class Carousel extends CI_Controller {
 		$this->load->model('UploadMng', 'upload_mng');
 	}
 
-	public function publish()
+	public function add()
 	{
 		if (!check_login())
 		{
@@ -25,18 +25,10 @@ class Carousel extends CI_Controller {
 			return false;
 		}
 
-		if (!isset($_REQUEST['article_id']) || intval($_REQUEST['article_id']) <= 0 ||
-			!isset($_REQUEST['begin_time']) || strlen($_REQUEST['begin_time']) == 0 ||
-			!isset($_REQUEST['end_time']) || strlen($_REQUEST['end_time']) == 0)
+		if (!isset($_REQUEST['article_id']) || intval($_REQUEST['article_id']) <= 0)
 		{
 			output_cgi_data(ERR_PARAMS, 'params error');
 			return false;
-		}
-
-		$priority = PRI_MIDDLE;
-		if (isset($_REQUEST['priority']))
-		{
-			$priority = intval($_REQUEST['priority']);
 		}
 
 		$carousel_url = $this->upload_mng->upload_carousel_img();
@@ -46,8 +38,7 @@ class Carousel extends CI_Controller {
 			return false;
 		}
 
-		$ret = $this->carousel_mng->add($_REQUEST['article_id'], $_REQUEST['begin_time'],
-		                                $_REQUEST['end_time'], $priority, $carousel_url);
+		$ret = $this->carousel_mng->add($_REQUEST['article_id'], $carousel_url);
 		if ($ret === false)
 		{
 			output_cgi_data(ERR_SYSTEM, 'add carousel failed');
@@ -58,7 +49,7 @@ class Carousel extends CI_Controller {
 		return true;
 	}
 
-	public function modify()
+	public function publish()
 	{
 		if (!check_login())
 		{
@@ -68,75 +59,30 @@ class Carousel extends CI_Controller {
 
 		if (!check_role_editor())
 		{
-			output_cgi_data(ERR_PERMISSION_DENIED, 'modify carousel denied to you');
+			output_cgi_data(ERR_PERMISSION_DENIED, 'publish carousel denied to you');
 			return false;
 		}
 
-		if (!isset($_REQUEST['carousel_id']) || intval($_REQUEST['carousel_id']) <= 0 ||
-			!isset($_REQUEST['article_id']) || intval($_REQUEST['article_id']) <= 0 ||
-			!isset($_REQUEST['begin_time']) || strlen($_REQUEST['begin_time']) == 0 ||
-			!isset($_REQUEST['end_time']) || strlen($_REQUEST['end_time']) == 0)
+		if (!isset($_REQUEST['carousel_ids']) || strlen($_REQUEST['carousel_ids']) == 0)
 		{
 			output_cgi_data(ERR_PARAMS, 'params error');
 			return false;
 		}
 
-		$priority = isset($_REQUEST['priority']) && intval($_REQUEST['priority']) > 0 ?
-			intval($_REQUEST['priority']) : 0;
-
-		$carousel_url = '';
-		if (isset($_FILES['carouselimg']))
+		$ret = $this->carousel_mng->publish($_REQUEST['carousel_ids']);
+		if ($ret === -1)
 		{
-			$carousel_url = $this->upload_mng->upload_carousel_img();
-			if ($carousel_url === false)
-			{
-				output_cgi_data(ERR_UPLOAD_FILE, $this->upload_mng->get_err_msg());
-				return false;
-			}
+			output_cgi_data(ERR_PARAMS, 'carousel id in carousel_ids has at least one is not exist');
+			return false;
 		}
-
-		$ret = $this->carousel_mng->modify($_REQUEST['carousel_id'], $_REQUEST['article_id'],
-			                               $_REQUEST['begin_time'], $_REQUEST['end_time'], 
-			                               $priority, $carousel_url);
-		if ($ret === false)
+		if (ret === -2)
 		{
-			output_cgi_data(ERR_SYSTEM, 'modify carousel info failed');
+			output_cgi_data(ERR_SYSTEM, 'publish carousel failed');
 			return false;
 		}
 
 		output_cgi_data(0, 'succ');
 		return true;
-	}
-
-	public function remove()
-	{
-		if (!check_login())
-		{
-			output_cgi_data(ERR_NO_LOGIN, 'user no login');
-			return false;
-		}
-
-		if (!check_role_editor())
-		{
-			output_cgi_data(ERR_PERMISSION_DENIED, 'remove carousel denied to you');
-			return false;
-		}
-
-		if (!isset($_REQUEST['carousel_id']) || intval($_REQUEST['carousel_id']) <= 0)
-		{
-			output_cgi_data(ERR_PARAMS, 'params error');
-			return false;
-		}
-
-		$ret = $this->carousel_mng->remove($_REQUEST['carousel_id']);
-		if ($ret === false)
-		{
-			output_cgi_data(ERR_SYSTEM, 'remove carousel info failed');
-			return false;
-		}
-
-		output_cgi_data(0, 'succ');
-		return false;
 	}
 
 	public function get_effect_list()
@@ -148,11 +94,11 @@ class Carousel extends CI_Controller {
 			return false;
 		}
 
-		output_cgi_data(0, 'succ', array('count' => count($ret), 'items' => $ret));
+		output_cgi_data(0, 'succ', $ret);
 		return true;
 	}
 
-	public function get_history_list()
+	public function get_list()
 	{
 		if (!check_login())
 		{

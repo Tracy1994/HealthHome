@@ -52,7 +52,7 @@ class DBOptMng extends CI_Model
 
 	}
 
-	public function select($table_name, $arr_where, $str_fields = '')
+	public function select($table_name, $arr_where = array(), $str_fields = '')
 	{	
 		return $this->select_conditions($table_name, $arr_where, $str_fields);
 	}
