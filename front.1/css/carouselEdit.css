@@ -4,17 +4,15 @@
 /*--input轮播图片预览
 --------------------------------------------------*/
 #localImag{
-	border: solid 1px rgb()
+	
 }
-.select_article .control 
-{
-	padding: 5px 10px;
+.select_article .control {
+	padding: 5px 20px;
 }
 .select_article  .article,
 .select_article  .img{
-	margin-top: 20px;
-	width: 49%;
-	left: 2px;
+	margin-top: 10px;
+	width: 100%;
 }
 .time{
 	margin: 10px 0px;
@@ -23,9 +21,11 @@
 .prefer .btn{
 	padding: 6px ;	
 	border: solid 1px rgb(204,204,204);
-	background-color: rgb(223,223,223);
+	background-color: rgb(238,238,238);
 	border-radius: 5px;
 	float: left;
+	margin-right:6px;
+	margin-bottom: 6px; 
 }
 .prefer .selection{
 	display: block;
@@ -34,7 +34,6 @@
 	border-radius: 5px;
 	vertical-align: middle;
 	width: 82%;
-	margin-left:6px; 
 	line-height: 32px;
 }
 .prefer input[type=radio]{

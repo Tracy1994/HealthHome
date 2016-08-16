@@ -1,3 +1,4 @@
+// set carousel img preview
 function setImagePreview(avalue) {
 	var docObj=document.getElementById("doc");	 
 	var imgObjPreview=document.getElementById("preview");
@@ -38,31 +39,125 @@ function setImagePreview(avalue) {
 }
 
 
-$(function (){ $("[data-toggle='tooltip']").tooltip(); });
-$(function(){$('.tooltip-hide').tooltip('hide');});
-$(".js_detail").click(function(){
-	debugger;
-	$('.tooltip-hide').tooltip('hide');
-});
+function buildDetialBtn(article){
+	var detial_btn=document.createElement("button");
+	detial_btn.setAttribute("type","button");
+	detial_btn.setAttribute("class","btn btn-default btn-sm control");
+	detial_btn.setAttribute("data-toggle","collapse");
+	detial_btn.setAttribute("data-target","#demo"+ article.id);
+	detial_btn.setAttribute("title","详情");
+
+	var span=document.createElement("span");
+	span.setAttribute("class","glyphicon glyphicon-list");
+
+	detial_btn.appendChild(span);
+
+	return detial_btn;
+}
+function buildAddBtn(article){
+	var add_btn=document.createElement("button");
+	add_btn.setAttribute("type","button");
+	add_btn.setAttribute("class","btn btn-default btn-sm control");
+	add_btn.setAttribute("title","添加");
+
+	var span=document.createElement("span");
+	span.setAttribute("class","glyphicon glyphicon-check");
+
+	add_btn.appendChild(span);
+
+	return add_btn;
+}
+function buildBtnGroup(article){
+	var btn_group=document.createElement("div");
+	btn_group.setAttribute("class","col-xs-3 btn-group");
+
+	var detial_btn=buildDetialBtn(article);
+	var add_btn=buildAddBtn();
+
+	btn_group.appendChild(detial_btn);
+	btn_group.appendChild(add_btn);
+
+	return btn_group;
+}
+function buildRead(article){
+	var read=document.createElement("span");
+	read.setAttribute("class","read");
+
+	var span1=document.createElement("span");
+	span1.setAttribute("class","glyphicon glyphicon-eye-open");
+	var span_r=document.createElement("span");
+	var span_r_txt=document.createTextNode(' 阅读('+article.click_cnt+') ');
+
+	var span2=document.createElement("span");
+	span2.setAttribute("class","glyphicon glyphicon-thumbs-up");
+	var span_l=document.createElement("span");
+	var span_l_txt=document.createTextNode(' 点赞('+article.like_cnt+') ');
+
+	read.appendChild(span1);
+	read.appendChild(span_r);
+	span_r.appendChild(span_r_txt);
+	read.appendChild(span2);
+	read.appendChild(span_l);
+	span_l.appendChild(span_l_txt);
+
+	return read;
+}
+function buildCollapse(article){
+	var collapse=document.createElement("div");
+	collapse.setAttribute("id","demo"+article.id);
+	collapse.setAttribute("class","collapse");
+
+	var p=document.createElement("p");
+	var p_text=document.createTextNode(article.summary);
+	p.appendChild(p_text);
+
+	var read=buildRead(article);
+
+	collapse.appendChild(p);
+	collapse.appendChild(read);
+
+	return collapse;
+
+}
+
+function loadArticle(article){
+	var li=document.createElement("li");
+	li.setAttribute("class","list-group-item");
+
+	var row=document.createElement("div");
+	row.setAttribute("class","row");
+
+	title=document.createElement("div");
+	title.setAttribute("class","col-xs-9");
+	var title_text=document.createTextNode(article.title);
+	title.appendChild(title_text);
+
+	var btn_group=buildBtnGroup(article);
+	var collapse=buildCollapse(article);
+
+	li.appendChild(row);
+	li.appendChild(collapse);
+
+	row.appendChild(title);
+	row.appendChild(btn_group);
+
+	document.getElementById("js_articleList").appendChild(li);
+}
 // <li class="list-group-item">
 // 	<div class="row">
 // 		<div class="col-xs-9">
 // 			这是文章的标题
 // 		</div>
-// 		<div class="col-xs-3">
-// 			<div class="btn-group ">
-// 				<button type="button" class="btn btn-default btn-sm js_dail" data-toggle="collapse"  data-target="#demo">
-// 			  	<a href="#" class="tooltip-hide control" data-toggle="tooltip" data-placement="top" title="详情">
-// 			  	    <span class="glyphicon glyphicon-list"></span>
-// 			  	</a>
+// 		
+// 			<div class="btn-group col-xs-3">
+// 				<button type="button" class="btn btn-default btn-sm control" data-toggle="collapse"  data-target="#demo"  title="详情">
+// 					<span class="glyphicon glyphicon-list"></span>
 // 				</button>
-// 				<button type="button" class="btn btn-default btn-sm ">
-// 				  	<a href="#" class="tooltip-hide control" data-toggle="tooltip" data-placement="top" title="发布">
-// 				  	    <span class="glyphicon glyphicon-check"></span>
-// 				  	</a>
+// 				<button type="button" class="btn btn-default btn-sm control">
+// 					<span class="glyphicon glyphicon-check"  title="添加"></span>
 // 				</button>
 // 			</div>	
-// 		</div>
+// 		
 // 	</div>
 // 	<div id="demo" class="collapse">					
 // 		<p>
