@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class DBOptMng extends CI_Model
 {
-	public function get_count($table_name, $arr_where, $arr_where_or=array())
+	public function get_count($table_name, $arr_where = array(), $arr_where_or=array())
 	{
 		if (is_array($arr_where) && count($arr_where) > 0)
 		{

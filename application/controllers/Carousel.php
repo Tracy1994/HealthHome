@@ -115,7 +115,7 @@ class Carousel extends CI_Controller {
 		$num = isset($_REQUEST['num']) ? intval($_REQUEST['num']) : 10;
 		$page = isset($_REQUEST['page']) ? intval($_REQUEST['page']) : 1;
 
-		$list = $this->carousel_mng->get_history_list($num, $num * ($page - 1));
+		$list = $this->carousel_mng->get_list($num, $num * ($page - 1));
 		if ($list === false)
 		{
 			output_cgi_data(ERR_SYSTEM, 'get history list failed');

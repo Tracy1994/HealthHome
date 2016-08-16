@@ -80,7 +80,7 @@ class CarouselMng extends CI_Model {
 
 	public function get_list($num, $offset)
 	{
-		$count = $this->db_opt_mng->get_count($this->table_name);
+		$count = $this->db_opt_mng->get_count($this->table_carousel);
 		if ($count === false)
 		{
 			return false;
@@ -88,7 +88,7 @@ class CarouselMng extends CI_Model {
 
 		$items = $this->db_opt_mng->select_conditions(
 			$this->table_carousel, array(), '', $num, $offset, 'create_time');
-		if ($list === false)
+		if ($items === false)
 		{
 			return false;
 		}
