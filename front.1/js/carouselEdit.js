@@ -178,20 +178,19 @@ function loadArticle(article){
 // 	 	</span>
 // 	</div>
 // </li>
+
 //表单验证
-function validateForm(){
-	function validateForm(){
-	var img=document.forms["myForm"]["carouselimg"].value;
-	var articleId=document.forms["myForm"]["article_id"].value;
-	if (img==null || img==""){
-	  	alert("请上传封面！");
-	  	return false;
-		}
-	
-	if (articleId==null || articleId==""){
-	  	alert("请上传文章！");
-	  	return false;
-		}
-	}
-}
+$.extend($.validator.messages, {
+	required: '必填' //必须输入字段    
+});
+
+$().ready(function() {
+    $("#commentForm").validate();
+
+});
+$.validator.setDefaults({
+    submitHandler: function() {
+      alert("提交事件!");
+    }
+});
 

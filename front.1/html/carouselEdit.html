@@ -7,7 +7,8 @@
 	<link rel="stylesheet" type="text/css" href="/front.1/css/carouselEdit.css">	
 	<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
 	<script src="/front.1/js/lib/jquery-3.0.0.min.js"></script>	
-	<script type="text/javascript" src="/front.1/js/lib/jquery.validate.js"></script>
+	<script type="text/javascript" src="/front.1/js/lib/jquery.validate.min.js"></script>
+	<script type="text/javascript" src="/front.1/js/lib/jquery.validate.messages_zh.js"></script>
 	<script type="text/javascript" src="/front.1/js/lib/bootstrap.min.js"></script>
 	<script type="text/javascript" src="/front.1/js/lib/addLoadEvent.js"></script>
 	<script type="text/javascript" src="/front.1/js/lib/getJsonHot.js"></script>
@@ -44,7 +45,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-xs-8  col-xs-offset-2">
-				<form action="/carousel/add" method="POST" role="form"  name="myForm" onsubmit="return validateForm()">
+				<form action="/carousel/add" method="POST" role="form"  name="myForm" onsubmit="return validateForm()" class="cmxform" id="commentForm" >
 					<div class="form-group">
 						<div id="localImag" class="col-xs-12">
 							
@@ -54,7 +55,7 @@
 						<div class="col-xs-8  col-xs-offset-2">
 							<div class="row select_article">
 								<a href="javascript:;" class="file btn btn-default">选择轮播图片
-								    <input type="file" name="carouselimg" id="doc" onchange="javascript:setImagePreview();">
+								    <input type="file" name="carouselimg" required id="doc" onchange="javascript:setImagePreview();">
 								</a>
 								<br>
 								<a class="btn btn-default article" data-toggle="modal" href='#modal-id'>选择文章</a>
@@ -101,9 +102,10 @@
 									</div>
 								</div>
 							</div>
-							<input type="text" name="article_id" class="articleId">
+							<input type="text" name="article_id" required class="articleId">
 							<div class="row submit">
-								<button type="submit" class="btn btn-default " >Submit</button>
+								<button type="submit" class="btn btn-primary">Submit</button>							
+								<!-- <input class="submit" type="submit" value="Submit"> -->
 							</div>		
 						</div>
 					</div>							
@@ -113,7 +115,7 @@
 	</div>
 <script type="text/javascript">
 	$(".file").on("change","input[type='file']",function(){
-		debugger;
+		
 	    var filePath=$(this).val();
 	    if(filePath.indexOf("jpg")!=-1 || filePath.indexOf("png")!=-1)
 	    {
@@ -127,21 +129,21 @@
 	        return false ;
 	    }
 	});
-	function validateForm(){
-		function validateForm(){
-		var img=document.forms["myForm"]["carouselimg"].value;
-		var articleId=document.forms["myForm"]["article_id"].value;
-		if (img==null || img==""){
-		  	alert("请上传封面！");
-		  	return false;
-			}
+	// function validateForm(){
+	// 	function validateForm(){
+	// 	var img=document.forms["myForm"]["carouselimg"].value;
+	// 	var articleId=document.forms["myForm"]["article_id"].value;
+	// 	if (img==null || img==""){
+	// 	  	alert("请上传封面！");
+	// 	  	return false;
+	// 		}
 		
-		if (articleId==null || articleId==""){
-		  	alert("请上传文章！");
-		  	return false;
-			}
-		}
-	}
+	// 	if (articleId==null || articleId==""){
+	// 	  	alert("请上传文章！");
+	// 	  	return false;
+	// 		}
+	// 	}
+	// }
 </script>
 </body>
 

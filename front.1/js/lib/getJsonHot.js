@@ -15,7 +15,6 @@ function refreshArticleList(articles){
 	$("#articleList").empty();
 	for (var i = 0; i < articles.length; i++) {
 		var articleDiv = loadArticle(articles[i]);
-
 		$("#js_article_list").append(articleDiv);
 	}
 
