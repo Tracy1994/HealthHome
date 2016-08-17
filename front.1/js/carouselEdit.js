@@ -59,6 +59,8 @@ function buildAddBtn(article){
 	add_btn.setAttribute("type","button");
 	add_btn.setAttribute("class","btn btn-default btn-sm control");
 	add_btn.setAttribute("title","添加");
+	add_btn.setAttribute("onclick", "getArticle( '" + JSON.stringify(article) + "')");
+	add_btn.setAttribute("data-dismiss","modal");
 
 	var span=document.createElement("span");
 	span.setAttribute("class","glyphicon glyphicon-check");
@@ -67,12 +69,19 @@ function buildAddBtn(article){
 
 	return add_btn;
 }
+function getArticle(strArticle){
+	var article = JSON.parse(strArticle);
+	$(".articleId").val(article.id);
+	$(".article").text(article.title);
+	alert("已选择文章");
+	return false;
+}
 function buildBtnGroup(article){
 	var btn_group=document.createElement("div");
 	btn_group.setAttribute("class","col-xs-3 btn-group");
 
 	var detial_btn=buildDetialBtn(article);
-	var add_btn=buildAddBtn();
+	var add_btn=buildAddBtn(article);
 
 	btn_group.appendChild(detial_btn);
 	btn_group.appendChild(add_btn);
@@ -169,3 +178,20 @@ function loadArticle(article){
 // 	 	</span>
 // 	</div>
 // </li>
+//表单验证
+function validateForm(){
+	function validateForm(){
+	var img=document.forms["myForm"]["carouselimg"].value;
+	var articleId=document.forms["myForm"]["article_id"].value;
+	if (img==null || img==""){
+	  	alert("请上传封面！");
+	  	return false;
+		}
+	
+	if (articleId==null || articleId==""){
+	  	alert("请上传文章！");
+	  	return false;
+		}
+	}
+}
+

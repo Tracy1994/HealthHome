@@ -9,43 +9,22 @@
 .select_article .control {
 	padding: 5px 20px;
 }
-.select_article  .article,
-.select_article  .img{
+.select_article  .article{
 	margin-top: 10px;
 	width: 100%;
 }
-.time{
-	margin: 10px 0px;
+.modal-body #js_articleList{
+	height: 200px;
+	overflow: auto;
 }
 
-.prefer .btn{
-	padding: 6px ;	
-	border: solid 1px rgb(204,204,204);
-	background-color: rgb(238,238,238);
-	border-radius: 5px;
-	float: left;
-	margin-right:6px;
-	margin-bottom: 6px; 
-}
-.prefer .selection{
-	display: block;
-	float: left;
-	border: solid 1px rgb(204,204,204);
-	border-radius: 5px;
-	vertical-align: middle;
-	width: 82%;
-	line-height: 32px;
-}
-.prefer input[type=radio]{
-	margin: 1% 5%;
-}
 .submit .btn{
 	margin: 10px 0px;
 	width: 100%;
 }
 /*--type=file input design its style
 ------------------------------------------*/
-.file {
+/*.file {
     position: relative;
     display: inline-block;
     overflow: hidden;
@@ -56,4 +35,32 @@
     right: 0;
     top: 0;
     opacity: 0;
+}
+*/
+.file {
+    position: relative;
+    display: inline-block;
+    background: #D0EEFF;
+    border: 1px solid #99D3F5;
+    border-radius: 4px;
+    padding: 4px 12px;
+    overflow: hidden;
+    color: #1E88C7;
+    text-decoration: none;
+    text-indent: 0;
+    line-height: 20px;
+    width: 100%;
+}
+.file input {
+    position: absolute;
+    font-size: 100px;
+    right: 0;
+    top: 0;
+    opacity: 0;
+}
+.file:hover {
+    background: #AADFFD;
+    border-color: #78C3F3;
+    color: #004974;
+    text-decoration: none;
 }

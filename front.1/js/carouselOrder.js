@@ -9,7 +9,7 @@ $(function() {
 		   alert($(this).sortable("toArray"));
 		}
 		});
-	$("#public").click(function(){
+	$("#publish").click(function(){
 
 	});
 })
