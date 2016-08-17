@@ -1,0 +1,27 @@
+.box1{
+	height: 55px;
+}
+li{
+	list-style: none;
+	line-height: 350%;
+	font-size: 20px;
+}
+li button{
+	float: right;
+}
+.ui-state-default{
+	height: 100px;
+}
+li img{
+	padding-top: 5px;
+}
+li button{
+	margin: 20px 10px;
+}
+li span{
+	padding: 5px 30px;	
+}
+#public{
+	width: 100%;
+
+}

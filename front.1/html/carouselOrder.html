@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+	<title>carousel order</title>
+	<link rel="stylesheet" type="text/css" href="/front.1/css/carouselOrder.css">	
+	<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<script src="/front.1/js/lib/jquery-3.0.0.min.js"></script>
+	<script src="/front.1/js/lib/jquery-ui.min.js"></script>	
+	<script type="text/javascript" src="/front.1/js/lib/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/front.1/js/lib/addLoadEvent.js"></script>
+	<!-- <script type="text/javascript" src="/front.1/js/lib/getJsonHot.js"></script> -->
+	<script type="text/javascript" src="/front.1/js/carouselOrder.js"></script>	
+	<script type="text/javascript" src="/front.1/js/lib/buildDropdownMeum.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top " role="navigation">
+	
+	<div class="container">
+		<div class="navbar-brand">
+			<span><img src="/front.1/resource/logo.jpg" class="navbar-left"></span>
+			<span class="name  navbar-left">健康之家-发布轮播</span>			
+		</div>
+		
+		<ul class="nav navbar-nav navbar-right">
+
+			<li id="js_index">
+				<a href="/front.1/index.html" >首页</a>
+			</li>			
+			<li id="js_register">
+				<a href="/front.1/html/register.html" ">注册</a>
+			</li>			
+		</ul>
+	</div>
+</nav>
+<div class="box1"></div>
+<div class="col-xs-8 col-xs-offset-2">
+	<div class="list-group sortable">
+		<ul class="sortable list-group">
+			<a href="#" class="list-group-item active">
+			<h2 class="list-group-item-heading">轮播排序</h2>
+			<p class="list-group-item-text">
+				用鼠标拖动图片决定轮播顺序。
+			</p>
+			</a>
+			
+			<li class="ui-state-default list-group-item"  id="1">
+				<img src="/front.1/resource/1.jpg" class="img-responsive col-xs-4" alt="Image">
+				轮播id 文章的标题
+				<button type="button" class="btn btn-sm btn-default">
+					<span class="glyphicon glyphicon-trash"></span>
+				</button>							
+			</li>
+			<li class="ui-state-default list-group-item"  id="1">
+				<img src="/front.1/resource/1.jpg" class="img-responsive col-xs-4" alt="Image">
+				轮播id 文章的标题
+				<button type="button" class="btn btn-sm btn-default">
+					<span class="glyphicon glyphicon-trash"></span>
+				</button>							
+			</li>
+		</ul>
+
+	</div>
+	<div class="col-xs-3 col-xs-offset-9 ">
+		<button type="button" class="btn btn-sm btn-default " id="publish">发布到外网</button>
+	</div>
+</div>
+<script type="text/javascript">
+	
+</script>
+</body>
+</html>

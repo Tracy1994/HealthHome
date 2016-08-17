@@ -1,18 +1,18 @@
 /*---消除nav置顶影响
 --------------------------------------------*/
 .box1{
-	height: 52px;
+	height: 55px;
 }
 /*--右边col-xs-4 时间及按钮租的显示
 ------------------------------------------*/
 .box2{
 	height: 120px;
-	font-size: 20px;
+	font-size: 19px;
 	position: relative;
-	left: -10px;
-	text-align: center;
+	text-align: left;
 	letter-spacing:3px;
 	line-height: 35px;
+	padding-top: 2%;
 }
 .control {
 	position: relative;
