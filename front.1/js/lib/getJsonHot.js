@@ -13,6 +13,7 @@ $.getJSON("/article/get_list?type_id=0",function(jsondata){
 //页面加载每篇文章的信息
 function refreshArticleList(articles){
 	$("#articleList").empty();
+	$("#js_articleList").empty();
 	for (var i = 0; i < articles.length; i++) {
 		var articleDiv = loadArticle(articles[i]);
 		$("#js_article_list").append(articleDiv);
