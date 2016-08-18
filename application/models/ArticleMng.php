@@ -21,21 +21,24 @@ class ArticleMng extends CI_Model {
 		$this->load->model('DBOptMng', 'db_opt_mng');
 	}
 
-	public function get_info_list($article_id)
+	public function get_info_list($article_ids)
 	{
-		$arr_where = array('id' => $article_id);
-		$ret = $this->db_opt_mng->select($this->table_article_all_info, $arr_where, $this->field_info_list);
-		if ($ret === false)
+		$arr_ids = explode("_", $article_ids);
+		$arr_infos = array();
+
+		foreach ($arr_ids as $article_id) 
 		{
-			return false;
+			$arr_where = array('id' => $article_id);
+			$ret = $this->db_opt_mng->select($this->table_article_all_info, $arr_where, $this->field_info_list);
+			if ($ret === false || count($ret) == 0)
+			{
+				return false;
+			}
+
+			array_push($arr_infos, $ret[0]);
 		}
 
-		if (count($ret) == 0)
-		{
-			return array();
-		}
-
-		return $ret[0];
+		return array('count' => count($arr_infos), 'items' => $arr_infos);
 	}
 
 	public function get_info_detail($article_id)
