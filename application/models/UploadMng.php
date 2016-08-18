@@ -95,7 +95,7 @@ class UploadMng extends CI_Model {
 
 		$data = $this->upload->data();
 		$carouselimg_name = 'carousel_'.date('YmdHis', time()).strval(mt_rand(100000, 999999)).$data['file_ext'];
-		$carouselimg_path = $data['file_path'].'../imgs/article/';
+		$carouselimg_path = $data['file_path'].'../imgs/carousel/';
 		$ret = rename($data['full_path'], $carouselimg_path.$acarouselimg_name);
 		if ($ret === false)
 		{
