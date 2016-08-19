@@ -19,13 +19,13 @@ class Article extends CI_Controller {
 
 	public function get_info_list()
 	{
-		if (!isset($_REQUEST['article_id']))
+		if (!isset($_REQUEST['article_ids']))
 		{
 			output_cgi_data(ERR_PARAMS, 'params error');
 			return false;
 		}
 
-		$ret = $this->article_mng->get_info_list($_REQUEST['article_id']);
+		$ret = $this->article_mng->get_info_list($_REQUEST['article_ids']);
 		if ($ret === false)
 		{
 			output_cgi_data(ERR_SYSTEM, 'system errror');
