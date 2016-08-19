@@ -154,31 +154,7 @@ function loadArticle(article){
 	return li;
 
 }
-function getPageOneData(){
-	$.getJSON("/article/get_list?type_id=0&page=1&num="+5,function(jsondata){
-			console.log("jsondata.date.items"+ jsondata.data.items);
-			
-			console.log(jsondata);
-			if (jsondata.code!=0) {
-				alert("系统繁忙，请稍后再试～～");
-			}
-			else{
-				onePageItems(jsondata.data.items);
-			}
-	});
-}
-function getPageData(page){
-	$.getJSON("/article/get_list?type_id=0&page=" + page + "&num="+5,function(jsondata){
-		console.log("jsondata.date.items"+ jsondata.data.items);				
-		console.log(jsondata);
-		if (jsondata.code!=0) {
-			alert("系统繁忙，请稍后再试～～");
-		}
-		else{
-			onePageItems(jsondata.data.items);
-		}				
-	});
-}
+
 //分页加载文章
 function getArticleList(articles){
 	var articleNum=articles.count;
@@ -188,19 +164,19 @@ function getArticleList(articles){
 	if (pageNum==1) {
 		$("#js_btn2").hide();
 		$("#js_btn3").hide();
-		getPageOneData();
+		getFirstPageData();
 	}
 	if (pageNum==2 ||pageNum==3) {
+		getFirstPageData();
 		if (pageNum==2) {
 			$("#js_btn3").hide();	
 		}
-		getPageOneData();
-		
+				
 		$("#js_btn1").click(function(){
 
 			$("#js_btn1").addClass("active");
 			$("#js_btn2").removeClass("active");
-			$("#js_btn3").removeClass("active");
+			$("#js_btn3").removeClass("active");On
 			var page=parseInt($("#js_btn1").text());
 			getPageData(page);
 			
@@ -225,7 +201,7 @@ function getArticleList(articles){
 
 	if (pageNum>3) 
 	{
-		getPageOneData();
+		getFirstPageData();
 		$("#js_btn1").click(function(){
 			var page=parseInt($("#js_btn1").text());
 			getPageData(page);
@@ -237,8 +213,8 @@ function getArticleList(articles){
 
 				$("#js_btn2").removeClass("active");
 				$("#js_btn3").removeClass("active");
-				$("#js_btn1").removeClass("disable");
-				$("#js_btn3").removeClass("disable");
+				$("#js_btn1").removeClass("disabled");
+				$("#js_btn3").removeClass("disabled");
 				$("#js_btn1").addClass("active");
 				var btn1Num=parseInt($("#js_btn1").text());					
 				var btn2Num=btn1Num;
@@ -270,12 +246,12 @@ function getArticleList(articles){
 				$("#js_btn2").removeClass("active");
 				$("#js_btn3").addClass("disabled");
 				
-				var btn3Num=parseInt($("#js_btn3").text()) ;
-				var btn2Num=btn3Num;
-				var btn1Num=eval( btn3Num-1);		
-				$("#js_btn1").text(btn1Num);
-				$("#js_btn2").text(btn2Num);
-				$("#js_btn3").text("最后一页");	
+				// var btn3Num=parseInt($("#js_btn3").text()) ;
+				// var btn2Num=btn3Num;
+				// var btn1Num=eval( btn3Num-1);		
+				// $("#js_btn1").text(btn1Num);
+				// $("#js_btn2").text(btn2Num);
+				$("#js_btn3").text( pageNum+"(最后一页)");	
 				
 			}
 			else{
@@ -296,80 +272,8 @@ function getArticleList(articles){
 		});
 	}	
 }
-// $(function(){
-	
-	
-// 	$("#js_btn3").click(function(){
-// 		console.log( "articleNum"+articleNum);
-// 		// var btn1Num=parseInt() $("#js_btn1").text();
-// 		// var btn2Num= $("#js_btn2").text();
-// 		var btn3Num=parseInt($("#js_btn3").text()) ;
 
-// 		var btn2Num=btn3Num;
-// 		var btn1Num=eval( btn3Num-1);		
-// 		var btn3Num=eval( btn3Num+1);
-// 		$("#js_btn1").text(btn1Num);
-// 		$("#js_btn2").text(btn2Num);
-// 		$("#js_btn3").text(btn3Num);
-	
-// 	});
-// 	$("#js_btn1").click(function(){
-// 		debugger;
-// 		// var btn1Num=parseInt() $("#js_btn1").text();
-// 		// var btn2Num= $("#js_btn2").text();
-// 		var btn1Num=parseInt($("#js_btn1").text());
 
-// 		var btn2Num=btn1Num;
-// 		var btn3Num=eval( btn1Num+1);
-// 		var btn1Num=eval( btn1Num-1);				
-// 		$("#js_btn1").text(btn1Num);
-// 		$("#js_btn2").text(btn2Num);
-// 		$("#js_btn3").text(btn3Num);
-	
-// 	});
-// 	$("#js_btn2").click(function(){
-// 		debugger;
-// 		var page=parseInt($("#js_btn2").text());
-// 		$.getJSON("/article/get_list?type_id=0&page=" + page + "&num="+5,function(jsondata){
-// 				console.log("jsondata.date.items"+ jsondata.data.items);
-				
-// 				console.log(jsondata);
-// 				if (jsondata.code!=0) {
-// 					alert("系统繁忙，请稍后再试～～");
-// 				}
-// 				else{
-// 					onePageItems(jsondata.data.items);
-// 				}
-// 		});
-// 	});
-// });
-
-//页面加载每页文章的信息
-// function refreshArticlePage(articles){
-	
-// 	var pageNum= Math.ceil(articles.length/5);
-// 	console.log("pageNum:"+pageNum);
-// 	for (var i = 0; i < pageNum; i++) {
-// 		$.getJSON("/article/get_list?type_id=0&page=" + i + "&num="+5,function(jsondata){
-// 				console.log("jsondata.date.items"+ jsondata.data.items);
-				
-// 				console.log(jsondata);
-// 				if (jsondata.code!=0) {
-// 					alert("系统繁忙，请稍后再试～～");
-// 				}
-// 				else{
-// 					onePageItems(jsondata.data.items);
-// 				}
-// 		});
-// 	}
-// }	
-function onePageItems(articles){
-	$("#js_articleList").empty();
-	for (var i = 0; i < articles.length; i++) {
-		var one_page = loadArticle(articles[i]);
-		$("#js_articleList").append(one_page);
-	}
-}
 // <li class="list-group-item">
 // 	<div class="row">
 // 		<div class="col-xs-9">

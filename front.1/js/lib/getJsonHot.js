@@ -10,7 +10,41 @@ $.getJSON("/article/get_list?type_id=0",function(jsondata){
 			getArticleList(jsondata.data);
 		}
 });
-
+//首次加载文章内容
+function getFirstPageData(){
+	$.getJSON("/article/get_list?type_id=0&page=1&num="+5,function(jsondata){
+			console.log("jsondata.date.items"+ jsondata.data.items);
+			
+			console.log(jsondata);
+			if (jsondata.code!=0) {
+				alert("系统繁忙，请稍后再试～～");
+			}
+			else{
+				onePageItems(jsondata.data.items);
+			}
+	});
+}
+//根据第几页和每页的页数加载
+function getPageData(page){
+	$.getJSON("/article/get_list?type_id=0&page=" + page + "&num="+5,function(jsondata){
+		console.log("jsondata.date.items"+ jsondata.data.items);				
+		console.log(jsondata);
+		if (jsondata.code!=0) {
+			alert("系统繁忙，请稍后再试～～");
+		}
+		else{
+			onePageItems(jsondata.data.items);
+		}				
+	});
+}
+//每页的每篇文章单篇加载
+function onePageItems(articles){
+	$("#js_articleList").empty();
+	for (var i = 0; i < articles.length; i++) {
+		var one_page = loadArticle(articles[i]);
+		$("#js_articleList").append(one_page);
+	}
+}
 // //页面加载每页文章的信息
 // function refreshArticlePage(articles){
 	
