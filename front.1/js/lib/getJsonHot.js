@@ -7,7 +7,7 @@ $.getJSON("/article/get_list?type_id=0",function(jsondata){
 			alert("系统繁忙，请稍后再试～～");
 		}
 		else{
-			getArticleList(jsondata.data.items);
+			getArticleList(jsondata.data);
 		}
 });
 

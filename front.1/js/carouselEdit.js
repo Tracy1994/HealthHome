@@ -181,8 +181,8 @@ function getPageData(page){
 }
 //分页加载文章
 function getArticleList(articles){
-	var articleNum=articles.length;
-	var pageNum= Math.ceil(articles.length/5);	
+	var articleNum=articles.count;
+	var pageNum= Math.ceil(articleNum/5);	
 	console.log("pageNum:"+pageNum);
 	console.log("articleNum:"+articleNum);
 	if (pageNum==1) {
@@ -228,48 +228,71 @@ function getArticleList(articles){
 		getPageOneData();
 		$("#js_btn1").click(function(){
 			var page=parseInt($("#js_btn1").text());
-			$("#js_btn2").removeClass("active");
-			$("#js_btn3").removeClass("active");
-			$("#js_btn1").removeClass("disable");
-			$("#js_btn1").addClass("active");
 			getPageData(page);
-			var btn1Num=parseInt($("#js_btn1").text());					
-			var btn2Num=btn1Num;
-			var btn3Num=eval( btn1Num+1);
-			var btn1Num=eval( btn1Num-1);				
-			$("#js_btn1").text(btn1Num);
-			$("#js_btn2").text(btn2Num);
-			$("#js_btn3").text(btn3Num);
+			if (page==1) {
+				$("#js_btn1").addClass("disabled");
+				return false;
+			}
+			else{
+
+				$("#js_btn2").removeClass("active");
+				$("#js_btn3").removeClass("active");
+				$("#js_btn1").removeClass("disable");
+				$("#js_btn3").removeClass("disable");
+				$("#js_btn1").addClass("active");
+				var btn1Num=parseInt($("#js_btn1").text());					
+				var btn2Num=btn1Num;
+				var btn3Num=eval( btn1Num+1);
+				var btn1Num=eval( btn1Num-1);				
+				$("#js_btn1").text(btn1Num);
+				$("#js_btn2").text(btn2Num);
+				$("#js_btn3").text(btn3Num);
+			}
+			
+
 		});
 		$("#js_btn2").click(function(){
 			
 			var page=parseInt($("#js_btn2").text());
+			$("#js_btn1").removeClass("disabled");
+			$("#js_btn3").removeClass("disabled");
 			$("#js_btn1").removeClass("active");
 			$("#js_btn3").removeClass("active");
 			$("#js_btn2").addClass("active");
 			getPageData(page);
 		});
 		$("#js_btn3").click(function(){
-				var page=parseInt($("#js_btn3").text());
-
-				$("#js_btn1").removeClass("disable");
+			var page=parseInt($("#js_btn3").text());				
+			getPageData(page);
+			if (page==pageNum) 
+			{
+				$("#js_btn1").removeClass("active");
+				$("#js_btn2").removeClass("active");
+				$("#js_btn3").addClass("disabled");
+				
+				var btn3Num=parseInt($("#js_btn3").text()) ;
+				var btn2Num=btn3Num;
+				var btn1Num=eval( btn3Num-1);		
+				$("#js_btn1").text(btn1Num);
+				$("#js_btn2").text(btn2Num);
+				$("#js_btn3").text("最后一页");	
+				
+			}
+			else{
+				var btn3Num=parseInt($("#js_btn3").text()) ;
+				$("#js_btn1").removeClass("disabled");
+				$("#js_btn3").removeClass("disabled");
 				$("#js_btn1").removeClass("active");
 				$("#js_btn2").removeClass("active");
 				$("#js_btn3").addClass("active");
-				getPageData(page);
-				if (page==pageNum) 
-				{
-					$("#js_btn3").addClass("disable");	
-				}
-				else{
-					var btn3Num=parseInt($("#js_btn3").text()) ;
-					var btn2Num=btn3Num;
-					var btn1Num=eval( btn3Num-1);		
-					var btn3Num=eval( btn3Num+1);
-					$("#js_btn1").text(btn1Num);
-					$("#js_btn2").text(btn2Num);
-					$("#js_btn3").text(btn3Num);
-				}
+				var btn3Num=parseInt($("#js_btn3").text()) ;
+				var btn2Num=btn3Num;
+				var btn1Num=eval( btn3Num-1);		
+				var btn3Num=eval( btn3Num+1);
+				$("#js_btn1").text(btn1Num);
+				$("#js_btn2").text(btn2Num);
+				$("#js_btn3").text(btn3Num);
+			}
 		});
 	}	
 }
