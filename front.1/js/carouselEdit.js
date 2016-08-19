@@ -151,15 +151,208 @@ function loadArticle(article){
 	row.appendChild(title);
 	row.appendChild(btn_group);
 
-	document.getElementById("js_articleList").appendChild(li);
-}
+	return li;
 
+}
+function getPageOneData(){
+	$.getJSON("/article/get_list?type_id=0&page=1&num="+5,function(jsondata){
+			console.log("jsondata.date.items"+ jsondata.data.items);
+			
+			console.log(jsondata);
+			if (jsondata.code!=0) {
+				alert("系统繁忙，请稍后再试～～");
+			}
+			else{
+				onePageItems(jsondata.data.items);
+			}
+	});
+}
+function getPageData(page){
+	$.getJSON("/article/get_list?type_id=0&page=" + page + "&num="+5,function(jsondata){
+		console.log("jsondata.date.items"+ jsondata.data.items);				
+		console.log(jsondata);
+		if (jsondata.code!=0) {
+			alert("系统繁忙，请稍后再试～～");
+		}
+		else{
+			onePageItems(jsondata.data.items);
+		}				
+	});
+}
+//分页加载文章
+function getArticleList(articles){
+	var articleNum=articles.length;
+	var pageNum= Math.ceil(articles.length/5);	
+	console.log("pageNum:"+pageNum);
+	console.log("articleNum:"+articleNum);
+	if (pageNum==1) {
+		$("#js_btn2").hide();
+		$("#js_btn3").hide();
+		getPageOneData();
+	}
+	if (pageNum==2 ||pageNum==3) {
+		if (pageNum==2) {
+			$("#js_btn3").hide();	
+		}
+		getPageOneData();
+		
+		$("#js_btn1").click(function(){
+
+			$("#js_btn1").addClass("active");
+			$("#js_btn2").removeClass("active");
+			$("#js_btn3").removeClass("active");
+			var page=parseInt($("#js_btn1").text());
+			getPageData(page);
+			
+		});
+		$("#js_btn2").click(function(){
+			
+			$("#js_btn3").removeClass("active");
+			$("#js_btn2").addClass("active");
+			$("#js_btn1").removeClass("active");
+			var page=parseInt($("#js_btn2").text());
+			getPageData(page);
+		});
+		$("#js_btn3").click(function(){
+			
+			$("#js_btn2").removeClass("active");
+			$("#js_btn3").addClass("active");
+			$("#js_btn1").removeClass("active");
+			var page=parseInt($("#js_btn2").text());
+			getPageData(page);
+		});
+	}
+
+	if (pageNum>3) 
+	{
+		getPageOneData();
+		$("#js_btn1").click(function(){
+			var page=parseInt($("#js_btn1").text());
+			$("#js_btn2").removeClass("active");
+			$("#js_btn3").removeClass("active");
+			$("#js_btn1").removeClass("disable");
+			$("#js_btn1").addClass("active");
+			getPageData(page);
+			var btn1Num=parseInt($("#js_btn1").text());					
+			var btn2Num=btn1Num;
+			var btn3Num=eval( btn1Num+1);
+			var btn1Num=eval( btn1Num-1);				
+			$("#js_btn1").text(btn1Num);
+			$("#js_btn2").text(btn2Num);
+			$("#js_btn3").text(btn3Num);
+		});
+		$("#js_btn2").click(function(){
+			
+			var page=parseInt($("#js_btn2").text());
+			$("#js_btn1").removeClass("active");
+			$("#js_btn3").removeClass("active");
+			$("#js_btn2").addClass("active");
+			getPageData(page);
+		});
+		$("#js_btn3").click(function(){
+				var page=parseInt($("#js_btn3").text());
+
+				$("#js_btn1").removeClass("disable");
+				$("#js_btn1").removeClass("active");
+				$("#js_btn2").removeClass("active");
+				$("#js_btn3").addClass("active");
+				getPageData(page);
+				if (page==pageNum) 
+				{
+					$("#js_btn3").addClass("disable");	
+				}
+				else{
+					var btn3Num=parseInt($("#js_btn3").text()) ;
+					var btn2Num=btn3Num;
+					var btn1Num=eval( btn3Num-1);		
+					var btn3Num=eval( btn3Num+1);
+					$("#js_btn1").text(btn1Num);
+					$("#js_btn2").text(btn2Num);
+					$("#js_btn3").text(btn3Num);
+				}
+		});
+	}	
+}
+// $(function(){
+	
+	
+// 	$("#js_btn3").click(function(){
+// 		console.log( "articleNum"+articleNum);
+// 		// var btn1Num=parseInt() $("#js_btn1").text();
+// 		// var btn2Num= $("#js_btn2").text();
+// 		var btn3Num=parseInt($("#js_btn3").text()) ;
+
+// 		var btn2Num=btn3Num;
+// 		var btn1Num=eval( btn3Num-1);		
+// 		var btn3Num=eval( btn3Num+1);
+// 		$("#js_btn1").text(btn1Num);
+// 		$("#js_btn2").text(btn2Num);
+// 		$("#js_btn3").text(btn3Num);
+	
+// 	});
+// 	$("#js_btn1").click(function(){
+// 		debugger;
+// 		// var btn1Num=parseInt() $("#js_btn1").text();
+// 		// var btn2Num= $("#js_btn2").text();
+// 		var btn1Num=parseInt($("#js_btn1").text());
+
+// 		var btn2Num=btn1Num;
+// 		var btn3Num=eval( btn1Num+1);
+// 		var btn1Num=eval( btn1Num-1);				
+// 		$("#js_btn1").text(btn1Num);
+// 		$("#js_btn2").text(btn2Num);
+// 		$("#js_btn3").text(btn3Num);
+	
+// 	});
+// 	$("#js_btn2").click(function(){
+// 		debugger;
+// 		var page=parseInt($("#js_btn2").text());
+// 		$.getJSON("/article/get_list?type_id=0&page=" + page + "&num="+5,function(jsondata){
+// 				console.log("jsondata.date.items"+ jsondata.data.items);
+				
+// 				console.log(jsondata);
+// 				if (jsondata.code!=0) {
+// 					alert("系统繁忙，请稍后再试～～");
+// 				}
+// 				else{
+// 					onePageItems(jsondata.data.items);
+// 				}
+// 		});
+// 	});
+// });
+
+//页面加载每页文章的信息
+// function refreshArticlePage(articles){
+	
+// 	var pageNum= Math.ceil(articles.length/5);
+// 	console.log("pageNum:"+pageNum);
+// 	for (var i = 0; i < pageNum; i++) {
+// 		$.getJSON("/article/get_list?type_id=0&page=" + i + "&num="+5,function(jsondata){
+// 				console.log("jsondata.date.items"+ jsondata.data.items);
+				
+// 				console.log(jsondata);
+// 				if (jsondata.code!=0) {
+// 					alert("系统繁忙，请稍后再试～～");
+// 				}
+// 				else{
+// 					onePageItems(jsondata.data.items);
+// 				}
+// 		});
+// 	}
+// }	
+function onePageItems(articles){
+	$("#js_articleList").empty();
+	for (var i = 0; i < articles.length; i++) {
+		var one_page = loadArticle(articles[i]);
+		$("#js_articleList").append(one_page);
+	}
+}
 // <li class="list-group-item">
 // 	<div class="row">
 // 		<div class="col-xs-9">
 // 			这是文章的标题
 // 		</div>
-// 		
+		
 // 			<div class="btn-group col-xs-3">
 // 				<button type="button" class="btn btn-default btn-sm control" data-toggle="collapse"  data-target="#demo"  title="详情">
 // 					<span class="glyphicon glyphicon-list"></span>
@@ -168,7 +361,7 @@ function loadArticle(article){
 // 					<span class="glyphicon glyphicon-check"  title="添加"></span>
 // 				</button>
 // 			</div>	
-// 		
+		
 // 	</div>
 // 	<div id="demo" class="collapse">					
 // 		<p>
@@ -203,7 +396,7 @@ $(function(){
     }; 
 
     // bind to the form's submit event 
-    $('#author_info').submit(function() { 
+    $('#carousel').submit(function() { 
         // inside event callbacks 'this' is the DOM element so we first 
         // wrap it in a jQuery object and then invoke ajaxSubmit
 
@@ -223,20 +416,35 @@ function showRequest(formData,jqForm,option){
 		}
 	
 	if (articleId==null || articleId==""){
-	  	alert("请上传文章！");
+	  	alert("请选择文章！");
 	  	return false;
 		}
 	
 }
 function showResponse(responseText, statusText){ 
+	debugger;
         console.log(responseText);
         console.log(statusText);
-        sleep(60) 
-        if (responseText.code==0) {
-
-        	alert("提交成功！");
-        }
         
+        if (responseText.code==0) {
+        	alert("提交成功！");
+        	var r=confirm("是否要跳转到轮播列表页？")
+        	  if (r==true)	  	
+        	    {
+        	    window.location.href="/front.1/html/carouselPreview.html";	        	    
+        	    }
+        	   else
+        	   {
+        	   	window.location.href="/front.1/html/carouselEdit.html"
+        	   }
+        	return false;
+        }
+        else
+        {
+        	alert("提交不成功，请重试！");
+        	window.location.href="/front.1/html/carouselEdit.html"
+        	return false;
+        }
         // window.location.href="/front/html/writer.html";
 
     // for normal html responses, the first argument to the success callback 

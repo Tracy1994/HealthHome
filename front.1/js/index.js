@@ -41,7 +41,7 @@ function loadArticle(article){
 		td.setAttribute("class","js_td");
 
 		var link=document.createElement("a");
-		link.setAttribute("href",'/front.1/html/article.html?article_id=' + article.id);
+		link.setAttribute("href",'/front.1/html/articleDetial.html?article_id=' + article.id);
 
 		tr.appendChild(td);
 		td.appendChild(link);

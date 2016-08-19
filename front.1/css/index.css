@@ -1,9 +1,22 @@
+/*--nav_top---
+------------------------------------------------*/
 body{
 	position: relative;
+	
 }
 .box1{
 	height: 52px;
 }
+
+
+/*@media screen and (min-width:800px){
+	body{
+		width: 100%;
+	}
+}
+*/
+/*--carousel
+---------------------------------------------------*/
 .item img{
 	width: 100%;			
 }

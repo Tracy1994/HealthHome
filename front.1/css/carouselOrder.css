@@ -2,26 +2,44 @@
 	height: 55px;
 }
 li{
-	list-style: none;
-	line-height: 350%;
-	font-size: 20px;
+	list-style: none;	
 }
-li button{
+li .remove{
 	float: right;
+	margin: 20px 10px;
 }
 .ui-state-default{
 	height: 100px;
+	font-size: 20px;
+	line-height: 350%;
 }
 li img{
 	padding-top: 5px;
 }
-li button{
-	margin: 20px 10px;
-}
-li span{
+li .remove span{
 	padding: 5px 30px;	
 }
-#publish{
-	width: 100%;
+.list-group-item h4{
+	line-height: 40px;
+}
+.btn-group .control{
+	float: left;
+	padding: 5px 20px;
+	margin: 10px 0px;
+}
+#publish,
+.article{
+	width: 49%;
 
+}
+/*---modal--
+-----------------------------------------------*/
+.modal-body #js_articleList{
+	height: 200px;
+	overflow: auto;
+}
+.pagination{
+	position: relative;
+	margin: 0px 0px;
+	float: left;
 }
