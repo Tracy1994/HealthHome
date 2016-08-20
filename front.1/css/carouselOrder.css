@@ -27,6 +27,10 @@ li .remove span{
 	padding: 5px 20px;
 	margin: 10px 0px;
 }
+.page{
+    float: left;
+    margin-left: 20%;
+}
 #publish,
 .article{
 	width: 49%;

@@ -11,6 +11,7 @@
 	<script type="text/javascript" src="/front.1/js/lib/addLoadEvent.js"></script>
 	<!-- <script type="text/javascript" src="/front.1/js/lib/getJsonHot.js"></script> -->
 	<script type="text/javascript" src="/front.1/js/carouselOrder.js"></script>	
+	<script type="text/javascript" src="/front.1/js/lib/modalForm.js"></script>
 	<script type="text/javascript" src="/front.1/js/lib/buildDropdownMeum.js"></script>
 </head>
 <body>
@@ -75,7 +76,7 @@
 					<div class="modal-body">
 						<ul class="list-group" id="js_articleList">
 
-							<li class="list-group-item">
+							<!-- <li class="list-group-item">
 								<div class="row">
 									<div class="col-xs-9">
 										这是文章的标题
@@ -100,16 +101,16 @@
 								 		<span class="glyphicon glyphicon-thumbs-up">点赞（1024）</span>
 								 	</span>
 								</div>
-							</li>
+							</li> -->
 
 						</ul>
 					</div>
 					<div class="modal-footer">
-						<ul class="pagination">
-						  <li class="active"><a href="#">1</a></li>
-						  <li><a href="#">2</a></li>
-						  <li><a href="#">3</a></li>
-						</ul>
+						<div class="btn-group page">
+							<a class="btn btn-default active" href="#" role="button" id="js_btn1">1</a>
+							<a class="btn btn-default" href="#" role="button" id="js_btn2">2</a>
+							<a class="btn btn-default" href="#" role="button" id="js_btn3">3</a>	  
+						</div>
 
 						<button type="button" class="btn btn-default" data-dismiss="modal">关闭窗口</butto>
 					</div>
