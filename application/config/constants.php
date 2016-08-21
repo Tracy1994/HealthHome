@@ -100,6 +100,7 @@ define('ERR_NO_LOGIN', -10003);
 define('ERR_PERMISSION_DENIED', -10004);
 define('ERR_UPLOAD_FILE', -10005);
 define('ERR_NO_RIGHT', -10006);
+define('ERR_NO_DATA', -10007);
 
 define('STATE_CREATE', 1);
 define('STATE_PUBLISH', 2);

@@ -8,6 +8,7 @@ class Carousel extends CI_Controller {
 		parent::__construct();
 
 		$this->load->model('CarouselMng', 'carousel_mng');
+		$this->load->model('ArticleMng', 'article_mng');
 		$this->load->model('UploadMng', 'upload_mng');
 	}
 
@@ -85,16 +86,51 @@ class Carousel extends CI_Controller {
 		return true;
 	}
 
+	private function merge_article_info_list($carousels)
+	{
+		$arr_article_ids = array();
+		foreach ($carousels as $carousel) 
+		{
+			array_push($arr_article_ids, $carousel['article_id']);
+		}
+
+		$articles = $this->article_mng->get_info_list($arr_article_ids);
+		if ($articles === false)
+		{
+			return false;
+		}
+
+		$items = array();
+		foreach ($carousels as $carousel) 
+		{
+			foreach ($articles['items'] as $article) 
+			{ 
+				if ($article['id'] == $carousel['article_id'])
+				{
+					array_push($items, array_merge($article, $carousel));
+					break;
+				}
+			}
+		}
+		return $items;
+	}
+
 	public function get_effect_list()
 	{
-		$ret = $this->carousel_mng->get_effect_list();
-		if ($ret === false)
+		$carousels = $this->carousel_mng->get_effect_list();
+		if ($carousels === false)
 		{
 			output_cgi_data(ERR_SYSTEM, 'get effect carouse list failed');
 			return false;
 		}
 
-		output_cgi_data(0, 'succ', $ret);
+		$items = $this->merge_article_info_list($carousels['items']);
+		if ($items === false)
+		{
+			output_cgi_data(ERR_SYSTEM, 'get article info list failed');
+		}
+
+		output_cgi_data(0, 'succ', array('count' => $carousels['count'], 'items' => $items));
 		return true;
 	}
 
@@ -115,14 +151,20 @@ class Carousel extends CI_Controller {
 		$num = isset($_REQUEST['num']) ? intval($_REQUEST['num']) : 10;
 		$page = isset($_REQUEST['page']) ? intval($_REQUEST['page']) : 1;
 
-		$list = $this->carousel_mng->get_list($num, $num * ($page - 1));
-		if ($list === false)
+		$carousels = $this->carousel_mng->get_list($num, $num * ($page - 1));
+		if ($carousels === false)
 		{
-			output_cgi_data(ERR_SYSTEM, 'get history list failed');
+			output_cgi_data(ERR_SYSTEM, 'get carousel list failed');
 			return false;
 		}
 
-		output_cgi_data(0, 'succ', $list);
+		$items = $this->merge_article_info_list($carousels['items']);
+		if ($items === false)
+		{
+			output_cgi_data(ERR_SYSTEM, 'get article info list failed');
+		}
+
+		output_cgi_data(0, 'succ', array('count' => $carousels['count'], 'items' => $items));
 		return true;
 	}
 

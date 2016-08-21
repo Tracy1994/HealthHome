@@ -8,6 +8,7 @@ class Collection extends CI_Controller {
 		parent::__construct();
 
 		$this->load->model('CollectionMng', 'collection_mng');
+		$this->load->model('ArticleMng', 'article_mng');
 	}
 
 	public function add()
@@ -60,6 +61,34 @@ class Collection extends CI_Controller {
 		return true;
 	}
 
+	private function merge_article_info_list($collections)
+	{
+		$arr_article_ids = array();
+		foreach ($collections as $collection) 
+		{
+			array_push($arr_article_ids, $collection['article_id']);
+		}
+		$articles = $this->article_mng->get_info_list($arr_article_ids);
+		if ($articles === false)
+		{
+			return false;
+		}
+
+		$items = array();
+		foreach ($collections as $collection) 
+		{
+			foreach ($articles['items'] as $article) 
+			{
+				if ($article['id'] == $collection['article_id'])
+				{
+					array_push($items, array_merge($article, $collection));
+					break;
+				}
+			}
+		}
+		return $items;
+	}
+
 	public function get_my_collection()
 	{
 		if (!check_login())
@@ -71,14 +100,21 @@ class Collection extends CI_Controller {
 		$num = isset($_REQUEST['num']) && intval($_REQUEST['num']) > 0 ? intval($_REQUEST['num']) : 10;
 		$page = isset($_REQUEST['page']) && intval($_REQUEST['page']) > 0 ? intval($_REQUEST['page']) : 1;
 
-		$ret = $this->collection_mng->get_my_collection($num, $num * ($page - 1));
-		if ($ret === false)
+		$colletcions = $this->collection_mng->get_my_collection($num, $num * ($page - 1));
+		if ($colletcions === false)
 		{
-			output_cgi_data(ERR_SYSTEM, 'system errror');
+			output_cgi_data(ERR_SYSTEM, 'get my collection data failed');
 			return false;
 		}
 
-		output_cgi_data(0, 'succ', $ret);
+		$items = $this->merge_article_info_list($colletcions['items']);
+		if ($items === false)
+		{
+			output_cgi_data(ERR_SYSTEM, 'get article info list failed');
+			return false;
+		}
+
+		output_cgi_data(0, 'succ', array('count' => $colletcions['count'], 'items' => $items));
 		return true;
 	}
 }

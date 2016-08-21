@@ -25,7 +25,8 @@ class Article extends CI_Controller {
 			return false;
 		}
 
-		$ret = $this->article_mng->get_info_list($_REQUEST['article_ids']);
+		$arr_ids = explode("_", $_REQUEST['article_ids']);
+		$ret = $this->article_mng->get_info_list($arr_ids);
 		if ($ret === false)
 		{
 			output_cgi_data(ERR_SYSTEM, 'system errror');
@@ -47,7 +48,12 @@ class Article extends CI_Controller {
 		$info = $this->article_mng->get_info_detail($_REQUEST['article_id']);
 		if ($info === false)
 		{
-			output_cgi_data(ERR_SYSTEM, 'system errror');
+			output_cgi_data(ERR_SYSTEM, 'get article info detail failed');
+			return false;
+		}
+		if (count($info) == 0)
+		{
+			output_cgi_data(ERR_NO_DATA, 'article has remove');
 			return false;
 		}
 

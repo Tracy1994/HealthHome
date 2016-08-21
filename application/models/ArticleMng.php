@@ -12,7 +12,7 @@ class ArticleMng extends CI_Model {
 	private $table_comment_like = 'comment_like';
 
 	private $field_info_detail = 'id,type_id,title,author,author_desp,author_head_url,create_time,cover_url,like_cnt,click_cnt,comment_cnt,collect_cnt';
-	private $field_info_list = 'id,type_id,title,create_time,cover_url,like_cnt,click_cnt,comment_cnt,collect_cnt,summary';
+	private $field_info_list = 'id,type_id,state,title,author,author_desp,author_head_url,create_time,cover_url,like_cnt,click_cnt,comment_cnt,collect_cnt,summary';
 	private $field_info_min = 'id,title,create_time';
 
 	public function ArticleMng()
@@ -21,29 +21,21 @@ class ArticleMng extends CI_Model {
 		$this->load->model('DBOptMng', 'db_opt_mng');
 	}
 
-	public function get_info_list($article_ids)
+	public function get_info_list($arr_article_ids)
 	{
-		$arr_ids = explode("_", $article_ids);
-		$arr_infos = array();
-
-		foreach ($arr_ids as $article_id) 
+		$items = $this->db_opt_mng->select_where_in($this->table_article_all_info, 
+			'id', $arr_article_ids, $this->field_info_list);
+		if ($items === false)
 		{
-			$arr_where = array('id' => $article_id);
-			$ret = $this->db_opt_mng->select($this->table_article_all_info, $arr_where, $this->field_info_list);
-			if ($ret === false || count($ret) == 0)
-			{
-				return false;
-			}
-
-			array_push($arr_infos, $ret[0]);
+			return false;
 		}
 
-		return array('count' => count($arr_infos), 'items' => $arr_infos);
+		return array('count' => count($items), 'items' => $items);
 	}
 
 	public function get_info_detail($article_id)
 	{
-		$arr_where = array('id' => $article_id);
+		$arr_where = array('id' => $article_id, 'state' => STATE_PUBLISH);
 		$ret = $this->db_opt_mng->select(
 			$this->table_article_all_info, $arr_where, $this->field_info_detail);
 		if ($ret === false)
@@ -61,7 +53,7 @@ class ArticleMng extends CI_Model {
 
 	public function get_content($article_id)
 	{
-		$arr_where = array('id' => $article_id);
+		$arr_where = array('id' => $article_id, 'state' => STATE_PUBLISH);
 		$str_fields = 'content';
 		$ret = $this->db_opt_mng->select($this->table_article, $arr_where, $str_fields);
 

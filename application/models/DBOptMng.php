@@ -57,6 +57,29 @@ class DBOptMng extends CI_Model
 		return $this->select_conditions($table_name, $arr_where, $str_fields);
 	}
 
+	public function select_where_in($table_name, $key, $arr_where_in = array(), 
+		$str_fields = '')
+	{
+		if (is_array($arr_where_in) && count($arr_where_in) > 0)
+		{
+			$this->db->where_in($key, $arr_where_in);
+		}
+
+		if (strlen($str_fields) > 0)
+		{
+			$this->db->select($str_fields);
+		}
+
+		$ret = $this->db->get($table_name);
+		if ($ret === false)
+		{
+			return false;
+		}
+
+		$arr_result = $ret->result_array();
+		return $arr_result;		
+	}
+
 	public function select_limit($table_name, $arr_where, $num, $offset, $str_fields = '')
 	{
 		return $this->select_conditions($table_name, $arr_where, $str_fields, $num, $offset);

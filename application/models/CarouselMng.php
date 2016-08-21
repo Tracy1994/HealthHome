@@ -87,7 +87,7 @@ class CarouselMng extends CI_Model {
 		}
 
 		$items = $this->db_opt_mng->select_conditions(
-			$this->table_carousel, array(), '', $num, $offset, 'create_time');
+			$this->table_carousel, array(), '', $num, $offset, 'create_time,id');
 		if ($items === false)
 		{
 			return false;
