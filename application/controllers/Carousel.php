@@ -76,7 +76,7 @@ class Carousel extends CI_Controller {
 			output_cgi_data(ERR_PARAMS, 'carousel id in carousel_ids has at least one is not exist');
 			return false;
 		}
-		if (ret === -2)
+		if ($ret === -2)
 		{
 			output_cgi_data(ERR_SYSTEM, 'publish carousel failed');
 			return false;
