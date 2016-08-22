@@ -18,7 +18,7 @@ function buildAddBtn(itemdata){
 	add_btn.setAttribute("type","button");
 	add_btn.setAttribute("class","btn btn-default btn-sm control");
 	add_btn.setAttribute("title","添加");
-	add_btn.setAttribute("onclick", "getArticle( '" + JSON.stringify(itemdata) + "')");
+	add_btn.setAttribute("onclick", "addBtn( '" + JSON.stringify(itemdata) + "')");
 	add_btn.setAttribute("data-dismiss","modal");
 
 	var span=document.createElement("span");
@@ -28,13 +28,7 @@ function buildAddBtn(itemdata){
 
 	return add_btn;
 }
-function getArticle(strItem){
-	var itemdata = JSON.parse(strItem);
-	$(".articleId").val(itemdata.id);
-	$(".article").text(itemdata.title);
-	alert("已选择文章");
-	return false;
-}
+
 function buildBtnGroup(itemdata){
 	var btn_group=document.createElement("div");
 	btn_group.setAttribute("class","col-xs-3 btn-group");

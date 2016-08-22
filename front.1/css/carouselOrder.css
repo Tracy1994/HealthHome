@@ -10,8 +10,9 @@ li .remove{
 }
 .ui-state-default{
 	height: 100px;
-	font-size: 20px;
-	line-height: 350%;
+	font-size: 14px;
+	line-height: 200%;
+	padding-top: 5px;
 }
 li img{
 	padding-top: 5px;

@@ -33,6 +33,142 @@ $(function(){
 	}
 
 });
+//加载轮播内容
+//原html
+// <div id="myCarousel" class="carousel slide ">
+// 	<ol class="carousel-indicators">
+// 	     <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+// 	     <li data-target="#myCarousel" data-slide-to="1"></li>
+// 	     <li data-target="#myCarousel" data-slide-to="2"></li>
+// 	     <li data-target="#myCarousel" data-slide-to="3"></li>
+// 	</ol> 
+// 	<div class="carousel-inner">
+// 		<div class="item active">
+//         	<img src="./resource/1.jpg" alt="First slide">	         
+//     	</div>
+//         <div class="item">
+//          <img src="./resource/2.jpg" alt="Second slide">
+//         </div>
+//         <div class="item">
+//          <img src="./resource/3.jpg" alt="Third slide">
+//         </div>
+//         <div class="item">
+//          <img src="./resource/4.jpg" alt="Third slide">
+//         </div>	        
+// 	</div>
+// 	<div class="img_info">
+// 		<div class="writer_name">writer name</div>
+// 		<div class="writer_info">writer_info</div>
+// 		<h1>the title of this img</h1>
+// 		<div class="detile">this is the detial infomation this picture</div>
+// 	</div>
+// 	<a class="carousel-control left" href="#myCarousel" 
+//       data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+//  <a class="carousel-control right" href="#myCarousel" 
+//       data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+// </div>
+
+
+$.getJSON("/carousel/get_effect_list",function(jsondata){
+		console.log("jsondata.date.items"+ jsondata.data.items);
+		
+		console.log(jsondata);
+		if (jsondata.code!=0) {
+			alert("系统繁忙，请稍后再试～～");
+		}
+		else{
+			
+			carouselIndicators(jsondata.data.items);
+			carouselInner(jsondata.data.items);
+			// imgInfo(jsondata.data.items);
+
+		}
+});
+
+function carouselIndicators(jsondata){
+	var slideNum=jsondata.length;
+	$(".carousel-indicators").empty();
+
+	for (var i = 0; i <slideNum; i++) {
+
+		var li=document.createElement("li");
+		li.setAttribute("data-target","#myCarousel");
+		li.setAttribute("data-slide-to",i);
+		if (i==0) {
+			li.setAttribute("class","active");
+		}
+		$(".carousel-indicators").append(li);		
+	}
+	
+}
+// <div class="item active">
+// 	<img src="./resource/1.jpg" alt="First slide">	         
+// </div>
+function carouselInner(carousel){
+	var slideNum=carousel.length;
+	// debugger;
+	$(".carousel-inner").empty();
+
+	for (var i = 0; i < slideNum; i++) {
+		
+		var item=document.createElement("div");
+		
+		if (i==0) {
+			item.setAttribute("class","active item");
+		}
+		else{
+			item.setAttribute("class","item");
+		}
+		var img=document.createElement("img");
+		img.setAttribute("src",carousel[i].img_url);
+		console.log(carousel[i].img_url);		
+
+		img_info=imgInfo(carousel[i]);
+
+		item.appendChild(img);
+		item.appendChild(img_info);
+				
+
+		$(".carousel-inner").append(item);
+					
+	}
+	
+}
+
+function imgInfo(carousel){
+	console.log(carousel);
+	var img_info=document.createElement("div");
+	img_info.setAttribute("class","img_info");
+
+	var writer_name=document.createElement("div");
+	writer_name.setAttribute("class","writer_name");
+	var writer_name_text=document.createTextNode(carousel.author);
+	writer_name.appendChild(writer_name_text);
+
+	var writer_info=document.createElement("div");
+	writer_info.setAttribute("class","writer_info");
+	var writer_info_text=document.createTextNode(carousel.author_desp);
+	writer_info.appendChild(writer_info_text);
+
+	var h1=document.createElement("h1");
+	title=document.createTextNode(carousel.title);
+	h1.appendChild(title);
+
+	var detial=document.createElement("div");
+	detial.setAttribute("class","detial");
+	var detial_text=document.createTextNode(carousel.summary);
+	detial.appendChild(detial_text);
+
+	
+	img_info.appendChild(writer_name);
+	img_info.appendChild(writer_info);
+	img_info.appendChild(h1);
+	img_info.appendChild(detial);
+	return img_info;
+}
+
+
+//加载文章列表
 function loadArticle(article){
 		var tr=document.createElement("tr");
 		tr.setAttribute("class","js_tr");

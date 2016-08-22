@@ -5,13 +5,44 @@ $(function() {
 		opacity: 0.6,                       //拖动时，透明度为0.6
 		revert: true,                       //释放时，增加动画
 		update : function(event, ui){       //更新排序之后
-			$(this).sortable("toArray");
+		var order= $(this).sortable("toArray");
+		console.log("order:"+order);
 		   // alert();
 		}
 		});
-	$("#publish").click(function(){
+	//点击发布
 
+	$("#publish").click(function(){
+		var idstr = "";
+        $(".sortable li").each(function() {
+            // 将选中的字段id拼成字符串
+            idstr += $(this).attr("id") + "_";
+        });
+                    if (idstr.length > 0) {
+            idstr = idstr.substring(0, idstr.length - 1)
+        }
+        console.log("idstr:"+idstr);
+	    $.post("/carousel/publish", 
+	    { 
+	        carousel_ids:idstr
+	        
+	    }, 
+	        function(data,status){
+	        var data = JSON.parse(data);
+	        var code=data.code;
+	        console.log("status:"+status);
+	         console.log("data:"+data);
+	         console.log("code:"+code);
+
+	        if (code==0) {
+	        	alert("发布成功");
+	        }
+	        else{
+	        	alert("系统繁忙，请稍后再试～～");
+	        }
+	    }); 
 	});
+	
 });
 
 
@@ -55,40 +86,12 @@ function getPageData(page){
 		}				
 	});
 }
-
-//添加轮播里面的每一项
-function buildItem(itemdata){
-	
-	var li=document.createElement("li");
-	li.setAttribute("class","list-group-item");
-
-	var row=document.createElement("div");
-	row.setAttribute("class","row");
-
-	var title=document.createElement("div");
-	title.setAttribute("class","col-xs-9");
-	var title_text=document.createTextNode(itemdata.title);
-	title.appendChild(title_text);
-
-	var btn_group=buildBtnGroup(itemdata);
-	var collapse=buildCollapse(itemdata);
-
-	li.appendChild(row);
-	li.appendChild(collapse);
-
-	row.appendChild(title);
-	row.appendChild(btn_group);
-
-	return li;
-
-}
-
-
-//按添加按钮
-function addlItem(strCarousel){
-	var carousel = JSON.parse(strCarousel);
-	var addCarouselItem=loadCarouselItem(article,carousel);
-	$("#carouselList").append(addCarouselItem);	
+function addBtn(strItem){
+	var itemdata = JSON.parse(strItem);
+	var carouselItem=loadCarouselItem(itemdata);
+	$("#carouselList").append(carouselItem);	
+	alert("轮播已添加到列表中");
+	return false;
 }
 
 
@@ -102,11 +105,12 @@ $.getJSON("/carousel/get_effect_list",function(jsondata){
 		bulidCarouselList(jsondata.data.items);
 	}
 });
+
 function bulidCarouselList(carousels){
-	$(".sortable li").empty();
+	$("#carouselList").empty();
 	for (var i = 0; i < carousels.length; i++) {
 		var carousel = loadCarouselItem(carousels[i]);
-		$("#carouselListHeader").after(carousel);
+		$("#carouselList").append(carousel);
 	}
 }
 // <li class="ui-state-default list-group-item"  id="1">
@@ -118,7 +122,7 @@ function bulidCarouselList(carousels){
 // </li>
 function loadCarouselItem(carousel){
 	var li=document.createElement("li");
-	li.setAttribute("class", "ui-state-default list-group-item");
+	li.setAttribute("class", "ui-state-default list-group-item ");
 	li.setAttribute("id", carousel.id);
 
 	var  img=document.createElement("img");
@@ -126,19 +130,50 @@ function loadCarouselItem(carousel){
 	img.setAttribute("class", "img-responsive col-xs-4");
 	img.setAttribute("alt", "Image");
 
-	var li_text=document.createTextNode( carousel.title +"轮播id："+carousel.id );
+	var carousel_info=document.createElement("div");
+	carousel_info.setAttribute("class","col-xs-4");
+
+	var carouselId=document.createElement("p");
+	var carouselId_id=document.createTextNode( "轮播id："+carousel.id);
+	carouselId.appendChild(carouselId_id);
+
+	var carouselTitle=document.createElement("p");
+	var carouselTitle_text=document.createTextNode(carousel.title);
+	carouselTitle.appendChild(carouselTitle_text);
+
+	carousel_info.appendChild(carouselId);
+	carousel_info.appendChild(carouselTitle);
 
 	var btn=document.createElement("button");
 	btn.setAttribute("class", "btn btn-sm btn-default remove");
+	// btn.setAttribute("onclick","deleteItem(" +carousel.id +")");
+	btn.setAttribute("onclick","deleteItem()");
 	var span=document.createElement("span");
 	span.setAttribute("class", "glyphicon glyphicon-trash");
 	btn.appendChild(span);
 
 	li.appendChild(img);
-	li.appendChild(li_text);
+	li.appendChild(carousel_info);
 	li.appendChild(btn);
 
 	return li;
 
 }
-
+// function deleteItem(carouselId){
+// 	var selecter='"#'  + carouselId +'"';
+// 	console.log("selecter:"+selecter);
+// 	var r=confirm("是否确定将该轮播从列表中移除？")
+// 	  if (r==true)	  	
+// 	    {
+// 	    	debugger;
+// 	    	$("#1").remove();        	    
+// 	    }
+// 	   else
+// 	   {
+// 	   		return false;
+// 	   }
+	
+// }
+function deleteItem(){
+	$("#1").remove();
+}

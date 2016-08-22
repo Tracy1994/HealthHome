@@ -7,7 +7,7 @@
 ------------------------------------------*/
 .box2{
 	height: 120px;
-	font-size: 19px;
+	font-size: 18px;
 	position: relative;
 	text-align: left;
 	letter-spacing:3px;
@@ -37,6 +37,20 @@
 	position: absolute;
 	left: 60%;
 	color: rgb(255,255,255);
-	bottom: 20%;
+	bottom: 25%;
 	width: 35%;	
+}
+#downBtn{
+	width: 100%;
+	font-size: 18px;
+}
+ #downBtn span{
+	
+	padding: 3px;
+	transition:all 2s; 	
+	-webkit-transition:all 1s; /* Safari */
+}
+#downBtn span:hover{
+	transform:rotateY(360deg);
+	-webkit-transform:rotateY(360deg); /* Safari and Chrome */
 }

@@ -69,7 +69,8 @@ body{
 }
 .img_info{
 	position: absolute;
-	left: 10%;
+	left: 60%;
+	bottom: 35%;
 	color: rgb(255,255,255);		
 }
 .carousel_time span{

@@ -170,7 +170,13 @@ function getPageData(page){
 		}				
 	});
 }
-
+function addBtn(strItem){
+	var itemdata = JSON.parse(strItem);
+	$(".articleId").val(itemdata.id);
+	$(".article").text(itemdata.title);
+	alert("已选择文章");
+	return false;
+}
 
 // <li class="list-group-item">
 // 	<div class="row">
