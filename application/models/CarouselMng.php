@@ -75,7 +75,7 @@ class CarouselMng extends CI_Model {
 			array_push($arr_carousel, $ret[0]);
 		}
 
-		return array('count' => count($ret), 'items' => $arr_carousel);
+		return array('count' => count($arr_carousel), 'items' => $arr_carousel);
 	}
 
 	public function get_list($num, $offset)
