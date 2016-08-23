@@ -12,18 +12,18 @@
 // });
 //首次加载文章内容
 
-	$.getJSON("/article/get_list?type_id=0&page=1&num="+5,function(jsondata){
-			console.log("jsondata.date.items"+ jsondata.data.items);
+$.getJSON("/article/get_list?type_id=0&page=1&num="+5,function(jsondata){
+		console.log("jsondata.date.items"+ jsondata.data.items);
+		
+		console.log(jsondata);
+		if (jsondata.code!=0) {
+			alert("系统繁忙，请稍后再试～～");
+		}
+		else{
 			
-			console.log(jsondata);
-			if (jsondata.code!=0) {
-				alert("系统繁忙，请稍后再试～～");
-			}
-			else{
-				
-				onePageItems(jsondata.data);
-			}
-	});
+			onePageItems(jsondata.data);
+		}
+});
 
 
 //根据第几页和每页的页数加载

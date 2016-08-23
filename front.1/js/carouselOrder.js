@@ -175,5 +175,6 @@ function loadCarouselItem(carousel){
 	
 // }
 function deleteItem(){
-	$("#1").remove();
+	debugger;
+	$(this).hide();
 }

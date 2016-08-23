@@ -66,7 +66,7 @@ function downBtn(jsondata){
 }
 
 function loading(jsondata){
-	
+	console.log(jsondata);
 	var carousels = JSON.parse(jsondata).count;
 	pageNum=Math.ceil(carousels/5);	
 	console.log("pageNum:"+pageNum);
@@ -78,24 +78,6 @@ function loading(jsondata){
 	//
 }
 
-$(function(){
-	
-	
-});
-function countPage(){
-	for (var i = 0; i < Things.length; i++) {
-		Things[i]
-	}
-	var i=1;
-	function loading(carousels){
-		i=1+1;
-		var carousels = JSON.parse(carousels);
-		pageNum=carousels.count;
-		for (var i = 2; i < pageNum; i++) {
-			
-		}
-	}
-}
 
 
 function buildItem(carousel){

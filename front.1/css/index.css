@@ -77,3 +77,17 @@ body{
 	font-size: 15px;
 	font-weight: bold;
 }
+#downBtn{
+	width: 100%;
+	font-size: 18px;
+}
+ #downBtn span{
+	
+	padding: 3px;
+	transition:all 2s; 	
+	-webkit-transition:all 1s; /* Safari */
+}
+#downBtn span:hover{
+	transform:rotateY(360deg);
+	-webkit-transform:rotateY(360deg); /* Safari and Chrome */
+}
