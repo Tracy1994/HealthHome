@@ -1,21 +1,7 @@
 
 $(function(){
-	$("#myCarousel").carousel("cycle");
-	$("#js_nav2").css("display","none");
-	$("#js_recomand").css("display","none");
-
-	
-	
-		// for (var i = 2; i < articles.length; i++) {
-		// 	window.onscroll=function(){
-		// 		var height=document.getElementById("js_tr").offsetHeight;
-		// 		console.log(height);
-		// 	// 	if () {}
-		// 	// }
-		// }
-	
-
-		//登录后改变顶部内容和退出登录
+	$("#myCarousel").carousel("cycle");	
+		
 
 
 	// 鼠标滑动，控制左右两侧导航栏出现和隐藏
@@ -23,12 +9,14 @@ $(function(){
 		var top=$("body").scrollTop();
 		console.log(top);			
 		if (top>=400) {
-			$("#js_nav2").show();
-			$("#js_recomand").show();
+			
+			$("#js_nav2").css("top","100px");
+			$("#js_recomand").css("top","53px");
+			
 		}
 		else{
-			$("#js_nav2").hide();
-			$("#js_recomand").hide();
+			$("#js_nav2").css("top","700px");
+			$("#js_recomand").css("top","700px");
 		}
 	}
 
@@ -276,5 +264,93 @@ function buildItem(article){
 			
 	}
 
+$.getJSON("/article/get_latest_list?detail=1&page=1&num=8",function(jsondata){
+	console.log("jsondata.date.items"+ jsondata.data.items);
+	
+	console.log(jsondata);
+	if (jsondata.code!=0) {
+		alert("系统繁忙，请稍后再试～～");
+	}
+	else{
+
+		oneItem(jsondata.data.items);
+		
+	}
+});
+function oneItem(articles){		
+	$("#js_recomand").empty();	
+	for (var i = 0; i < articles.length; i++) {
+		var one_link = buildRecomand(articles[i]);
+		if (i==0) {
+			$("#js_recomand").append(one_link);
+			$(".list-group-item").attr("id","activeList");
+		}
+		else{
+			$("#js_recomand").append(one_link);
+		}
+		
+	}
+	$(".list-group-item").hover(function(){
+		$(".list-group-item").attr("id","");
+		$(this).attr("id","activeList");
+		
+	});
+	$(".list-group-item").mouseleave(function(){
+		$(".list-group-item").attr("id","");
+		$(".list-group-item:first").attr("id","activeList");
+	});
+}
+//右边推荐栏
+// <a href="#" class="list-group-item">
+// 	<!-- <h4>免费域名注册</h4> -->
+// 	<div class="img">
+// 		<img src="/front.1/resource/articleCover.png" class="img-responsive" alt="Image">
+// 		<div class="header">免费域名注册</div>
+// 	</div>
+	
+// </a>
+
+function buildRecomand(article){
+	var link=document.createElement("a");
+	link.setAttribute("class","list-group-item");
+	link.setAttribute("href",'/front.1/html/articleDetial.html?article_id=' + article.id)
+
+	var title=document.createElement("h5");
+	var title_txt=document.createTextNode(article.title);
+	title.appendChild(title_txt);
+
+	var img=document.createElement("div");
+	img.setAttribute("class","img");
+
+	pic=document.createElement("img");
+	pic.setAttribute("src",article.cover_url);
+	pic.setAttribute("class","img-responsive");
+	pic.setAttribute("alt","Image");
+
+	var header=document.createElement("div");
+	header.setAttribute("class","header");
+	var header_txt=document.createTextNode(article.title);
+	header.appendChild(header_txt);
+
+	img.appendChild(pic);
+	img.appendChild(header);
+
+	link.appendChild(title);
+	link.appendChild(img);
+
+	return link;
+
+
+}
+$('body').on('click' , '.list-group-item' , function(){ 
+	debugger;
+	$(this).hide();
+	$(".list-group-item .img").show();
+});
+$("#js_recomand").on("click",".list-group-item",function(){
+	debugger;
+	$(this).hide();
+	$(".list-group-item .img").show();
+});
 
 

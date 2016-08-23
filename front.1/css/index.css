@@ -2,7 +2,9 @@
 ------------------------------------------------*/
 body{
 	position: relative;
-	
+}
+li{
+	list-style: none;
 }
 .box1{
 	height: 52px;
@@ -20,29 +22,64 @@ body{
 .item img{
 	width: 100%;			
 }
-/*--nav2 && recomand
+/*--nav2
 ---------------------------------------------------*/
-.nav2 .nav-stacked li,
-.recomand .nav-stacked li{
+.boxNav2{
+	width: 100%;
+}
+#js_nav2{
+	position: fixed;
+	top:650px;
+	
+	
+	
+}
+/*----js_recomand
+------------------------------------------------------*/
+
+#js_recomand{
+	position: fixed;
+	top: 750px;
+	padding-right: 6%;
+}
+#js_recomand .list-group-item{
+	
+	line-height: 28px;
 	text-align: center;
-	border-top: solid 1px rgb(120,120,120);
-	margin-top: -1px;
 }
-.nav2 ul.nav-pills,
-.recomand ul.nav-pills {
-    top: 65px;
-    position: fixed;
-    border: solid 1px rgb(120,120,120);
-    
+#js_recomand .list-group-item h5{
+	display: inline;
 }
-.nav2 ul.nav-pills{
-	width: 8em;
-	left: 55px;
+#js_recomand .list-group-item .img{
+	display: none;
 }
-.recomand ul.nav-pills{
- 	width: 15em;
+#js_recomand .img{
+	margin: 10px;
+	position: relative;
 }
 
+#js_recomand .img .header{
+	width: 100%;
+	position: absolute;
+	bottom: 0px;	
+	height: 32px;
+	line-height: 32px;
+	background-color: rgba(0,0,0,0.7);
+	color: rgb(255,255,255);
+	text-align: center;
+	letter-spacing: 5px;
+	font-size: 16px;
+}
+
+/*当鼠标滑过link的时候
+---------------------------------------------------*/
+
+#js_recomand  #activeList h5{
+	display: none;
+}
+#js_recomand  #activeList .img{
+	display: block;
+}
 /*---article
 -----------------------------------------------------*/
 
@@ -59,8 +96,6 @@ body{
 } 
 .read{
 	float: right;
-	position: relative;
-	top: 30px;
 }
 /*--Carousel
 -----------------------------------------------------------*/
@@ -77,6 +112,8 @@ body{
 	font-size: 15px;
 	font-weight: bold;
 }
+/*文章下拉按钮
+-------------------------------------------------------------------------*/
 #downBtn{
 	width: 100%;
 	font-size: 18px;

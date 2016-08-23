@@ -100,7 +100,7 @@
 							return false;												
 						}
 						if (code==-10001) {
-							alert("未注册，请注册！")
+							alert("用户名或密码错误！")
 						}
 						else {
 							alert("登录不成功，请重试！");

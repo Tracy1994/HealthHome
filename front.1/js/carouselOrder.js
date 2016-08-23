@@ -110,8 +110,9 @@ function bulidCarouselList(carousels){
 	$("#carouselList").empty();
 	for (var i = 0; i < carousels.length; i++) {
 		var carousel = loadCarouselItem(carousels[i]);
-		$("#carouselList").append(carousel);
+		$("#carouselList").append(carousel);		
 	}
+	
 }
 // <li class="ui-state-default list-group-item"  id="1">
 // 	<img src="/front.1/resource/1.jpg" class="img-responsive col-xs-4" alt="Image">
@@ -146,8 +147,8 @@ function loadCarouselItem(carousel){
 
 	var btn=document.createElement("button");
 	btn.setAttribute("class", "btn btn-sm btn-default remove");
-	// btn.setAttribute("onclick","deleteItem(" +carousel.id +")");
-	btn.setAttribute("onclick","deleteItem()");
+	btn.setAttribute("onclick","deleteItem(this)");
+
 	var span=document.createElement("span");
 	span.setAttribute("class", "glyphicon glyphicon-trash");
 	btn.appendChild(span);
@@ -159,22 +160,7 @@ function loadCarouselItem(carousel){
 	return li;
 
 }
-// function deleteItem(carouselId){
-// 	var selecter='"#'  + carouselId +'"';
-// 	console.log("selecter:"+selecter);
-// 	var r=confirm("是否确定将该轮播从列表中移除？")
-// 	  if (r==true)	  	
-// 	    {
-// 	    	debugger;
-// 	    	$("#1").remove();        	    
-// 	    }
-// 	   else
-// 	   {
-// 	   		return false;
-// 	   }
-	
-// }
-function deleteItem(){
-	debugger;
-	$(this).hide();
+
+function deleteItem(obj){
+	$(obj).parent().remove();
 }

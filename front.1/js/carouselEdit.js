@@ -142,7 +142,7 @@ function onePageItems(articles){
 }
 
 //首次加载文章内容
-$.getJSON("/article/get_list?type_id=0&page=1&num="+5,function(jsondata){
+$.getJSON("/article/get_latest_list?detail=1&page=1&num="+5,function(jsondata){
 	console.log("jsondata.date.items"+ jsondata.data.items);
 	
 	console.log(jsondata);
@@ -159,7 +159,7 @@ $.getJSON("/article/get_list?type_id=0&page=1&num="+5,function(jsondata){
 	
 //根据第几页和每页的页数加载
 function getPageData(page){
-	$.getJSON("/article/get_list?type_id=0&page=" + page + "&num="+5,function(jsondata){
+	$.getJSON("/article/get_latest_list?detail=1&page=" + page + "&num="+5,function(jsondata){
 		console.log("jsondata.date.items"+ jsondata.data.items);				
 		console.log(jsondata);
 		if (jsondata.code!=0) {

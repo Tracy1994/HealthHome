@@ -21,12 +21,26 @@
 	width: 100%; 
 }*/
 .left .read {
-	float: right;
-	padding: 10px;
-	position: relative;	
+	
 }
 .left .read .btn{
-
+	float: right;
+	padding: 5px 10px;
+	margin: 20px 4px;
+}
+.comment{
+	border-top: solid 1px rgb(200,200,200);
+	padding: 10px;
+}
+.comment .form-control{
+	width: 100%;
+}
+.comment .btn{
+	float: right;
+	text-align: center;
+	padding: 25% 10%;
+	margin: 10px;
+	width: 100%;
 }
 /*----right side
 ------------------------------------------*/

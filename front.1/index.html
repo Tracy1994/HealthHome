@@ -17,6 +17,7 @@
 	<script type="text/javascript" src="/front.1/js/index.js"></script>
 	<script type="text/javascript" src="/front.1/js/lib/buildDropdownMeum.js"></script>
 	<script type="text/javascript" src="/front.1/js/lib/buildArticle.js"></script>
+
 	
 </head>
 <body  data-spy="scroll" data-target="#myScrollspy" data-offset="20">
@@ -105,29 +106,20 @@
 	      data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
 	</div>
 	<div class="container">
-		<div class="row ">
-			<div class="col-sm-1 nav2  hidden-xs hidden-sm" id="">
-				<div id="js_nav2">
-						<!-- <div class="btn-group-vertical">
-							<button type="button" class="btn btn-default">Top</button>
-							<button type="button" class="btn btn-default">Middle</button>
-							<button type="button" class="btn btn-default">Bottom</button>
-						</div> -->
-					<nav id="myScrollspy">
-				        <ul class="nav nav-pills nav-stacked">
-			            	<li><a href="#">推荐</a></li>
-							<li><a href="#">心理</a></li>
-							<li><a href="#">真相</a></li>
-							<li><a href="#">一图读懂</a></li>
-							<li><a href="#">肿瘤</a></li>
-							<li><a href="#">慢病</a></li>
-							<li><a href="#">营养</a></li>
-							<li><a href="#">母婴</a></li>
-				        </ul>
-			        </nav>		
-				</div>								
+		<div class="row">
+			<div class="hidden-xs hidden-sm col-xs-1">
+				<div class="btn-group-vertical "  id="js_nav2">
+					<a class="btn btn-default" href="#" role="button">推荐</a>
+					<a class="btn btn-default" href="#" role="button">心理</a>
+					<a class="btn btn-default" href="#" role="button">真相</a>
+					<a class="btn btn-default" href="#" role="button">一图读懂</a>
+					<a class="btn btn-default" href="#" role="button">肿瘤</a>
+					<a class="btn btn-default" href="#" role="button">营养</a>
+					<a class="btn btn-default" href="#" role="button">母婴</a>				
+				</div>	
 			</div>
-			<div class="col-sm-9 article">					
+				
+			<div class="col-xs-8  article">					
 				<table class="table table-hover table-responsive">
 					<tbody id="js_article_list">						
 						<!-- <tr>
@@ -157,23 +149,18 @@
 					</tbody>
 				</table>				
 			</div>
-			<div class="col-sm-2 recomand  hidden-xs hidden-sm" id="js_recomand">
-				<nav id="myScrollspy">
-		        	<ul class="nav nav-pills nav-stacked ">
-		            	<li><a href="#">推荐</a></li>
-						<li><a href="#">心理</a></li>
-						<li><a href="#">真相</a></li>
-						<li><a href="#">一图读懂</a></li>
-						<li><a href="#">肿瘤</a></li>
-						<li><a href="#">慢病</a></li>
-						<li><a href="#">营养</a></li>
-						<li><a href="#">母婴</a></li>
-		        	</ul>
-		        </nav>			
+			<div class="col-xs-3 hidden-xs" >
+	        	<ul id="js_recomand">
+	        		<!-- <a href="#" class="list-group-item ">
+	        			<h4>免费域名注册</h4>
+	        			<div class="img">
+	        				<img src="/front.1/resource/articleCover.png" class="img-responsive" alt="Image">
+	        				<div class="header">免费域名注册</div>
+	        			</div>
+	        			
+	        		</a> -->	        	
+	        	</ul>
 			</div>
-		</div>
-		<div>
-			
 		</div>
 	</div>
 	
