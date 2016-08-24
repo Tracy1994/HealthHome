@@ -38,7 +38,7 @@
 }
 .comment textarea{
 	width: 100%;
-	height: 200px;
+	height: 74px;
 	border-radius: 0px;
 	resize: none;
 }
@@ -59,7 +59,7 @@
 .media .pull-left {	
 	padding: 10px;	
 }
-.media .pull-left img{
+.media img{
 	border-radius: 50%;
 }
 .media .media-body{
