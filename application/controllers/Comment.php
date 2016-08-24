@@ -125,9 +125,10 @@ class Comment extends CI_Controller {
 			return false;
 		}
 
-		$check = check_login();
+		$num = isset($_REQUEST['num']) && intval($_REQUEST['num']) > 0 ? intval($_REQUEST['num']) : 10;
+		$page = isset($_REQUEST['page']) && intval($_REQUEST['page']) > 0 ? intval($_REQUEST['page']) : 1;
 
-		$ret = $this->comment_mng->get_article_comments($_REQUEST['article_id']);
+		$ret = $this->comment_mng->get_article_comments($_REQUEST['article_id'], $num, $num * ($page - 1));
 		if ($ret === false)
 		{
 			output_cgi_data(ERR_SYSTEM, 'system errror');

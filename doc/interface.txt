@@ -128,6 +128,8 @@ comment_id：[必填]评论ID
 /comment/get_article_comments
 参数：
 article_id：[必填]文章ID
+num：[选填]用于分页，每页多少个，默认为10个
+page：[选填]用于分页，第几页，默认为第1页
 
 五、收藏类接口
 1)添加收藏

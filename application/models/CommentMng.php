@@ -66,18 +66,25 @@ class CommentMng extends CI_Model {
 		return $this->db_opt_mng->insert($this->table_like, $arr_values);
 	}
 
-	public function get_article_comments($article_id)
+	public function get_article_comments($article_id, $num, $offset)
 	{
 		$arr_where = array(
 			'article_id' => $article_id,
 			'state' => STATE_PUBLISH);
-		$ret = $this->db_opt_mng->select($this->table_all_info, $arr_where);
-		if ($ret === false)
+		$count = $this->db_opt_mng->get_count($this->table_comment, $arr_where);
+		if ($count === false)
 		{
 			return false;
 		}
 
-		return array('count' => count($ret), 'items' => $ret);
+		$items = $this->db_opt_mng->select_conditions(
+			$this->table_all_info, $arr_where, '', $num, $offset, 'comment_time');
+		if ($items === false)
+		{
+			return false;
+		}
+
+		return array('count' =>$count, 'items' => $items);
 	}
 
 	public function check_like($comment_id)
