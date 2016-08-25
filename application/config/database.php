@@ -102,7 +102,8 @@ $db['default'] = array(
 
 $db['test'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
+	'hostname' => '10.66.183.164',
+	'port'     => 3318,
 	'username' => 'normal_user',
 	'password' => 'normal@mysql',
 	'database' => 'health_home_test',
