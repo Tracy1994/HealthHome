@@ -1,10 +1,11 @@
+var articleId=window.location.search.substring(12,1400);
 
 $(function(){
 	
-	var articleId=window.location.search;
+	
 	console.log("articleId:"+articleId);
-	$.getJSON("/article/get_info_detail"+articleId,function(jsondata){
-		console.log("jsondata.date.items"+ jsondata.data.items);		
+	$.getJSON("/article/get_info_detail?article_id="+articleId,function(jsondata){
+		console.log("jsondata.date"+ jsondata.data);		
 		console.log(jsondata);
 		if (jsondata.code==-10007) {
 			alert("抱歉，该文章已被作者删除～～");
@@ -16,11 +17,73 @@ $(function(){
 		}
 		else{
 
-			buildPage(jsondata.data);
-			
+			buildArticle(jsondata.data);
 		}
 	});
 });
+function buildContent(){
+	$.get("/article/get_content?article_id=" + articleId,function(data,status){
+		console.log(data);
+		if (jsondata.code!=0) {
+			alert("系统繁忙，请稍后再试～～");
+			return false;
+		}
+		else{
+			$("content").text(data);
+			
+		}
+	});
+	
+}
+
+// <div class="article">
+// 	<header>
+// 		<h3>爱人生气了？知道这些，你就能更好地哄TA 开心</h3>
+// 		<p><span class="author">作者： 梁家铭</span><span class="time">2016-08-16</span></p>
+// 	</header>
+	
+// 	<img src="/front.1/resource/articleCover.png" class="img-responsive article_cover" alt="Image">
+// 	<content  col-xs-12>
+// 		以下内容来自「丁香医生」www.dxy.com
+// 		如何评价一段恋爱关系的质量呢？
+
+// 		最准确的评价标准其实只有一个：
+
+// 		两个人都说好，才是真的好。
+
+// 		在婚恋关系的心理咨询中，很多伴侣间产生感情问题的原因，都归咎于一种叫做“一致性错觉”的东西。
+
+// 		什么是一致性错觉？
+
+// 		简单来说，就是伴侣双方都会认为某些行为和事件，对两个人具有同样的情感意义。沉浸在爱情中的恋侣总是自信地认为，双方的三观是完全一致的，根本不可能出现任何分歧。
+
+// 		然而，老司机们都知道，这是荷尔蒙战胜理性后
+// 	</content>						
+// 	<div class="read col-xs-12">
+// 		<button type="button" class="btn btn-default btn-sm">
+// 		  <span class="glyphicon glyphicon-thumbs-up"></span> 点赞(2)
+// 		</button>
+// 		<button type="button" class="btn btn-default btn-sm">
+// 		  <span class="glyphicon glyphicon-star-empty"></span> 收藏
+// 		  <!-- <span class="glyphicon glyphicon-star"></span> -->
+// 		</button>
+// 	</div>
+// </div>
+function buildArticle(article){
+
+
+	// $(".article").empty();
+	// var header=buildHeader(article);
+	// var img=buildCover(article);
+	// var content=buildContent();
+	// var read=buildRead(article);
+
+	// $(".article").append(header);
+	// $(".article").append(img);
+	
+	// $(".article").append(read);
+
+}
 // <header>
 // 	<h3>爱人生气了？知道这些，你就能更好地哄TA 开心</h3>
 // 	<p><span>作者： 梁家铭</span><span>2016-08-16</span></p>
@@ -38,7 +101,7 @@ function buildHeader(article){
 	var author_txt=document.createTextNode("作者：" + article.author);
 
 	var createTime=document.createElement("span");
-	var createTimeAll=document.createElement(article.create_time);
+	var createTimeAll=article.create_time;
 	var createTime_txt=document.createTextNode(createTimeAll.substring(1,10));
 	createTime.appendChild(createTime_txt);
 
@@ -53,6 +116,7 @@ function buildHeader(article){
 }
 // <img src="/front.1/resource/articleCover.png" class="img-responsive article_cover" alt="Image">
 function buildCover(article){
+
 	var cover=document.createElement("img");
 	cover.setAttribute("src",article.cover_url);
 	cover.setAttribute("class","img-responsive article_cover");
@@ -65,14 +129,7 @@ function buildCover(article){
 // 	以下内容来自「丁香医生」www.dxy.com
 	
 // </content>
-function buildContent(article){
-	var content=document.createElement("content");
-	content.setAttribute("class","col-xs-12");
-	var content_txt=document.createTextNode(article.detial);
-	content.appendChild(content_txt);
 
-	return content;
-}
 // <div class="read col-xs-12">
 // 	<button type="button" class="btn btn-default btn-sm">
 // 	  <span class="glyphicon glyphicon-thumbs-up"></span> 
@@ -120,7 +177,7 @@ function buildRead(article){
 }
 
 function likeArticle(articleId){
-	$.get("/article/like?article_id"+articleId,function(data,status){
+	$.get("/article/like?article_id?article_id="+articleId,function(data,status){
 		
 		if (data.code==-10003)
 		{
@@ -189,115 +246,164 @@ function collectArticle(articleId){
 
 	
 }
-// <div class="comment col-xs-12">
-// 	<div class="col-xs-10">
-// 		<textarea required="required" maxlength="200" placeholder="说说你的看法，不超过200字" ></textarea>
-		
-// 	</div>
-// 	<div class="col-xs-2">
-// 		<a class="btn btn-info " href="#" role="button">提交</a>
-// 	</div>
+
+function replyArticle(){
 	
-// </div>
-function buildComment(article){
-	var comment=document.createElement("div");
-	comment.setAttribute("class","col-xs-12");
-
-	var col_10=document.createElement("div");
-	col_10.setAttribute("class","col-xs-10");
-
-	var textarea=document.createElement("textarea");
-	textarea.setAttribute("class","comment");
-	textarea.setAttribute("required","required");
-	textarea.setAttribute("maxlength","200");
-	textarea.setAttribute("placeholder","说说你的看法，不超过200字");
-
-	col_10.appendChild(textarea);
-
-	var col_2=document.createElement("div");
-	col_2.setAttribute("class","col-xs-2");
-
-	var link=document.createElement("a");
-	link.setAttribute("class","btn btn-info");
-	link.setAttribute("role","button");
-	link.setAttribute("onclick","commentPublicFirst('" + JSON.stringify(article) + "')")
-
-	var link_txt=document.createTextNode("提交");
-	link.appendChild(link_txt);
-
-	col_2.appendChild(link);
-
-	comment.appendChild(col_10);
-	comment.appendChild(col_2);
-
-	return comment;
-
-}
-function commentPublicFirst(article){
-	var article = JSON.parse(article);
-	var textarea_txt=$(".comment").val();
+	var textarea_txt=$("#js_reply_article").val();
+	console.log(articleId);
+	console.log(textarea_txt);
 	$.post("/comment/add", 
 	{ 
-	    article_id:article.id, 
-	    content:textarea_txt
+	    article_id: articleId, 
+	    content: textarea_txt
 	}, 
-	    function(data,status){ 
-	    if (data.code==0) {
-	    	buildReplayArticle(data);
-	    	$(".comment").val("");
+	    function(data,status){
+	    	var objData=JSON.parse(data);
+	    console.log(objData.code); 
+	    if (objData.code==0) {
+
+	    	buildreplyArticle(objData);
+	    	debugger;
+	    	$("#js_reply_article").val("");
+	    	return false;
 	    }
 	    else{
 	    	alert("系统繁忙，请稍后再试～～");
+	    	return false;
 	    }
 	});
 }
+
+//首次加载文章内容的所有评论
+function buildContents(articleId){
+	$.getJSON("/comment/get_article_comments?article_id=" +articleId  + "page=1&num="+5,function(jsondata){
+			console.log("jsondata.date.items"+ jsondata.data.items);
+			
+			console.log(jsondata);
+			if (jsondata.code!=0) {
+				alert("系统繁忙，请稍后再试～～");
+			}
+			else{
+				
+				onePageItems(jsondata.data);
+			}
+	});
+}
+
+
+//根据第几页和每页的页数加载
+function getPageData(page){
+	$.getJSON("/comment/get_article_comments?article_id=" + articleId + "&page=" + page + "&num="+5,function(jsondata){
+		console.log("jsondata.date.items"+ jsondata.data.items);				
+		console.log(jsondata);
+		if (jsondata.code!=0) {
+			alert("系统繁忙，请稍后再试～～");
+		}
+		else{
+			onePageItems(jsondata.data);
+		}				
+	});
+}
+//每页的每篇文章单篇加载
+function onePageItems(jsondata){	
+	var comments=jsondata.items;
+	$(".reply").empty();
+	for (var i = 0; i < comments.length; i++) {
+		var one_page = buildreplyArticle(comments[i]);
+		$(".reply").append(one_page);
+	}
+}
+
+	
+// </div>
 // <div class="media col-xs-12">
 // 	<img class="media-object pull-left" src="/front.1/resource/logo.jpg" alt="Image">
 // 	<div class="media-body">
 // 		<h4 class="media-heading">lala</h4>
 // 		<p>这是我的评论巴拉拉这是我的评论巴拉拉这是我的评论巴拉拉这是我的评论巴拉拉这是我的评论巴拉拉这是我的评论巴拉拉</p>
-// 		<div class="replay_box">
+// 		<div class="reply_box">
 // 			<span>
 // 				<a href="#" class="like">赞(1)</a>
 // 				<a> | </a>
-// 				<a data-toggle="collapse" data-target="#demo1" class="replay">回复</a>
+// 				<a data-toggle="collapse" data-target="#demo1" class="reply">回复</a>
 // 			</span>
 				
 // 		</div>
-// 		<div id="demo1"  class="collapse well well-lg replay_comment">
+// 		<div id="demo1"  class="collapse well well-lg reply_comment">
 // 			<textarea name="" id="input" class="form-control " rows="3" required="required" maxlength="100" ></textarea>
 // 			<button class="btn btn-default">提交</button>
 // 		</div>
 // 	</div>
 // </div>
+
+
 //对文章内容的评论
-function buildReplayArticle(){
+function buildreplyArticle(replyArticle){
+	var col12=document.createElement("div");
+	col12.setAttribute("class","col-xs-12");
+
+	var img=document.createElement("img");
+	img.setAttribute("class","media-object pull-left");
+	img.setAttribute("src","/front.1/resource/User.jpg");
+
+	var media_body=document.createElement("div");
+	media_body.setAttribute("class","media-body");
+
+	var h4=document.createElement("h4");
+	h4.setAttribute("class","media-heading");
+	h4_txt=document.createTextNode(replyArticle.user_name);
+	h4.appendChild(h4_txt);
+
+	var p=document.createElement("p");
+	p_txt=document.createTextNode(replyArticle.content);
+	p.appendChild(p_txt);
+
+	var reply_box=buildreplyBox(replyArticle,"#demo1");
+	var demo=buildDemo("demo1");
+
+	media_body.appendChild(h4);
+	media_body.appendChild(p);
+	media_body.appendChild(reply_box);
+	media_body.appendChild(demo);
+
+	col12.appendChild(img);
+	col12.appendChild(media_body);
+
+	return col12;
 
 }
-// <div class="replay_box">
+// <div class="reply_box">
 // 	<span>
 // 		<a href="#" class="like">赞(1)</a>
 // 		<a> | </a>
-// 		<a data-toggle="collapse" data-target="#demo1" class="replay">回复</a>
+// 		<a data-toggle="collapse" data-target="#demo1" class="reply">回复</a>
 // 	</span>
 		
 // </div>
-function buildReplayBox(comment){
-	var replay=document.createElement("div");
-	replay.setAttribute("class","replay_box");
+function buildreplyBox(comment,demo){
+	var reply=document.createElement("div");
+	reply.setAttribute("class","reply_box");
 
 	var span=document.createElement("span");
 
 	var a1=document.createElement("a");
 	a1.setAttribute("class","like");
-	a1.setAttribute("onclick","replayLike(" + comment.id + ")");
+	a1.setAttribute("onclick","replyLike(" + comment.id + ")");
 
-	var a2=document.createElement("a");
-	var a2_txt=document.createElement(" | ");
+	var a3=document.createElement("a");
+	a3.setAttribute("data-toggle","collapse");
+	a3.setAttribute("data-target",demo);
+	a3.setAttribute("class","reply");
 
-	var r
+	var a3_txt=document.createTextNode("回复");
+	a3.appendChild(a3_txt);
+
+	reply.appendChild(a1);
+	reply.appendChild(a3);
+
+	return reply
 }
-function replayLike(commentId){
+function replyLike(commentId){
 	$.get("/comment/like?comment_id="+commentId,function(){
 		if (jsondata.code==-10003)
 		{
@@ -316,4 +422,29 @@ function replayLike(commentId){
 		}
 	});
 	
+}
+// <div id="demo1"  class="collapse well well-lg reply_comment">
+// 	<textarea  class="form-control "  required="required" maxlength="100" ></textarea>
+// 	<button class="btn btn-default">提交</button>
+// </div>
+function buildDemo(demo){
+	var demo=document.createElement("div");
+	demo.setAttribute("id",demo);
+	demo.setAttribute("class","collapse well well-lg reply_comment");
+
+	var textarea=document.createElement("textarea");
+	textarea.setAttribute("class","form-control");
+	textarea.setAttribute("required","required");
+	textarea.setAttribute("maxlength","100");
+
+	var btn=document.createElement("button");
+	btn.setAttribute("class","btn btn-default");
+	var btn_txt=document.createTextNode("提交");
+	btn.appendChild(btn_txt);
+
+	demo.appendChild(textarea);
+	demo.appendChild(btn);
+
+	return demo;
+
 }

@@ -40,48 +40,52 @@
 		<div class="row">
 			<div class="col-xs-7 col-xs-offset-1 ">
 				<div class="left  col-xs-12">
-					<header>
-						<h3>爱人生气了？知道这些，你就能更好地哄TA 开心</h3>
-						<p><span>作者： 梁家铭</span><span>2016-08-16</span></p>
-					</header>
-					
-					<img src="/front.1/resource/articleCover.png" class="img-responsive article_cover" alt="Image">
-					<content  col-xs-12>
-						以下内容来自「丁香医生」www.dxy.com
-						如何评价一段恋爱关系的质量呢？
+					<div class="article">
+						<header>
+							<h3>爱人生气了？知道这些，你就能更好地哄TA 开心</h3>
+							<p><span class="author">作者： 梁家铭</span><span class="time">2016-08-16</span></p>
+						</header>
+						
+						<img src="/front.1/resource/articleCover.png" class="img-responsive article_cover" alt="Image">
+						<content  col-xs-12>
+							以下内容来自「丁香医生」www.dxy.com
+							如何评价一段恋爱关系的质量呢？
 
-						最准确的评价标准其实只有一个：
+							最准确的评价标准其实只有一个：
 
-						两个人都说好，才是真的好。
+							两个人都说好，才是真的好。
 
-						在婚恋关系的心理咨询中，很多伴侣间产生感情问题的原因，都归咎于一种叫做“一致性错觉”的东西。
+							在婚恋关系的心理咨询中，很多伴侣间产生感情问题的原因，都归咎于一种叫做“一致性错觉”的东西。
 
-						什么是一致性错觉？
+							什么是一致性错觉？
 
-						简单来说，就是伴侣双方都会认为某些行为和事件，对两个人具有同样的情感意义。沉浸在爱情中的恋侣总是自信地认为，双方的三观是完全一致的，根本不可能出现任何分歧。
+							简单来说，就是伴侣双方都会认为某些行为和事件，对两个人具有同样的情感意义。沉浸在爱情中的恋侣总是自信地认为，双方的三观是完全一致的，根本不可能出现任何分歧。
 
-						然而，老司机们都知道，这是荷尔蒙战胜理性后
-					</content>						
-					<div class="read col-xs-12">
-						<button type="button" class="btn btn-default btn-sm">
-						  <span class="glyphicon glyphicon-thumbs-up"></span> 点赞(2)
-						</button>
-						<button type="button" class="btn btn-default btn-sm">
-						  <span class="glyphicon glyphicon-star-empty"></span> 收藏
-						  <!-- <span class="glyphicon glyphicon-star"></span> -->
-						</button>
+							然而，老司机们都知道，这是荷尔蒙战胜理性后
+						</content>						
+						<div class="read col-xs-12">
+							<button type="button" class="btn btn-default btn-sm">
+							  <span class="glyphicon glyphicon-thumbs-up"></span> 点赞(2)
+							</button>
+							<button type="button" class="btn btn-default btn-sm">
+							  <span class="glyphicon glyphicon-star-empty"></span> 收藏
+							  <!-- <span class="glyphicon glyphicon-star"></span> -->
+							</button>
+						</div>
 					</div>
+					
+
 					<div class="comment col-xs-12">
 						<div class="col-xs-10">
-							<textarea required="required" maxlength="200" placeholder="说说你的看法，不超过200字" ></textarea>
+							<textarea required="required" maxlength="200" placeholder="说说你的看法，不超过200字" id="js_reply_article"></textarea>
 							
 						</div>
 						<div class="col-xs-2">
-							<a class="btn btn-info " href="#" role="button">提交</a>
+							<a class="btn btn-info"  role="button" onclick="replyArticle()">提交</a>
 						</div>
 						
 					</div>
-					<div class="replay">
+					<div class="reply">
 						<div class="media col-xs-12">
 							<img class="media-object pull-left img" src="/front.1/resource/logo.jpg" alt="Image">
 							<div class="media-body">
@@ -94,16 +98,16 @@
 									旧评论
 									这是我的评论巴拉拉这是我的评论巴拉拉这是我的评论巴拉拉这是我的评论巴拉拉这是我的评论巴拉拉这是我的评论巴拉拉							
 								</div>
-								<div class="replay_box">
+								<div class="reply_box">
 									<span>
 										<a href="#" class="like">赞(1)</a>
 										<a> | </a>
-										<a data-toggle="collapse" data-target="#demo" class="replay">回复</a>
+										<a data-toggle="collapse" data-target="#demo" class="reply">回复</a>
 									</span>
 										
 								</div>
-								<div id="demo"  class="collapse well well-lg replay_comment">
-									<textarea name="" id="input" class="form-control " rows="3" required="required" maxlength="100" ></textarea>
+								<div id="demo"  class="collapse well well-lg reply_comment">
+									<textarea class="form-control" required="required" maxlength="100" ></textarea>
 									<button class="btn btn-default">提交</button>
 								</div>
 							</div>
@@ -114,22 +118,26 @@
 							<div class="media-body">
 								<h4 class="media-heading">lala</h4>
 								<p>这是我的评论巴拉拉这是我的评论巴拉拉这是我的评论巴拉拉这是我的评论巴拉拉这是我的评论巴拉拉这是我的评论巴拉拉</p>
-								<div class="replay_box">
+								<div class="reply_box">
 									<span>
 										<a href="#" class="like">赞(1)</a>
 										<a> | </a>
-										<a data-toggle="collapse" data-target="#demo1" class="replay">回复</a>
+										<a data-toggle="collapse" data-target="#demo1" class="reply">回复</a>
 									</span>
 										
 								</div>
-								<div id="demo1"  class="collapse well well-lg replay_comment">
-									<textarea name="" id="input" class="form-control " rows="3" required="required" maxlength="100" ></textarea>
+								<div id="demo1"  class="collapse well well-lg reply_comment">
+									<textarea class="form-control " required="required" maxlength="100" ></textarea>
 									<button class="btn btn-default">提交</button>
 								</div>
 							</div>
 						</div>
 					</div>
-					
+					<div class="btn-group page">
+						<a class="btn btn-default active" href="#" role="button" id="js_btn1">1</a>
+						<a class="btn btn-default" href="#" role="button" id="js_btn2">2</a>
+						<a class="btn btn-default" href="#" role="button" id="js_btn3">3</a>	  
+					</div>
 				</div>
 				
 			</div>

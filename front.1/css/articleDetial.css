@@ -68,26 +68,30 @@
 .media .media-body p{
 	line-height: 20px;
 }
-.media .media-body .replay_box{
+.media .media-body .reply_box{
 	width: 100%;
 	height: 30px;
 }
-.media .media-body .replay_box span{
+.media .media-body .reply_box span{
 	float: right;
 	font-size: 14px;
 	text-align: center;
 	letter-spacing: 3px;
 }
-.media .media-body .replay_comment textarea{
+.media .media-body .reply_comment textarea{
 	resize: none;
 	height: 40px;
 	width: 100%;
 }
-.media .media-body .replay_comment .btn{
+.media .media-body .reply_comment .btn{
 	position: relative;
 	left:84%;
 	width: 14%;
 	margin: 10px;
+}
+.page{
+	margin: 10px;
+	float: right;
 }
 /*----right side
 ------------------------------------------*/
