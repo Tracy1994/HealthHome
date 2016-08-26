@@ -23,40 +23,7 @@ $(function(){
 });
 
 //加载轮播内容
-//原html
-// <div id="myCarousel" class="carousel slide ">
-// 	<ol class="carousel-indicators">
-// 	     <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-// 	     <li data-target="#myCarousel" data-slide-to="1"></li>
-// 	     <li data-target="#myCarousel" data-slide-to="2"></li>
-// 	     <li data-target="#myCarousel" data-slide-to="3"></li>
-// 	</ol> 
-// 	<div class="carousel-inner">
-// 		<div class="item active">
-//         	<img src="./resource/1.jpg" alt="First slide">	         
-//     	</div>
-//         <div class="item">
-//          <img src="./resource/2.jpg" alt="Second slide">
-//         </div>
-//         <div class="item">
-//          <img src="./resource/3.jpg" alt="Third slide">
-//         </div>
-//         <div class="item">
-//          <img src="./resource/4.jpg" alt="Third slide">
-//         </div>	        
-// 	</div>
-// 	<div class="img_info">
-// 		<div class="writer_name">writer name</div>
-// 		<div class="writer_info">writer_info</div>
-// 		<h1>the title of this img</h1>
-// 		<div class="detile">this is the detial infomation this picture</div>
-// 	</div>
-// 	<a class="carousel-control left" href="#myCarousel" 
-//       data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
-//  <a class="carousel-control right" href="#myCarousel" 
-//       data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
-// </div>
-//
+
 $.getJSON("/carousel/get_effect_list",function(jsondata){
 		console.log("jsondata.date.items"+ jsondata.data.items);
 		
@@ -68,8 +35,6 @@ $.getJSON("/carousel/get_effect_list",function(jsondata){
 			
 			carouselIndicators(jsondata.data.items);
 			carouselInner(jsondata.data.items);
-			// imgInfo(jsondata.data.items);
-
 		}
 });
 
@@ -89,14 +54,17 @@ function carouselIndicators(jsondata){
 	}
 	
 }
-// <div class="item active">
-// 	<img src="./resource/1.jpg" alt="First slide">	         
-// </div>
+
+
 function carouselInner(carousel){
 	var slideNum=carousel.length;
 	// debugger;
 	$(".carousel-inner").empty();
-
+	if (slideNum==0) {
+		$(".glyphicon-chevron-left").hide();
+		$(".glyphicon-chevron-right").hide();
+		return false;
+	}
 	for (var i = 0; i < slideNum; i++) {
 		
 		var item=document.createElement("div");
@@ -124,35 +92,39 @@ function carouselInner(carousel){
 }
 
 function imgInfo(carousel){
-	console.log(carousel);
-	var img_info=document.createElement("div");
-	img_info.setAttribute("class","img_info");
+	$(".writer_name").text(carousel.author);
+	$(".writer_info").text(carousel.author_desp);
+	$("h1").text(carousel.title);
+	$(".detile").text(carousel.summary);
+	// console.log(carousel);
+	// var img_info=document.createElement("div");
+	// img_info.setAttribute("class","img_info");
 
-	var writer_name=document.createElement("div");
-	writer_name.setAttribute("class","writer_name");
-	var writer_name_text=document.createTextNode(carousel.author);
-	writer_name.appendChild(writer_name_text);
+	// var writer_name=document.createElement("div");
+	// writer_name.setAttribute("class","writer_name");
+	// var writer_name_text=document.createTextNode(carousel.author);
+	// writer_name.appendChild(writer_name_text);
 
-	var writer_info=document.createElement("div");
-	writer_info.setAttribute("class","writer_info");
-	var writer_info_text=document.createTextNode(carousel.author_desp);
-	writer_info.appendChild(writer_info_text);
+	// var writer_info=document.createElement("div");
+	// writer_info.setAttribute("class","writer_info");
+	// var writer_info_text=document.createTextNode(carousel.author_desp);
+	// writer_info.appendChild(writer_info_text);
 
-	var h1=document.createElement("h1");
-	title=document.createTextNode(carousel.title);
-	h1.appendChild(title);
+	// var h1=document.createElement("h1");
+	// title=document.createTextNode(carousel.title);
+	// h1.appendChild(title);
 
-	var detial=document.createElement("div");
-	detial.setAttribute("class","detial");
-	var detial_text=document.createTextNode(carousel.summary);
-	detial.appendChild(detial_text);
+	// var detial=document.createElement("div");
+	// detial.setAttribute("class","detial");
+	// var detial_text=document.createTextNode(carousel.summary);
+	// detial.appendChild(detial_text);
 
 	
-	img_info.appendChild(writer_name);
-	img_info.appendChild(writer_info);
-	img_info.appendChild(h1);
-	img_info.appendChild(detial);
-	return img_info;
+	// img_info.appendChild(writer_name);
+	// img_info.appendChild(writer_info);
+	// img_info.appendChild(h1);
+	// img_info.appendChild(detial);
+	// return img_info;
 }
 
 //首次加载文章内容
@@ -185,11 +157,15 @@ function getPageData(page){
 		}				
 	});
 }
-// <button type="button" class="btn btn-lg btn-default">button</button>
+
 var page=1;
 function onePageItems(jsondata){
 	$("#downBtn").remove();
 	var articleNum=jsondata.count;
+	if (articleNum==0) {
+		$("#js_article_list").text("小编暂时没有发布文章，敬请期待！");
+		return false;
+	}
 	var carousels=jsondata.items;		
 	var pageNum=Math.ceil(articleNum/5);		
 	for (var i = 0; i < carousels.length; i++) {

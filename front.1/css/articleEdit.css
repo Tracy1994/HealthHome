@@ -1,0 +1,50 @@
+.box1{
+	height: 55px;
+}
+/* writer-info--
+---------------------------------------------------------------------------*/
+.writer_info{
+	border:solid 1px rgb(228,228,228);
+	height: 180px;
+}
+.article_info{
+	border:solid 1px rgb(228,228,228);
+	height: 230px;
+}
+.writer_info .input-group{
+	margin: 40px 30px;
+}
+.article_info .input-group{
+	margin: 60px 30px;
+}
+.writer_info .preview_img,
+.article_info .preview_img{
+	width: 100%;
+}
+.writer_info .preview_img p,
+.article_info .preview_img p{
+	text-align: center;
+	display: inline-block;
+	width: 100%;
+	margin: 10px;
+	font-size: 17px;
+}
+.writer_info .preview_img img{
+	margin: 0% 30%;
+}
+.article_info .preview_img img{
+	margin: 3%;
+}
+.writer_info  #doc,
+.article_info  #doc{
+	position: absolute;
+	bottom: 6px;
+	line-height: 35px;
+	opacity: 0;
+	width: 94%;
+}
+.writer_info .file_a,
+.article_info .file_a{
+	width: 100%;
+	margin: 3%;
+}
