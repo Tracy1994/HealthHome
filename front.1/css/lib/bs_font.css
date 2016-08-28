@@ -1,0 +1,26 @@
+.box1{
+	height: 55px;
+}
+/*body {
+	font-family:'glyphicons-halflings-regular'
+}
+*/
+@font-face {
+	font-family: 'glyphicons-halflings-regular';
+	src: url('/front.1/css/lib/glyphicons-halflings-regular.eot');
+	src: local('glyphicons-halflings-regular Regular'), 
+            local('glyphicons-halflings-regular'), 
+            url('/front.1/css/lib/glyphicons-halflings-regular.woff') format('woff'),
+            url('/front.1/css/lib/glyphicons-halflings-regular.woff2') format('woff2'), 
+            url('/front.1/css/lib/glyphicons-halflings-regular.ttf')format('truetype'), 
+            url('/front.1/css/lib/glyphicons-halflings-regular.svg#glyphicons-halflings-regular') format('svg'); /* Legacy iOS */
+}
+/*@font-face {
+	font-family: 'summernoteRegular';
+	src: url('/front.1/css/lib/summernote.eot');
+	src: local('summernote Regular'), 
+              local('summernote'), 
+              url('/front.1/css/lib/summernote.woff') format('woff'), 
+              url('/front.1/css/lib/summernote.ttf') format('truetype'), 
+             
+} */ 

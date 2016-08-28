@@ -1,6 +1,19 @@
 .box1{
 	height: 55px;
 }
+/*#editor {
+	font-family:'summernoteRegular'
+}
+
+@font-face {
+	font-family: 'summernoteRegular';
+	src: url('/front.1/css/lib/summernote.eot');
+	src: local('summernote Regular'), 
+              local('summernote'), 
+              url('/front.1/css/lib/summernote.woff') format('woff'), 
+              url('/front.1/css/lib/summernote.ttf') format('truetype'), 
+             
+}  */
 /* writer-info--
 ---------------------------------------------------------------------------*/
 .writer_info{
@@ -30,7 +43,7 @@
 	font-size: 17px;
 }
 .writer_info .preview_img img{
-	margin: 0% 30%;
+	margin: 0% 15%;
 }
 .article_info .preview_img img{
 	margin: 3%;
