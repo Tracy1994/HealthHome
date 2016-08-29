@@ -2,7 +2,7 @@
 function setImagePreview(avalue) {
 	var docObj=document.getElementById("doc");	 
 	var imgObjPreview=document.getElementById("preview");
-	if(docObj.files &&docObj.files[0])
+	if(docObj.files && docObj.files[0])
 	{
 	//火狐下，直接设img属性
 	imgObjPreview.style.display = 'block';
@@ -61,6 +61,7 @@ $(function(){
 
     // bind to the form's submit event 
     $('#carousel').submit(function() { 
+    	
         // inside event callbacks 'this' is the DOM element so we first 
         // wrap it in a jQuery object and then invoke ajaxSubmit
 

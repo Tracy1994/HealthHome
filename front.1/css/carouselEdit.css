@@ -6,10 +6,18 @@
 }
 /*--input轮播图片预览
 --------------------------------------------------*/
-.preview_img{
+.form-group{
     padding: 20px;
     border: solid 1px rgb(200,200,200);
-    border-radius: 5px;  
+    border-radius: 5px; 
+    height: 500px;
+    margin: 10px 
+}
+#preview{
+    border: solid 1px rgb(200,200,200);
+    padding: 10px; 
+    border-radius: 5px; 
+    margin: 20px 0px; 
 }
 .preview_img p{
     text-align: center;
@@ -32,8 +40,10 @@
 	overflow: auto;
 }
 .articleId{
-    display: none;
-    
+    opacity: 0;
+    width: 1px;
+    position: absolute;
+
 }
 .page{
     float: left;
