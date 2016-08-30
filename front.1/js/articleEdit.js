@@ -92,13 +92,14 @@ $(function(){
 		$(".editor_input").val(articleText);
 	});
 });
+
 function sendFile(file,editor,welEditable) {
    data = new FormData();
    data.append("file", file);
    $.ajax({
        data: data,
        type: "POST",
-       url: "${base}/store/album/uploadImage/${goods.albumId?c}",
+       url:"http://article/upload_content_img",
        cache: false,
        contentType: false,
        processData: false,
@@ -180,7 +181,6 @@ function showRequest(formData,jqForm,option){
 		}	
 }
 function showResponse(responseText, statusText){ 
-	debugger;
         console.log(responseText);
         console.log(statusText);
         
@@ -200,7 +200,7 @@ function showResponse(responseText, statusText){
         else
         {
         	alert("提交不成功，请重试！");
-        	window.location.href="/front.1/html/carouselEdit.html"
+        	
         	return false;
         }
         // window.location.href="/front/html/writer.html";

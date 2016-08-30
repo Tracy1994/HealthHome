@@ -1,4 +1,4 @@
-使用方式例子：/login?user_name=abc&passwd=hello
+﻿使用方式例子：/login?user_name=abc&passwd=hello
 一、登陆类接口：
 1)用户登陆
 /login
@@ -73,7 +73,12 @@ content：[必填]文章内容(html格式)
 coverimg：封面图的form name
 headimg：作者头像的form name
 
-8)修改文章
+8)上传文章插图
+/article/upload_content_img
+图片上传Html参数：
+articleimg
+
+9)修改文章
 /article/modify
 参数：
 article_id：[必填]文章ID
@@ -86,10 +91,7 @@ content：[必填]文章内容(html格式)
 coverimg：封面图的form name
 headimg：作者头像的form name
 
-9)上传文章插图
-/article/upload_content_img
-图片上传Html参数：
-articleimg
+
 
 10)文章点赞
 /article/like
