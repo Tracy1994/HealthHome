@@ -66,7 +66,7 @@ class UploadMng extends CI_Model {
 
 	public function upload_article_img()
 	{
-		if (!$this->upload->do_upload('articleimg'))
+		if (!$this->upload->do_upload('files'))
 		{
 			$this->str_err_msg = strip_tags($this->upload->display_errors());
 			return false;
