@@ -50,7 +50,8 @@ function dropdownList(event,url,text){
 
 function logInLink(){
 	var li=document.createElement("li");
-	var link=document.createElement("a");		
+	var link=document.createElement("a");
+	link.setAttribute("class","btn")		
 	link.setAttribute("href","/front.1/html/login.html");
 	var link_span_text=document.createTextNode("请登录");
 
@@ -95,7 +96,7 @@ function buildDropdownMeum(dropdown){
 	if (user_name=="") {
 		//当用户未登录时
 		var li=logInLink();
-		$("#js_register").after(li);				
+		$("#js_register").after(li);			
 	}
 	//当用户为编辑时
 	if (user_name!="" && role==1) {
