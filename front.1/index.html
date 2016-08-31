@@ -22,20 +22,48 @@
 	
 </head>
 <body  data-spy="scroll" data-target="#myScrollspy" data-offset="20" >
-	<!-- <nav id="nav_top" class="row">
+	<nav id="nav_top" class="row">
 		<div class="col-xs-1 col-xs-offset-1">
-			<img src="/front.1/resource/logo.jpg" class="navbar-left">
+			<img src="/front.1/resource/logo.jpg" class="nav_img">
 		</div>
 		<div class="col-xs-5">
-			<input type="text" class="form-control" placeholder="Search">
+			<input type="text" class="form-control" placeholder="Search" id="search">
 			
 		</div>
 		<div class="col-xs-1">
-			<button type="submit" class="btn btn-default">Submit</button>
+			<button type="submit" class="btn btn-default " id="search_btn">搜索</button>
+		</div>
+		<div class="col-xs-2 col-xs-offset-2">
+			<ul>
+				<li id="js_index">
+					<a href="/front.1/index.html" >首页</a>
+				</li>			
+				<li id="js_register">
+					<a href="/front.1/html/register.html" ">注册</a>
+				</li>
+				<!-- <li class="dropdown">
+					<a href="#" class="btn dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">
+						<span class="glyphicon glyphicon-user"></span> User
+						<span class="caret"></span>					
+					</a>
+					<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">		<li role="presentation" >
+					       <a role="menuitem" tabindex="-1" href="#">我的收藏</a>
+					    </li>
+					    <li role="presentation">
+					       <a role="menuitem" tabindex="-1" href="#">退出登录</a>
+					    </li>
+					    <li role="presentation">
+					       <a role="menuitem" tabindex="-1" href="#">
+					            编辑
+					       </a>
+					    </li>					      
+					</ul>
+				</li> -->
+			</ul>
 		</div>
 		
-	</nav> -->
-	<nav class="navbar navbar-default navbar-fixed-top " role="navigation" >			
+	</nav>
+	<!-- <nav class="navbar navbar-default navbar-fixed-top " role="navigation" >			
 			<div class="container">
 				<div class="navbar-brand">
 					<span></span>
@@ -71,9 +99,9 @@
 					</li>
 				</ul>
 			</div>
-	</nav>
+	</nav> -->
 	<div class="box1"></div>
-	<ul class="nav nav-pills nav-justified">
+	<ul class="nav_ul">
 		<li><a href="#">推荐</a></li>
 		<li><a href="#">心理</a></li>
 		<li><a href="#">真相</a></li>

@@ -1,8 +1,4 @@
-@gray-darker:  lighten(#000, 13.5%); // #222
-@gray-dark:    lighten(#000, 20%);   // #333
-@gray:         lighten(#000, 33.5%); // #555
-@gray-light:   lighten(#000, 46.7%); // #777
-@gray-lighter: lighten(#000, 93.5%); // #eee
+
 /*--nav_top---
 ------------------------------------------------*/
 body{
@@ -12,24 +8,36 @@ body{
 li{
 	list-style: none;
 }
-.box1{
-	height: 52px;
-}
+
+/*--nav-top---
+----------------------------------------------*/
 #nav_top{
 	position: fixed;
 	top: 0px;
-	width: 102%;
-	min-width:800px;
+	width: 105%;
+	min-width:928px;
+	height: 60px;	
+}
+.nav_img{
+	border-radius: 50%;
+	padding: 5px;
+}
+#search,
+#search_btn{
+	margin: 10px 0px;
+	width: 105%;
+}
+.box1{
 	height: 52px;
-	background-color: @gray-lighter;
 }
-
-/*@media screen and (min-width:800px){
-	body{
-		width: 100%;
-	}
+/*--nav-ui---
+--------------------------------------------------*/
+.nav_ul{
+	width: 100%;
 }
-*/
+.nav_ul li{
+	display: inline-block;
+}
 /*--carousel
 ---------------------------------------------------*/
 .item img{

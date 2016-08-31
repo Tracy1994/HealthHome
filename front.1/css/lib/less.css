@@ -8,6 +8,29 @@
 @brand-info:    #5bc0de;
 @brand-warning: #f0ad4e;
 @brand-danger:  #d9534f;
+@nav-height:60px;
 #nav_top{
-	background-color: @brand-success;
+	background-color: @gray-lighter;
+}
+/*--nav-top---
+----------------------------------------------*/
+#nav_top{
+	position: fixed;
+	top: 0px;
+	width: 105%;
+	min-width:928px;
+	height:@nav-height;
+	z-index: 1000;	
+}
+.nav_img{
+	border-radius: 50%;
+	padding: 5px;
+}
+#search,
+#search_btn{
+	margin: 13px 0px;
+	width: 105%;
+}
+.box1{
+	height:@nav-height;
 }

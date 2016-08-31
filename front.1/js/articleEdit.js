@@ -76,16 +76,42 @@ function coverImagePreview(avalue) {
 	}
 	return true;
 }
+
+function sendFile(file) {
+   data = new FormData();
+   data.append("files", file);
+   $.ajax({
+       data: data,
+       type: "POST",
+       url:"/article/upload_content_img",
+       cache: false,
+       contentType: false,
+       processData: false,
+       success: function(data) {
+           var jsonData =  $.parseJSON(data);
+           $('#editor').summernote('insertImage', jsonData.data.img_url);
+       }
+   });
+}
+
 $(function(){	
 	$('#editor').summernote({		
 	    	height: 400,                 // set editor height
 	    	minHeight: null,             // set minimum height of editor
 	    	maxHeight: null, 			// set maximum height of editor	
 	    	lang: 'zh-CN' ,				// language: 'Chinese'
-	    	onImageUpload: function(files, editor, welEditable) {
-	    	    sendFile(files[0],editor,welEditable);
+	    	// onImageUpload: function(files, editor, welEditable) {
+	    	//     sendFile(files[0],editor,welEditable);
+	    	// }
+
+	    	callbacks: {
+	    	    onImageUpload: function(files) {
+	    	      	// upload image to server and create imgNode...
+	    	    	sendFile(files[0]);
+	    	    }
 	    	}
 	});
+
 	$("#submit").click(function(){
 		var articleText=$('#editor').summernote('code');
 		console.log(articleText);
@@ -93,21 +119,6 @@ $(function(){
 	});
 });
 
-function sendFile(file,editor,welEditable) {
-   data = new FormData();
-   data.append("file", file);
-   $.ajax({
-       data: data,
-       type: "POST",
-       url:"http://article/upload_content_img",
-       cache: false,
-       contentType: false,
-       processData: false,
-       success: function(data) {
-           editor.insertImage(welEditable, data.url);
-       }
-   });
-}
 $(function(){  
 
     var option = { 
