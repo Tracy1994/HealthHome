@@ -9,34 +9,17 @@ li{
 	list-style: none;
 }
 
-/*--nav-top---
-----------------------------------------------*/
-#nav_top{
-	position: fixed;
-	top: 0px;
-	width: 105%;
-	min-width:928px;
-	height: 60px;	
-}
-.nav_img{
-	border-radius: 50%;
-	padding: 5px;
-}
-#search,
-#search_btn{
-	margin: 10px 0px;
-	width: 105%;
-}
-.box1{
-	height: 52px;
-}
+
 /*--nav-ui---
 --------------------------------------------------*/
 .nav_ul{
-	width: 100%;
+	
 }
 .nav_ul li{
 	display: inline-block;
+	line-height: 50px;
+	width: 12.2%;
+	text-align: center;
 }
 /*--carousel
 ---------------------------------------------------*/

@@ -9,6 +9,7 @@
 @brand-warning: #f0ad4e;
 @brand-danger:  #d9534f;
 @nav-height:60px;
+@radius-round: 50%;
 #nav_top{
 	background-color: @gray-lighter;
 }
@@ -22,15 +23,31 @@
 	height:@nav-height;
 	z-index: 1000;	
 }
+#nav_top p{
+	line-height: @nav-height;
+	font-size: 20px;
+	margin: 0px 5px;
+}
 .nav_img{
-	border-radius: 50%;
-	padding: 5px;
+	border-radius: @radius-round;
+	margin: 4px 35px;
+	height:54px;
 }
 #search,
 #search_btn{
+	height:38px;
 	margin: 13px 0px;
-	width: 105%;
+	width: 102%;
 }
+#nav_top ul{
+	padding: 0px 20px;
+}
+/*#nav_top ul li{
+	display: inline-block;
+	line-height: @nav-height;
+	width: 40%;
+	text-align: center;
+}*/
 .box1{
 	height:@nav-height;
 }

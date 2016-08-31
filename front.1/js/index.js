@@ -79,7 +79,7 @@ function carouselInner(carousel){
 		img.setAttribute("src",carousel[i].img_url);
 		console.log(carousel[i].img_url);		
 
-		img_info=imgInfo(carousel[i]);
+		var img_info=imgInfo(carousel[i]);
 
 		item.appendChild(img);
 		item.appendChild(img_info);
