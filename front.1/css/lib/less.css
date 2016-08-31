@@ -10,18 +10,29 @@
 @brand-danger:  #d9534f;
 @nav-height:60px;
 @radius-round: 50%;
+@nav-purple:rgb(124,104,180);
+@purple-darker: darken(spin(@nav-purple, -5), 10%);
+
+/*--nav_top---
+------------------------------------------------*/
+body{
+	position: relative;
+	background-color: rgb(247,247,247);
+}
 li{
 	list-style: none;
 }
+
 a:hover{
 	text-decoration: none;
 }
 #nav_top{
-	background-color: @gray-lighter;
+	background-color: @nav-purple;
 }
 /*--nav-top---
 ----------------------------------------------*/
 #nav_top{
+	color: white;
 	position: fixed;
 	top: 0px;
 	width: 103%;
@@ -39,11 +50,22 @@ a:hover{
 	margin: 5px 35px;
 	height:49px;
 }
+#nav_top .btn{
+	color: white;
+}
+#nav_top .btn:hover{
+	color: @gray-lighter;
+}
 #search,
 #search_btn{
 	height:38px;
 	margin: 13px 0px;
-	width: 102%;
+	width: 105%;
+	color: @nav-purple;
+}
+#search_btn{
+	background-color: @purple-darker;
+	border: 0px;
 }
 .dropdown-menu {
 	min-width: 95px;
@@ -52,13 +74,15 @@ a:hover{
 	margin: 0px 60px;
 	float: right;
 }*/
-#nav_top ul li{
-	
+#nav_top ul{
+	float: right;
+	margin: 0px 40px;
 } 
 
 #js_index,
 #js_register,
 .dropdown{
+
 	display: inline-block;
 	line-height: @nav-height;
 	text-align: center;

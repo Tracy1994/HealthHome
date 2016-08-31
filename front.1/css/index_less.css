@@ -1,0 +1,9 @@
+@radius-round: 50%;
+@nav-purple:rgb(124,104,180);
+@purple-darker: darken(spin(@nav-purple, -5), 10%);
+.nav_ul li{
+	background-color: @nav-purple;	
+}
+.nav_ul li a{
+	color: white;
+}

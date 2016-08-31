@@ -92,39 +92,39 @@ function carouselInner(carousel){
 }
 
 function imgInfo(carousel){
-	$(".writer_name").text(carousel.author);
-	$(".writer_info").text(carousel.author_desp);
-	$("h1").text(carousel.title);
-	$(".detile").text(carousel.summary);
-	// console.log(carousel);
-	// var img_info=document.createElement("div");
-	// img_info.setAttribute("class","img_info");
+	// $(".writer_name").text(carousel.author);
+	// $(".writer_info").text(carousel.author_desp);
+	// $("h1").text(carousel.title);
+	// $(".detile").text(carousel.summary);
+	console.log(carousel);
+	var img_info=document.createElement("div");
+	img_info.setAttribute("class","img_info");
 
-	// var writer_name=document.createElement("div");
-	// writer_name.setAttribute("class","writer_name");
-	// var writer_name_text=document.createTextNode(carousel.author);
-	// writer_name.appendChild(writer_name_text);
+	var writer_name=document.createElement("div");
+	writer_name.setAttribute("class","writer_name");
+	var writer_name_text=document.createTextNode(carousel.author);
+	writer_name.appendChild(writer_name_text);
 
-	// var writer_info=document.createElement("div");
-	// writer_info.setAttribute("class","writer_info");
-	// var writer_info_text=document.createTextNode(carousel.author_desp);
-	// writer_info.appendChild(writer_info_text);
+	var writer_info=document.createElement("div");
+	writer_info.setAttribute("class","writer_info");
+	var writer_info_text=document.createTextNode(carousel.author_desp);
+	writer_info.appendChild(writer_info_text);
 
-	// var h1=document.createElement("h1");
-	// title=document.createTextNode(carousel.title);
-	// h1.appendChild(title);
+	var h1=document.createElement("h1");
+	title=document.createTextNode(carousel.title);
+	h1.appendChild(title);
 
-	// var detial=document.createElement("div");
-	// detial.setAttribute("class","detial");
-	// var detial_text=document.createTextNode(carousel.summary);
-	// detial.appendChild(detial_text);
+	var detial=document.createElement("div");
+	detial.setAttribute("class","detial");
+	var detial_text=document.createTextNode(carousel.summary);
+	detial.appendChild(detial_text);
 
 	
-	// img_info.appendChild(writer_name);
-	// img_info.appendChild(writer_info);
-	// img_info.appendChild(h1);
-	// img_info.appendChild(detial);
-	// return img_info;
+	img_info.appendChild(writer_name);
+	img_info.appendChild(writer_info);
+	img_info.appendChild(h1);
+	img_info.appendChild(detial);
+	return img_info;
 }
 
 //首次加载文章内容
