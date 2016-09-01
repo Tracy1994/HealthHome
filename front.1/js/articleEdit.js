@@ -112,11 +112,11 @@ $(function(){
 	    	}
 	});
 
-	$("#submit").click(function(){
-		var articleText=$('#editor').summernote('code');
-		console.log(articleText);
-		$(".editor_input").val(articleText);
-	});
+	// $("#submit").click(function(){
+	// 	var articleText=$('#editor').summernote('code');
+	// 	console.log(articleText);
+	// 	$(".editor_input").val(articleText);
+	// });
 });
 
 $(function(){  
@@ -143,7 +143,9 @@ $(function(){
     $('#article_edit').submit(function() { 
         // inside event callbacks 'this' is the DOM element so we first 
         // wrap it in a jQuery object and then invoke ajaxSubmit
-
+        var articleText=$('#editor').summernote('code');
+        console.log(articleText);
+        $(".editor_input").val(articleText);
         $(this).ajaxSubmit(option); 
  
         // !!! Important !!! 

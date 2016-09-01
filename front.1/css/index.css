@@ -1,25 +1,4 @@
 
-
-/*--nav-ui---
---------------------------------------------------*/
-.nav_ul{
-	height: 38px;
-	min-width:750px;
-	position: relative;
-	left:-40px;
-	width: 103%;
-	position: relative;
-}
-.nav_ul li{
-	display: inline-block;
-	line-height: 50px;
-	width: 12.5%;
-	text-align: center;
-	float: left;
-}
-.nav_ul1{
-
-}
 /*--carousel
 ---------------------------------------------------*/
 .item img{

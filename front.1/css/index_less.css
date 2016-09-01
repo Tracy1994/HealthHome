@@ -1,9 +1,25 @@
 @radius-round: 50%;
-@nav-purple:rgb(124,104,180);
-@purple-darker: darken(spin(@nav-purple, -5), 10%);
+@nav:rgba(124,104,180,0.9);
+@nav-darker: darken(spin(@nav, -5), 10%);
 .nav_ul li{
-	background-color: @nav-purple;	
+	background-color: @nav;	
 }
 .nav_ul li a{
 	color: white;
+}
+.nav_ul1{
+	position: relative;
+	z-index: 1;
+	background-color: @nav;
+	color: white;
+	line-height: 50px;	
+}
+.nav_ul2{
+	background-color: white;
+	color: @nav;
+	position: relative;
+	z-index: 2;
+	line-height: 0px;
+	transition:width 0.5s;
+	-webkit-transition:width 0.5s; /* Safari */
 }

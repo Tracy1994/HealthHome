@@ -10,8 +10,8 @@
 @brand-danger:  #d9534f;
 @nav-height:60px;
 @radius-round: 50%;
-@nav-purple:rgb(124,104,180);
-@purple-darker: darken(spin(@nav-purple, -5), 10%);
+@nav:rgba(124,104,180,0.9);
+@nav-darker: darken(spin(@nav, -5), 10%);
 
 /*--nav_top---
 ------------------------------------------------*/
@@ -27,7 +27,7 @@ a:hover{
 	text-decoration: none;
 }
 #nav_top{
-	background-color: @nav-purple;
+	background-color: @nav;
 }
 /*--nav-top---
 ----------------------------------------------*/
@@ -61,32 +61,55 @@ a:hover{
 	height:38px;
 	margin: 13px 0px;
 	width: 105%;
-	color: @nav-purple;
+	color: @nav;
+	border:1px solid @nav-darker;
 }
 #search_btn{
-	background-color: @purple-darker;
-	border: 0px;
+	
+	background-color: @nav;
 }
-.dropdown-menu {
-	min-width: 95px;
-}
-/*#nav_top ul{
-	margin: 0px 60px;
-	float: right;
-}*/
-#nav_top ul{
-	float: right;
-	margin: 0px 40px;
-} 
-
-#js_index,
-#js_register,
-.dropdown{
+#nav_top ul li{
 
 	display: inline-block;
 	line-height: @nav-height;
 	text-align: center;
 }
+#nav_top .nav_left{
+	width: 250px;
+	margin: 0px 30px;
+	float: right;
+} 
+
+.dropdown-menu {
+	min-width: 95px;
+	line-height: 30px;
+}
+
 .box1{
 	height:@nav-height;
+	
+}
+/*--nav-ul---
+--------------------------------------------------*/
+.nav_ul{
+	height: 39px;
+	min-width:750px;
+	position: relative;
+	left:-40px;
+	width: 103%;
+}
+.nav_ul li{
+	display: inline-block;	
+	width: 12.5%;
+	line-height: 50px;
+	text-align: center;
+	float: left;
+	background-color: @nav;	
+}
+
+.nav_ul li a{
+	color: white;
+};
+.nav_ul li:hover{
+	background-color: @nav-darker;
 }
