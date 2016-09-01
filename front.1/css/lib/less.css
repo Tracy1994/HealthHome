@@ -17,7 +17,7 @@
 ------------------------------------------------*/
 body{
 	position: relative;
-	background-color: rgb(247,247,247);
+
 }
 li{
 	list-style: none;
@@ -96,7 +96,7 @@ a:hover{
 	min-width:970px;
 	position: relative;
 	left:-40px;
-	width: 104%;
+	width: 100%;
 }
 .nav_ul li{
 	display: inline-block;	
@@ -115,17 +115,4 @@ a:hover{
 }
 .nav_ul .active{
 	background-color: @nav-darker;
-}
-/*--nav2左边导航栏
----------------------------------------------------*/
-#js_nav2{
-	position: fixed;
-	top:650px;	
-	
-}
-
-#js_nav2 a{
-	width: 100px;
-	line-height: 35px;
-	opacity: 0.7;
 }

@@ -17,19 +17,6 @@ $(function(){
 		getPageData(type_id);
 		console.log("type_id:"+type_id);
 	});
-	//左侧导航栏
-	var leftlists=$("#js_nav2 a");
-	for (var i = 0; i < leftlists.length; i++) {
-		leftlists.eq(i).attr("class","btn btn-default "+i);
-	}
-	$("#js_nav2 a").click(function(){
-		page=1;
-		$("#js_article_list").empty();
-		type_id=$(this).attr("class");
-		getPageData(type_id);
-		
-		console.log("type_id:"+type_id);
-	});
 	// 鼠标滑动，控制左右两侧导航栏出现和隐藏
 	window.onscroll= function (){
 		var top=$("body").scrollTop();
