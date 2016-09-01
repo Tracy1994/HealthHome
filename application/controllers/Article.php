@@ -227,17 +227,17 @@ class Article extends CI_Controller {
 			}
 		}
 
-		$cover_url = $this->upload_mng->upload_cover_img();
-		if ($cover_url == false)
-		{
-			output_cgi_data(ERR_UPLOAD_FILE, 'upload cover failed, '.$this->upload_mng->get_err_msg());
-			return false;
-		}
-
 		$head_url = $this->upload_mng->upload_head_img();
 		if ($head_url === false)
 		{
 			output_cgi_data(ERR_UPLOAD_FILE, 'upload author head failed, '.$this->upload_mng->get_err_msg());
+			return false;
+		}
+
+		$cover_url = $this->upload_mng->upload_cover_img();
+		if ($cover_url == false)
+		{
+			output_cgi_data(ERR_UPLOAD_FILE, 'upload cover failed, '.$this->upload_mng->get_err_msg());
 			return false;
 		}
 
