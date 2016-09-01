@@ -29,7 +29,7 @@ a:hover{
 #nav_top{
 	background-color: @nav;
 }
-/*--nav-top---
+/*--nav-top---顶部导航栏
 ----------------------------------------------*/
 #nav_top{
 	color: white;
@@ -89,14 +89,14 @@ a:hover{
 	height:@nav-height;
 	
 }
-/*--nav-ul---
+/*--nav-ul---上面导航栏
 --------------------------------------------------*/
 .nav_ul{
 	height: 39px;
-	min-width:750px;
+	min-width:970px;
 	position: relative;
 	left:-40px;
-	width: 103%;
+	width: 104%;
 }
 .nav_ul li{
 	display: inline-block;	
@@ -112,4 +112,20 @@ a:hover{
 };
 .nav_ul li:hover{
 	background-color: @nav-darker;
+}
+.nav_ul .active{
+	background-color: @nav-darker;
+}
+/*--nav2左边导航栏
+---------------------------------------------------*/
+#js_nav2{
+	position: fixed;
+	top:650px;	
+	
+}
+
+#js_nav2 a{
+	width: 100px;
+	line-height: 35px;
+	opacity: 0.7;
 }

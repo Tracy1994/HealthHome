@@ -89,7 +89,7 @@ function sendFile(file) {
        processData: false,
        success: function(data) {
            var jsonData =  $.parseJSON(data);
-           $('#editor').summernote('insertImage', jsonData.data.img_url);
+           $('#editor').summernote('insertImage', jsonData.data.img_url, file);
        }
    });
 }
@@ -143,6 +143,7 @@ $(function(){
     $('#article_edit').submit(function() { 
         // inside event callbacks 'this' is the DOM element so we first 
         // wrap it in a jQuery object and then invoke ajaxSubmit
+
         var articleText=$('#editor').summernote('code');
         console.log(articleText);
         $(".editor_input").val(articleText);

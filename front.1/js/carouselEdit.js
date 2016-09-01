@@ -1,5 +1,5 @@
 // set carousel img preview
-function setImagePreview(avalue) {
+function setImagePreview(doc,preview) {
 	var docObj=document.getElementById("doc");	 
 	var imgObjPreview=document.getElementById("preview");
 	if(docObj.files && docObj.files[0])

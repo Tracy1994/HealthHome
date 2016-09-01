@@ -1,15 +1,40 @@
 
 $(function(){
-	$("#myCarousel").carousel("cycle");	
+	//顶部导航栏
+	var navlists=$(".nav_ul li");
+	for (var i = 0; i < navlists.length; i++) {
+		navlists.eq(i).attr("class",i);
+		if (i==0) {
+			navlists.eq(i).attr("class", "active "+i);
+		}
+	}
+	$(".nav_ul li").click(function(){
+		page=1;
+		$(".nav_ul li").removeClass("active");
+		$("#js_article_list").empty();
+		type_id=$(this).attr("class");
+		$(this).addClass("active");
+		getPageData(type_id);
+		console.log("type_id:"+type_id);
+	});
+	//左侧导航栏
+	var leftlists=$("#js_nav2 a");
+	for (var i = 0; i < leftlists.length; i++) {
+		leftlists.eq(i).attr("class","btn btn-default "+i);
+	}
+	$("#js_nav2 a").click(function(){
+		page=1;
+		$("#js_article_list").empty();
+		type_id=$(this).attr("class");
+		getPageData(type_id);
 		
-
-
+		console.log("type_id:"+type_id);
+	});
 	// 鼠标滑动，控制左右两侧导航栏出现和隐藏
 	window.onscroll= function (){
 		var top=$("body").scrollTop();
 		console.log(top);			
 		if (top>=400) {
-			
 			$("#js_nav2").css("top","100px");
 			$("#js_recomand").css("top","53px");
 			
@@ -144,8 +169,8 @@ $.getJSON("/article/get_list?type_id=0&page=1&num="+5,function(jsondata){
 
 	
 //根据第几页和每页的页数加载
-function getPageData(page){
-	$.getJSON("/article/get_list?type_id=0&page=" + page + "&num="+5,function(jsondata){
+function getPageData(typeId){
+	$.getJSON("/article/get_list?type_id=" + type_id + "&page=" + page + "&num="+5,function(jsondata){
 		console.log("jsondata.date.items"+ jsondata.data.items);				
 		console.log(jsondata);
 		if (jsondata.code!=0) {
@@ -166,10 +191,10 @@ function onePageItems(jsondata){
 		$("#js_article_list").text("小编暂时没有发布文章，敬请期待！");
 		return false;
 	}
-	var carousels=jsondata.items;		
+	var articles=jsondata.items;		
 	var pageNum=Math.ceil(articleNum/5);		
-	for (var i = 0; i < carousels.length; i++) {
-		var one_page = buildItem(carousels[i]);
+	for (var i = 0; i < articles.length; i++) {
+		var one_page = buildItem(articles[i]);
 		$("#js_article_list").append(one_page);
 	}
 
@@ -207,7 +232,8 @@ function loading(Num){
 	
 	if (page < pageNum) {
 		page = page + 1;
-		getPageData(page, pageNum);
+		getPageData();
+		// getPageData(page, pageNum);
 	}
 	
 }
@@ -318,15 +344,3 @@ function buildRecomand(article){
 
 
 }
-$('body').on('click' , '.list-group-item' , function(){ 
-	debugger;
-	$(this).hide();
-	$(".list-group-item .img").show();
-});
-$("#js_recomand").on("click",".list-group-item",function(){
-	debugger;
-	$(this).hide();
-	$(".list-group-item .img").show();
-});
-
-

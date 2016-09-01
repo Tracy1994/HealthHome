@@ -4,18 +4,7 @@
 .item img{
 	width: 100%;			
 }
-/*--nav2
----------------------------------------------------*/
-.boxNav2{
-	width: 100%;
-}
-#js_nav2{
-	position: fixed;
-	top:650px;
-	
-	
-	
-}
+
 /*----js_recomand
 ------------------------------------------------------*/
 
@@ -56,10 +45,10 @@
 /*当鼠标滑过link的时候
 ---------------------------------------------------*/
 
-#js_recomand  #activeList h5{
+#js_recomand #activeList h5{
 	display: none;
 }
-#js_recomand  #activeList .img{
+#js_recomand #activeList .img{
 	display: block;
 }
 /*---article
@@ -81,18 +70,19 @@
 }
 /*--Carousel
 -----------------------------------------------------------*/
-.carousel{
-	/*color: rgb(5,55,20);*/
-}
 .img_info{
 	position: absolute;
-	left: 60%;
-	bottom: 35%;
+	left: 57%;
+	bottom: 50%;
 	color: rgb(255,255,255);		
 }
 .carousel_time span{
 	font-size: 15px;
 	font-weight: bold;
+}
+.carousel .writer_name,
+.carousel .writer_info{
+	font-size: 19px;
 }
 /*文章下拉按钮
 -------------------------------------------------------------------------*/
@@ -100,8 +90,7 @@
 	width: 100%;
 	font-size: 18px;
 }
- #downBtn span{
-	
+#downBtn span{	
 	padding: 3px;
 	transition:all 2s; 	
 	-webkit-transition:all 1s; /* Safari */
