@@ -22,7 +22,10 @@ body{
 li{
 	list-style: none;
 }
-
+*{
+	margin: 0px;
+	padding: 0px;
+}
 a:hover{
 	text-decoration: none;
 }
@@ -35,8 +38,8 @@ a:hover{
 	color: white;
 	position: fixed;
 	top: 0px;
-	width: 103%;
-	min-width:928px;
+	width: 102%;
+	min-width:1150px;
 	height:@nav-height;
 	z-index: 1000;	
 }
@@ -69,13 +72,11 @@ a:hover{
 	background-color: @nav;
 }
 #nav_top ul li{
-
 	display: inline-block;
 	line-height: @nav-height;
 	text-align: center;
 }
 #nav_top .nav_left{
-	width: 250px;
 	margin: 0px 30px;
 	float: right;
 } 
@@ -94,9 +95,7 @@ a:hover{
 .nav_ul{
 	height: 39px;
 	min-width:970px;
-	position: relative;
-	left:-40px;
-	width: 100%;
+	max-width: 100%;
 }
 .nav_ul li{
 	display: inline-block;	
