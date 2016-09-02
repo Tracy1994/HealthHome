@@ -21,13 +21,13 @@ $(function(){
 	window.onscroll= function (){
 		var top=$("body").scrollTop();
 		console.log(top);			
-		if (top>=400) {
-			$("#js_nav2").css("top","100px");
-			$("#js_recomand").css("top","53px");
+		if (top>=340) {
+			
+			$("#js_recomand").css("top","0px");
 			
 		}
 		else{
-			$("#js_nav2").css("top","700px");
+			
 			$("#js_recomand").css("top","700px");
 		}
 	}
@@ -154,7 +154,7 @@ $.getJSON("/article/get_list?type_id=0&page=1&num="+5,function(jsondata){
 	}
 });
 
-	
+var type_id=0;
 //根据第几页和每页的页数加载
 function getPageData(typeId){
 	$.getJSON("/article/get_list?type_id=" + type_id + "&page=" + page + "&num="+5,function(jsondata){
@@ -267,26 +267,31 @@ $.getJSON("/article/get_latest_list?detail=1&page=1&num=8",function(jsondata){
 	}
 });
 function oneItem(articles){		
-	$("#js_recomand").empty();	
+	$("#js_recomand").filter("#js_recomand a").remove();
+
 	for (var i = 0; i < articles.length; i++) {
+		
 		var one_link = buildRecomand(articles[i]);
+
 		if (i==0) {
 			$("#js_recomand").append(one_link);
-			$(".list-group-item").attr("id","activeList");
+			$("#js_recomand a").attr("id","activeList");
+			
 		}
 		else{
 			$("#js_recomand").append(one_link);
+			
 		}
 		
 	}
-	$(".list-group-item").hover(function(){
-		$(".list-group-item").attr("id","");
+	$("#js_recomand a").hover(function(){
+		$("#js_recomand a").attr("id","");
 		$(this).attr("id","activeList");
 		
 	});
-	$(".list-group-item").mouseleave(function(){
-		$(".list-group-item").attr("id","");
-		$(".list-group-item:first").attr("id","activeList");
+	$("#js_recomand a").mouseleave(function(){
+		$("#js_recomand a").attr("id","");
+		$("#js_recomand a:first").attr("id","activeList");
 	});
 }
 //右边推荐栏
@@ -304,8 +309,12 @@ function buildRecomand(article){
 	link.setAttribute("class","list-group-item");
 	link.setAttribute("href",'/front.1/html/articleDetial.html?article_id=' + article.id)
 
+	var span=document.createElement("span");
+	span.setAttribute("class","glyphicon glyphicon-bell");
+
 	var title=document.createElement("h5");
 	var title_txt=document.createTextNode(article.title);
+	title.appendChild(span);
 	title.appendChild(title_txt);
 
 	var img=document.createElement("div");

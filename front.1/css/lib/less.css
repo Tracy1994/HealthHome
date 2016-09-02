@@ -12,7 +12,7 @@
 @radius-round: 50%;
 @nav:rgba(124,104,180,0.9);
 @nav-darker: darken(spin(@nav, -5), 10%);
-
+@border: #ddd;
 /*--nav_top---
 ------------------------------------------------*/
 body{
@@ -39,7 +39,7 @@ a:hover{
 	position: fixed;
 	top: 0px;
 	width: 102%;
-	min-width:1150px;
+	min-width:1180px;
 	height:@nav-height;
 	z-index: 1000;	
 }
@@ -114,4 +114,25 @@ a:hover{
 }
 .nav_ul .active{
 	background-color: @nav-darker;
+}
+/*---nav-recommand右边导航栏
+------------------------------------------------------------*/
+#js_recomand li{
+	background-color: @nav;
+	color: white;
+}
+#js_recomand .list-group-item{
+	border-bottom:1px solid @border;
+}
+#js_recomand span{
+	color: @nav-darker;
+}
+.go_top{
+	margin: 10px;
+	color: white;
+	background-color: @nav;
+	font-size: 30px;
+	position: fixed;
+	bottom: 0px;
+	right: 0px;
 }
