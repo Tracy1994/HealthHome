@@ -237,6 +237,7 @@ function buildItem(article){
 
 		var link=document.createElement("a");
 		link.setAttribute("href",'/front.1/html/articleDetial.html?article_id=' + article.id);
+		link.setAttribute("target","_blank")
 
 		tr.appendChild(td);
 		td.appendChild(link);

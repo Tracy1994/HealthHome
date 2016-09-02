@@ -68,7 +68,8 @@ a:hover{
 	border:1px solid @nav-darker;
 }
 #search_btn{
-	
+	line-height: 30px;
+	font-size: 18px;
 	background-color: @nav;
 }
 #nav_top ul li{
