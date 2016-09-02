@@ -35,13 +35,17 @@ $(function(){
 });
 
 //加载轮播内容
-
 $.getJSON("/carousel/get_effect_list",function(jsondata){
 		console.log("jsondata.date.items"+ jsondata.data.items);
 		
 		console.log(jsondata);
+		if (jsondata=="") {
+			alert("网站出现一点小bug了，抢修中。。。");
+			return false;
+		}
 		if (jsondata.code!=0) {
 			alert("系统繁忙，请稍后再试～～");
+			return false;
 		}
 		else{
 			
@@ -144,13 +148,17 @@ $.getJSON("/article/get_list?type_id=0&page=1&num="+5,function(jsondata){
 	console.log("jsondata.date.items"+ jsondata.data.items);
 	
 	console.log(jsondata);
+	if (jsondata=="") {
+		alert("网站出现一点小bug了，抢修中。。。");
+		return false;
+	}
 	if (jsondata.code!=0) {
 		alert("系统繁忙，请稍后再试～～");
+		return false;
 	}
 	else{
 
-		onePageItems(jsondata.data);
-		
+		onePageItems(jsondata.data);		
 	}
 });
 
@@ -170,90 +178,35 @@ function getPageData(typeId){
 	});
 }
 
-var page=1;
-function onePageItems(jsondata){
-	$("#downBtn").remove();
-	var articleNum=jsondata.count;
-	if (articleNum==0) {
-		$("#js_article_list").text("小编暂时没有发布文章，敬请期待！");
-		return false;
-	}
-	var articles=jsondata.items;		
-	var pageNum=Math.ceil(articleNum/5);		
-	for (var i = 0; i < articles.length; i++) {
-		var one_page = buildItem(articles[i]);
-		$("#js_article_list").append(one_page);
-	}
-
-	var btn=downBtn(articleNum);
-	$("#js_article_list").append(btn);
-	
-	if (page >= pageNum)
-	{
-		$("#downBtn").empty();
-		$("#downBtn").text("已经到达底部");
-		$("#downBtn").addClass("disabled");
-	}
-}
-
-function downBtn(articleNum){
-	var downBtn=document.createElement("button");
-	downBtn.setAttribute("class","btn btn-default ");
-	downBtn.setAttribute("id","downBtn");
-	downBtn.setAttribute("type","button");
-	downBtn.setAttribute("onclick","loading(" + articleNum + ")");
-
-	var span=document.createElement("span");
-	span.setAttribute("class","glyphicon glyphicon-circle-arrow-down");
-
-	downBtn.appendChild(span);
-
-	return downBtn;
-}
-
-function loading(Num){
-	var articleNum=Num;
-	
-	var pageNum=Math.ceil(articleNum/5);	
-	console.log("pageNum:"+pageNum);
-	
-	if (page < pageNum) {
-		page = page + 1;
-		getPageData();
-		// getPageData(page, pageNum);
-	}
-	
-}
-
-
 
 //加载文章列表
 function buildItem(article){
-		var tr=document.createElement("tr");
-		tr.setAttribute("class","js_tr");
+	var tr=document.createElement("tr");
+	tr.setAttribute("class","js_tr");
 
-		var td=document.createElement("td");		
-		td.setAttribute("class","js_td");
+	var td=document.createElement("td");		
+	td.setAttribute("class","js_td");
 
-		var link=document.createElement("a");
-		link.setAttribute("href",'/front.1/html/articleDetial.html?article_id=' + article.id);
-		link.setAttribute("target","_blank")
+	var link=document.createElement("a");
+	link.setAttribute("href",'/front.1/html/articleDetial.html?article_id=' + article.id);
+	link.setAttribute("target","_blank")
 
-		tr.appendChild(td);
-		td.appendChild(link);
+	tr.appendChild(td);
+	td.appendChild(link);
 
-		var box_l= buildArticleCover(article,"col-xs-4");
-		var box_r=buildArticleBrief(article,"col-xs-8");
-		var read=buildRead(article);
+	var box_l= buildArticleCover(article,"col-xs-4");
+	var box_r=buildArticleBrief(article,"col-xs-8");
+	var read=buildRead(article);
 
-		link.appendChild(box_l);		
-		link.appendChild(box_r);
-		box_r.appendChild(read);
+	link.appendChild(box_l);		
+	link.appendChild(box_r);
+	box_r.appendChild(read);
 
-		return tr;
-			
-	}
+	return tr;
+		
+}
 
+//右边导航栏
 $.getJSON("/article/get_latest_list?detail=1&page=1&num=8",function(jsondata){
 	console.log("jsondata.date.items"+ jsondata.data.items);
 	

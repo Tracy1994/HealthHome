@@ -157,17 +157,6 @@ function buildDropdownMeum(dropdown){
 }
 
 addLoadEvent(buildDropdownMeum);
-$(function(){
-	$("#search_btn").click(function(){
-		var keyWord=$("#search").val();
-		if (keyWord=="") {
-			alert("请输入关键字!");
-			return false;
-		}
-		window.open('/front.1/html/search.html?key_word='+keyWord);
-	});
-
-});
 
 	
 

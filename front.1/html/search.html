@@ -5,46 +5,81 @@
 	<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
 	<title>search</title>
 	
-	<link rel="stylesheet" type="text/css" href="/front.1/css/search.css">		
 	<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
 	<link type="text/less" rel="stylesheet/less" rev="stylesheet/less" href="/front.1/css/lib/less.css" >
-	<script src="/front.1/js/lib/less.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="/front.1/css/search.css">
+	<script src="/front.1/js/lib/less.min.js"></script>	
 	<script src="/front.1/js/lib/jquery-3.0.0.min.js"></script>	
-	<script type="text/javascript" src="/front.1/js/lib/jquery.form.min.js"></script>
-	<script type="text/javascript" src="/front.1/js/lib/imgPreview.js"></script>
 	<script type="text/javascript" src="/front.1/js/lib/bootstrap.min.js"></script>
-	<script type="text/javascript" src="/front.1/js/lib/addLoadEvent.js"></script>
-	<script type="text/javascript" src="/front.1/js/articleEdit.js"></script>
-	<script type="text/javascript" src="/front.1/js/lib/buildDropdownMeum.js"></script>	
+	<script type="text/javascript" src="/front.1/js/search.js"></script>
+	<script type="text/javascript" src="/front.1/js/lib/nav.js"></script>
+	<script type="text/javascript" src="/front.1/js/lib/btnPaging.js"></script>
+	<script type="text/javascript" src="/front.1/js/lib/buildArticle.js"></script>
+
 </head>
 <body>
 	<nav id="nav_top" class="row">
-			<div class="col-xs-1">
-				<img src="/front.1/resource/logo.jpg" class="nav_img">
-			</div>
-			<div class="col-xs-2">
-				<p>健康之家</p>
-			</div>
-			<div class="col-xs-5 ">
-				<input type="text" class="form-control" placeholder="输入关键字" id="search">
+		<div class="col-xs-1">
+			<img src="/front.1/resource/logo.jpg" class="nav_img">
+		</div>
+		<div class="col-xs-2">
+			<p>健康之家</p>
+		</div>
+		<div class="col-xs-5 ">
+			<input type="text" class="form-control" placeholder="输入关键字" id="search">
+			
+		</div>
+		<div class="col-xs-1">
+			<button type="submit" class="btn btn-default " id="search_btn">
+				<span class="glyphicon glyphicon-search"></span>
+			</button>
+		</div>
+		<div class="col-xs-3">
+			<ul class="nav_left">
+				<li id="js_index" >
+					<a href="/front.1/index.html" class="btn">首页</a>
+				</li>			
+				<li id="js_register">
+					<a href="/front.1/html/register.html" class="btn">注册</a>
+				</li>
 				
-			</div>
-			<div class="col-xs-1">
-				<button type="submit" class="btn btn-default " id="search_btn">
-					<span class="glyphicon glyphicon-search"></span>
-				</button>
-			</div>
-			<div class="col-xs-3">
-				<ul class="nav_left">
-					<li id="js_index" >
-						<a href="/front.1/index.html" class="btn">首页</a>
-					</li>			
-					<li id="js_register">
-						<a href="/front.1/html/register.html" class="btn">注册</a>
-					</li>
-					
-				</ul>
-			</div>		
+			</ul>
+		</div>		
 	</nav>
+	<div class="box1"></div>
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-8  article col-xs-offset-2">					
+				<table class="table table-hover table-responsive">
+					<tbody id="js_article_list" >						
+						<tr>
+							<td class="js_td">
+								<a href="">
+									<div class="col-xs-4 article_cover">
+										<img src="/front.1/resource/test.jpg" class="img-responsive" alt="Image">
+									</div>
+									<div class="col-xs-8 article_brief">
+										<h3>
+										this is is the title of this article
+										</h3>
+										<p>
+										this is is the detail infomation of this article.this is is the detail infomation of this article.this is is the detail infomation of this article.
+										</p>
+									</div>
+									<span class="read">
+										<span class="glyphicon glyphicon-eye-open">阅读（1024）</span>
+										<span class="glyphicon glyphicon-thumbs-up">点赞（1024）</span>
+									</span>
+								</a>
+							</td>
+						</tr>						
+					</tbody>
+				</table>				
+			</div>
+		</div>
+	</div>
+	<a href="#top" target="_self" class="go_top btn">
+		<span class="glyphicon glyphicon-chevron-up"></span>
+	</a> 
 </body>
 </html>

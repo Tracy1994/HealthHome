@@ -17,7 +17,7 @@
 #js_recomand{
 	position: fixed;
 	top: 750px;
-	padding:5% 11% 0% 4%;
+	padding:7% 11% 0% 4%;
 }
 
 #js_recomand .list-group-item h5{
@@ -65,9 +65,7 @@
 .article_cover td:hover{
 	
 } 
-.read{
-	float: right;
-}
+
 /*--Carousel
 -----------------------------------------------------------*/
 .img_info{
@@ -83,19 +81,4 @@
 .carousel .writer_name,
 .carousel .writer_info{
 	font-size: 19px;
-}
-/*文章下拉按钮
--------------------------------------------------------------------------*/
-#downBtn{
-	width: 100%;
-	font-size: 18px;
-}
-#downBtn span{	
-	padding: 3px;
-	transition:all 2s; 	
-	-webkit-transition:all 1s; /* Safari */
-}
-#downBtn span:hover{
-	transform:rotateY(360deg);
-	-webkit-transform:rotateY(360deg); /* Safari and Chrome */
 }

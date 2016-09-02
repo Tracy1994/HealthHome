@@ -1,8 +1,34 @@
-	// <button type="button" class="btn btn-default btn-sm ">
- //  	<a href="#" class="tooltip-hide control" data-toggle="tooltip" data-placement="top" title="删除">
- //  	    <span class="glyphicon glyphicon-remove"></span>
- //  	</a>
-	// </button>
+//首次加载文章内容
+$.getJSON("/article/get_latest_list?detail=1&page=1&num="+5,function(jsondata){
+		console.log("jsondata.date.items"+ jsondata.data.items);
+		
+		console.log(jsondata);
+		if (jsondata.code!=0) {
+			alert("系统繁忙，请稍后再试～～");
+			return false;
+		}
+		else{
+			
+			onePageItems(jsondata.data);
+		}
+});
+
+
+//根据第几页和每页的页数加载
+function getPageData(){
+	$.getJSON("/article/get_latest_list?detail=1&page=" + page + "&num="+5,function(jsondata){
+		console.log("jsondata.date.items"+ jsondata.data.items);				
+		console.log(jsondata);
+		if (jsondata.code!=0) {
+			alert("系统繁忙，请稍后再试～～");
+			return false;
+		}
+		else{
+			onePageItems(jsondata.data);
+		}				
+	});
+}
+
 function buildBtn(event,func,glyphicon,title){
 	//debuger;
 	var btn=document.createElement("button");
@@ -37,10 +63,10 @@ function buildBtnGroup(article){
 	var btn_group=document.createElement("div");
 	btn_group.setAttribute("class","btn-group");
 
-	var btn_remove=buildBtn("onclick", "removeArticle( '" + JSON.stringify(article) + "')", "glyphicon-remove", "删除");
+	var btn_remove=buildBtn("onclick", "removeArticle(" + article.id + ")", "glyphicon-remove", "删除");
 	// console.log("removeArticle('" + JSON.stringify(article) + "')");
 	// console.log('removeArticle(' + JSON.stringify(article) + ')');
-	var btn_pencil=buildBtn("href","#","glyphicon-pencil","修改");
+	var btn_pencil=buildBtn("href","/front.1/html/articleEdit.html?articleId=" + article.id,"glyphicon-pencil","修改");
 
 	btn_box.appendChild(box2);
 	btn_box.appendChild(btn_group);
@@ -51,49 +77,78 @@ function buildBtnGroup(article){
 	return btn_box;
 }
 
-function removeArticle(strArticle){
-	var article = JSON.parse(strArticle);
+function removeArticle(articleId){
+	console.log("articleId:" +articleId);
+	
 	var r=confirm("是否确认删除该篇文章？")
-	  if (r==true)	  	
-	    {
-	    //debuger;	    	
-	    	$.getJSON("/article/remove?article_id=" + article.id , function(jsondata){
+	if (r==true)	  	
+	{	    	
+		$.getJSON("/article/remove?article_id=" + articleId , function(jsondata){
 
-	    		if (jsondata.code==0) {
-	    			alert("已删除");
-	    			window.location.href="/front.1/html/articleList.html";
-	    			return false;
-	    		}
-	    	});
-	    
-	    }
+			if (jsondata.code==0) {		
+				window.location.href="/front.1/html/articleList.html";
+				alert("已删除");
+				return false;
+			}
+			else{
+				return false;
+			}
+		});
+	}
+	
+}
+function buildItem(article){
+	var tr=document.createElement("tr");
+	tr.setAttribute("class","js_tr");
+
+	var td=document.createElement("td");		
+	td.setAttribute("class","js_td");
+
+	var link=document.createElement("a");
+	link.setAttribute("href",'/front.1/html/articleDetial.html?article_id=' + article.id);
+	link.setAttribute("target","_blank")
+
+	tr.appendChild(td);
+	td.appendChild(link);
+
+	var box_l= buildArticleCover(article,"col-xs-4");
+	var box_r=buildArticleBrief(article,"col-xs-8");
+	var read=buildRead(article);
+
+	link.appendChild(box_l);		
+	link.appendChild(box_r);
+	box_r.appendChild(read);
+
+	return tr;
+		
 }
 
 
-function loadArticle(article){
+function buildItem(article){
 		var tr=document.createElement("tr");
 		tr.setAttribute("class","js_tr");
 
 		var td=document.createElement("td");		
 		td.setAttribute("class","js_td");
-
-		var btn_group=buildBtnGroup(article);
-
-		tr.appendChild(td);
 		
 		var link=document.createElement("a");
 		link.setAttribute("href",'/front.1/html/article.html?article_id=' + article.id);
-		
+				
+		td.appendChild(link);
+
 		var box_l= buildArticleCover(article,"col-xs-3");
 		var box_r=buildArticleBrief(article,"col-xs-7");
 		var read=buildRead(article);
 
-		td.appendChild(link);
-		td.appendChild(btn_group);
-
 		link.appendChild(box_l);		
 		link.appendChild(box_r);
 		box_r.appendChild(read);
+
+		var btn_group=buildBtnGroup(article);
+
+		tr.appendChild(td);
+		td.appendChild(link);
+		td.appendChild(btn_group);
 
 		return tr;			
 }
