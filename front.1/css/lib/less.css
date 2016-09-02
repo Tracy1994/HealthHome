@@ -156,3 +156,7 @@ a:hover{
 .read{
 	float: right;
 }
+#submit{
+	background-color: @nav;
+	color: white;
+}

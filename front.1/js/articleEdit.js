@@ -1,3 +1,41 @@
+//修改文章内容
+$(function(){
+	var articleId=window.location.search.substring(11,1400);
+	console.log("articleId:"+articleId);
+	if (articleId=="") {
+		return false;
+	}
+	else{
+		$.getJSON("/article/get_info_detail?article_id="+articleId,function(jsondata){
+				console.log("jsondata.date"+ jsondata.data);		
+				console.log(jsondata);
+				if (jsondata.code==-10007) {
+					alert("抱歉，该文章已被作者删除～～");
+					return false;
+				}
+				if (jsondata.code!=0) {
+					alert("系统繁忙，请稍后再试～～");
+					return false;
+				}
+				else{
+					var article=jsondata.data;
+					$("#article_edit").attr("action","/article/modify");
+					$("#authou_name").val(article.author);
+					$("#author_desp").val(article.author_desp);
+					$("#title").val(article.title);
+					$("#type_id").val(article.type_id);
+					$("#submit").text("确定修改");
+				}
+		});
+		
+		$.get("/article/get_content?article_id=" + articleId,function(data,status){
+			console.log(data);
+			$('#editor').summernote('code', data);
+		});
+	}
+	
+
+});
 // set carousel img preview
 function headerImagePreview(avalue) {
 	var docObj=document.getElementById("doc_header");	 
