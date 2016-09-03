@@ -48,6 +48,11 @@ class CommentMng extends CI_Model {
 
 	public function like($comment_id)
 	{
+		if ($this->check_like($comment_id))
+		{
+			return false;
+		}
+
 		$arr_values = array(
 			'comment_id' => $comment_id,
 			'user_name' => get_user_name(),
@@ -58,6 +63,11 @@ class CommentMng extends CI_Model {
 
 	public function unlike($comment_id)
 	{
+		if ($this->check_unlike($comment_id))
+		{
+			return false;
+		}
+
 		$arr_values = array(
 			'comment_id' => $comment_id,
 			'user_name' => get_user_name(),

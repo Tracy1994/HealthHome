@@ -84,7 +84,7 @@ class Comment extends CI_Controller {
 		$ret = $this->comment_mng->like($_REQUEST['comment_id']);
 		if ($ret === false)
 		{
-			output_cgi_data(ERR_SYSTEM, 'system errror');
+			output_cgi_data(ERR_NO_RIGHT, 'like comment failed');
 			return false;
 		}
 
@@ -109,7 +109,7 @@ class Comment extends CI_Controller {
 		$ret = $this->comment_mng->unlike($_REQUEST['comment_id']);
 		if ($ret === false)
 		{
-			output_cgi_data(ERR_SYSTEM, 'system errror');
+			output_cgi_data(ERR_NO_RIGHT, 'unlike comment failed');
 			return false;
 		}
 
