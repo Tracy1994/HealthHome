@@ -170,7 +170,7 @@ class Article extends CI_Controller {
 
 		$num = isset($_REQUEST['num']) && intval($_REQUEST['num']) > 0 ? intval($_REQUEST['num']) : 10;
 		$page = isset($_REQUEST['page']) && intval($_REQUEST['page']) > 0 ? intval($_REQUEST['page']) : 1;
-		$key_word = $_REQUEST['key_word'];
+		$key_word = urldecode($_REQUEST['key_word']);
 		$ret = $this->article_mng->search($key_word, $num, $num * ($page - 1));
 		if ($ret === false)
 		{
