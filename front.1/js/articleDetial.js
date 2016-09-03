@@ -1,4 +1,4 @@
-var articleId=window.location.search.substring(12,1400);
+articleId=window.location.search.substring(12,1400);
 console.log("articleId:"+articleId);
 //加载文章内容
 $(function(){	
@@ -23,25 +23,35 @@ $(function(){
 	});
 });
 function buildArticle(article){
+	// like_cnt=parseInt(article.like_cnt);
+	var like_cnt=article.like_cnt;
+	var collect_cnt=article.collect_cnt;
 	$(".js_article_title").text(article.title);
 	$(".author").text(article.author);
-	var createTimeAll=article.create_time;
-	var createTime_txt=document.createTextNode(createTimeAll.substring(1,10));
-	$(".time").text(createTime_txt);
+	// var createTimeAll=article.create_time;
+	// var createTime_txt=document.createTextNode(createTimeAll.substring(1,10));
+	$(".time").text(article.create_time);
 	$(".article_cover").attr("src",article.cover_url);
-	$(".glyphicon-thumbs-up").text("点赞( " + article.like_cnt + ")");
-	$(".collection").text("收藏" + article.collect_cnt + ")");
-
+	$(".glyphicon-thumbs-up").text("点赞 (" + like_cnt +")");
+	$(".collection").text("收藏 (" + collect_cnt + ")");
+	$(".writer_name").text("作者："+ article.author);
+	$(".writer_bg").text(article.author_desp);
+	$(".writer_header").attr("src",article.author_head_url);
 }
 //用户给文章点赞
-function likeArticle(articleId){
-	$.post("/article/like"+articleId,
+function likeArticle(){
+	$.post("/article/like?article_id="+articleId,
 		{
 			article_id:articleId
 		},function(data,status){
 			var objData=JSON.parse(data);
-			if (objData.code) {
-				$(".glyphicon-thumbs-up").text("点赞( " + article.like_cnt + ")");
+			if (objData.code==0) {
+				var like_cnt=$(".glyphicon-thumbs-up").text();
+				console.log("like_cnt:"+like_cnt.replace(/[^0-9]+/g, ''));
+				var like_cnt=like_cnt.replace(/[^0-9]+/g, '');
+				var like_cnt=Number(like_cnt)+1;
+				$(".glyphicon-thumbs-up").text("点赞(" + like_cnt + ")");
+				return false;
 			}
 			if (objData.code==-10003)
 			{
@@ -75,7 +85,12 @@ function collectArticle(){
 			function(data,status){
 				var objData=JSON.parse(data);
 				if (objData.code==0) {
+					var collect_cnt=$(".collection").text();
+					var collect_cnt=collect_cnt.replace(/[^0-9]+/g, '');
+					var collect_cnt=Number(collect_cnt)-1;
+					$(".collection").text("收藏(" + collect_cnt + ")");
 					$(".collection").attr("class","glyphicon glyphicon-star-empty collection");
+					return false;
 				}
 				if (objData.code==-10003)
 				{
@@ -98,7 +113,12 @@ function collectArticle(){
 			function(data,status){
 				var objData=JSON.parse(data);
 				if (objData.code==0) {
+					var collect_cnt=$(".collection").text();
+					var collect_cnt=collect_cnt.replace(/[^0-9]+/g, '');
+					var collect_cnt=Number(collect_cnt)+1;
+					$(".collection").text("收藏(" + collect_cnt + ")");
 					$(".collection").attr("class","glyphicon glyphicon-star collection");
+					return false;
 				}
 				if (objData.code==-10003)
 				{
@@ -139,7 +159,7 @@ function getPageData(page){
 			alert("系统繁忙，请稍后再试～～");
 		}
 		else{
-			onePageItems(jsondata.data.user_name,jsondata data.content,jsondata.data.id);
+			onePageItems(jsondata.data.user_name , jsondata.data.content , jsondata.data.id);
 		}				
 	});
 }

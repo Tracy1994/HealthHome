@@ -133,6 +133,7 @@ function getPageData(page){
 	});
 }
 function addBtn(strItem){
+	console.log("strItem:"+strItem);
 	var itemdata = JSON.parse(strItem);
 	$(".articleId").val(itemdata.id);
 	$(".article").text(itemdata.title);

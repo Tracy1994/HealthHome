@@ -1,6 +1,13 @@
-.box1{
-	height: 55px;
+@nav:rgba(124,104,180,0.9);
+.container{
+	min-width: 900px;
 }
+#carouselListHeader{
+	background-color: @nav;
+	color: white;
+	margin-top:20px; 
+}
+
 li{
 	list-style: none;	
 }

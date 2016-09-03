@@ -39,13 +39,13 @@ a:hover{
 	position: fixed;
 	top: 0px;
 	width: 102%;
-	min-width:1180px;
+	min-width:1190px;
 	height:@nav-height;
 	z-index: 1000;	
 }
 #nav_top p{
 	line-height: @nav-height;
-	font-size: 20px;
+	font-size: 19px;
 	margin: 0px 5px;
 }
 .nav_img{
