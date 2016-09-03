@@ -204,7 +204,6 @@ class ArticleMng extends CI_Model {
 				->like('author', $key_word)
 				->like('summary', $key_word)
 			->group_end()
-			->limit($num, $offset)
 			->count_all_results();
 		if ($count === false)
 		{

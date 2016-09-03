@@ -170,7 +170,7 @@ class Article extends CI_Controller {
 
 		$num = isset($_REQUEST['num']) && intval($_REQUEST['num']) > 0 ? intval($_REQUEST['num']) : 10;
 		$page = isset($_REQUEST['page']) && intval($_REQUEST['page']) > 0 ? intval($_REQUEST['page']) : 1;
-		$key_word = $_REQUEST['key_word'];
+		$key_word = urldecode($_REQUEST['key_word']);
 		$ret = $this->article_mng->search($key_word, $num, $num * ($page - 1));
 		if ($ret === false)
 		{
@@ -227,17 +227,17 @@ class Article extends CI_Controller {
 			}
 		}
 
-		$cover_url = $this->upload_mng->upload_cover_img();
-		if ($cover_url == false)
-		{
-			output_cgi_data(ERR_UPLOAD_FILE, 'upload cover failed, '.$this->upload_mng->get_err_msg());
-			return false;
-		}
-
 		$head_url = $this->upload_mng->upload_head_img();
 		if ($head_url === false)
 		{
 			output_cgi_data(ERR_UPLOAD_FILE, 'upload author head failed, '.$this->upload_mng->get_err_msg());
+			return false;
+		}
+
+		$cover_url = $this->upload_mng->upload_cover_img();
+		if ($cover_url == false)
+		{
+			output_cgi_data(ERR_UPLOAD_FILE, 'upload cover failed, '.$this->upload_mng->get_err_msg());
 			return false;
 		}
 
