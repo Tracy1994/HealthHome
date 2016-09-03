@@ -95,8 +95,6 @@ function logOut(){
 }
 
 function buildDropdownMeum(dropdown){
-	
-	
 	console.log("role:" + role);
 	var user_name=getCookieValue("user_name");
 	console.log(user_name);

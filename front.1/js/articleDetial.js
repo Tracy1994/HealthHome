@@ -1,5 +1,7 @@
-articleId=window.location.search.substring(12,1400);
+var articleId=window.location.search.substring(12,1400);
 console.log("articleId:"+articleId);
+var user_name=getCookieValue("user_name");
+console.log("user_name:"+user_name);
 //加载文章内容
 $(function(){	
 	$.getJSON("/article/get_info_detail?article_id="+articleId,function(jsondata){
@@ -22,6 +24,7 @@ $(function(){
 		}
 	});
 });
+//加载文章内容
 function buildArticle(article){
 	// like_cnt=parseInt(article.like_cnt);
 	var like_cnt=article.like_cnt;
@@ -78,7 +81,7 @@ function collectArticle(){
 	//读者取消收藏 
 	if (b == 0) 
 	{ 
-		$.post("/collection/remove",
+		$.post("/collection/remove?article_id="+articleId,
 			{
 				article_id:articleId
 			},
@@ -106,7 +109,7 @@ function collectArticle(){
 	//读者收藏文章
 	if (b ==1) 
 	{ 
-		$.post("/collection/add",
+		$.post("/collection/add?article_id="+articleId,
 			{
 				article_id:articleId
 			},
@@ -230,6 +233,7 @@ function buildreplyBox(comment){
 
 	var a1=document.createElement("a");
 	a1.setAttribute("class","like");
+	a1.setAttribute("id",comment.id);
 	a1.setAttribute("onclick","likeComment('" + comment.id + "')");
 	a1_txt=document.createTextNode("赞(" + comment.like_cnt + ")");
 	a1.appendChild(a1_txt);
@@ -251,18 +255,18 @@ function buildreplyBox(comment){
 }
 //评论点赞
 function likeComment(commentId){
-	console.log("commentId:"+commentId);
-	$.post("/comment/like",
+	$.post("/comment/like?comment_id="+commentId,
 		{
 			comment_id:commentId
 		},
 		function(data,status){
 			var objData=JSON.parse(data);
 			if (objData.code==0) {
-				var comment_cnt=$(".like").text();
+				var comment_cnt=$("#"+commentId).text();
+				console.log(comment_cnt);
 				var comment_cnt=comment_cnt.replace(/[^0-9]+/g, '');
 				var comment_cnt=Number(comment_cnt)+1;
-				$(".like").text(comment_cnt);
+				$("#"+commentId).text("赞(" + comment_cnt + ")");
 				return false;
 			}
 			if (objData.code==-10003)
