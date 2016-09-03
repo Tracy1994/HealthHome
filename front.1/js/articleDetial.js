@@ -32,8 +32,8 @@ function buildArticle(article){
 	// var createTime_txt=document.createTextNode(createTimeAll.substring(1,10));
 	$(".time").text(article.create_time);
 	$(".article_cover").attr("src",article.cover_url);
-	$(".glyphicon-thumbs-up").text("点赞 (" + like_cnt +")");
-	$(".collection").text("收藏 (" + collect_cnt + ")");
+	$(".glyphicon-thumbs-up").text("点赞(" + like_cnt +")");
+	$(".collection").text("收藏(" + collect_cnt + ")");
 	$(".writer_name").text("作者："+ article.author);
 	$(".writer_bg").text(article.author_desp);
 	$(".writer_header").attr("src",article.author_head_url);
@@ -134,20 +134,17 @@ function collectArticle(){
 	}
 }
 //首次加载文章内容的第一页评论
-function buildContents(articleId){
-	$.getJSON("/comment/get_article_comments?article_id=" +articleId  + "page=1&num="+5,function(jsondata){
-			console.log("jsondata.date.items"+ jsondata.data.items);
-			
-			console.log(jsondata);
-			if (jsondata.code!=0) {
-				alert("系统繁忙，请稍后再试～～");
-			}
-			else{
-				
-				onePageItems(jsondata.data);
-			}
-	});
-}
+$.getJSON("/comment/get_article_comments?article_id=" +articleId  + "page=1&num="+5,function(jsondata){
+		console.log("jsondata.date.items"+ jsondata.data.items);
+		
+		console.log(jsondata);
+		if (jsondata.code!=0) {
+			alert("系统繁忙，请稍后再试～～");
+		}
+		else{				
+			onePageItems(jsondata.data.items);
+		}
+});
 
 
 //根据第几页和每页的页数加载文章评论
@@ -164,19 +161,28 @@ function getPageData(page){
 	});
 }
 //每页的一页评论中的单条评论
-function onePageItems(user_name,content,id){	
-	var comments=jsondata.items;
-	$(".reply").empty();
-	for (var i = 0; i < comments.length; i++) {
-		var one_page = buildItem(comments[i]);
-		$(".reply").append(one_page);
+function onePageItems(comment){	
+	$("#reply").empty();
+	for (var i = 0; i < comment.length; i++) {
+		var one_page = buildItem(comment[i]);
+		$("#reply").append(one_page);		
 	}
+	
 }
+// <div class="media col-xs-12">
+// 	<img class="media-object pull-left" src="/front.1/resource/logo.jpg" alt="Image">
+// 	<div class="media-body">
+// 		<h4 class="media-heading">lala</h4>
+// 		<p>这是我的评论巴拉拉这是我的评论巴拉拉这是我的评论巴拉拉这是我的评论巴拉拉这是我的评论巴拉拉这是我的评论巴拉拉</p>
 
+
+// 	</div>
+// </div>
 //加载文章单条评论
-function buildItem(user_name,content,id){
+function buildItem(comment){
+	console.log("comment:"+comment);
 	var col12=document.createElement("div");
-	col12.setAttribute("class","col-xs-12");
+	col12.setAttribute("class","col-xs-12 media");
 
 	var img=document.createElement("img");
 	img.setAttribute("class","media-object pull-left");
@@ -187,28 +193,36 @@ function buildItem(user_name,content,id){
 
 	var h4=document.createElement("h4");
 	h4.setAttribute("class","media-heading");
-	h4_txt=document.createTextNode(user_name);
+	h4_txt=document.createTextNode(comment.user_name);
 	h4.appendChild(h4_txt);
 
 	var p=document.createElement("p");
-	p_txt=document.createTextNode(content);
+	p_txt=document.createTextNode(comment.content);
 	p.appendChild(p_txt);
 
-	var reply_box=buildreplyBox("#demo1",id);
-	var demo=buildDemo("demo1",id);
+	var reply_box=buildreplyBox(comment);
+	var collapse=buildCollapse(comment.id);
 
 	media_body.appendChild(h4);
 	media_body.appendChild(p);
 	media_body.appendChild(reply_box);
-	media_body.appendChild(demo);
+	
 
 	col12.appendChild(img);
 	col12.appendChild(media_body);
+	col12.appendChild(collapse);
 
 	return col12;
 
 }
-function buildreplyBox(demo,id){
+// 		<div class="reply_box">
+// 			<span>
+// 				<a href="#" class="like">赞(1)</a>
+// 				<a data-toggle="collapse" data-target="#demo1" class="reply">回复</a>
+// 			</span>
+				
+// 		</div>
+function buildreplyBox(comment){
 	var reply=document.createElement("div");
 	reply.setAttribute("class","reply_box");
 
@@ -216,14 +230,18 @@ function buildreplyBox(demo,id){
 
 	var a1=document.createElement("a");
 	a1.setAttribute("class","like");
-	a1.setAttribute("onclick","replyLike(" + id + ")");
+	a1.setAttribute("onclick","likeComment('" + comment.id + "')");
+	a1_txt=document.createTextNode("赞(" + comment.like_cnt + ")");
+	a1.appendChild(a1_txt);
+
+
 
 	var a3=document.createElement("a");
 	a3.setAttribute("data-toggle","collapse");
-	a3.setAttribute("data-target",demo);
+	a3.setAttribute("data-target","#" + comment.id);
 	a3.setAttribute("class","reply");
 
-	var a3_txt=document.createTextNode("回复");
+	var a3_txt=document.createTextNode( " 回复");
 	a3.appendChild(a3_txt);
 
 	reply.appendChild(a1);
@@ -231,10 +249,45 @@ function buildreplyBox(demo,id){
 
 	return reply
 }
-
-function buildDemo(demo,id){
+//评论点赞
+function likeComment(commentId){
+	console.log("commentId:"+commentId);
+	$.post("/comment/like",
+		{
+			comment_id:commentId
+		},
+		function(data,status){
+			var objData=JSON.parse(data);
+			if (objData.code==0) {
+				var comment_cnt=$(".like").text();
+				var comment_cnt=comment_cnt.replace(/[^0-9]+/g, '');
+				var comment_cnt=Number(comment_cnt)+1;
+				$(".like").text(comment_cnt);
+				return false;
+			}
+			if (objData.code==-10003)
+			{
+				alert('请登录！');
+				return false;
+			}
+			if (objData.code==-10006)
+			{
+				alert('你已经赞过了哟～～');
+				return false;
+			}
+			if (objData.code!=0) {
+				alert("系统繁忙，请稍后再试～～");
+				return false;
+			}
+	});
+}
+// 		<div id="demo1"  class="collapse well well-lg reply_comment">
+// 			<textarea class="form-control " required="required" maxlength="100" ></textarea>
+// 			<button class="btn btn-default">提交</button>
+// 		</div>
+function buildCollapse(commentId){
 	var demo=document.createElement("div");
-	demo.setAttribute("id",demo);
+	demo.setAttribute("id",commentId);
 	demo.setAttribute("class","collapse well well-lg reply_comment");
 
 	var textarea=document.createElement("textarea");
@@ -244,7 +297,7 @@ function buildDemo(demo,id){
 
 	var btn=document.createElement("button");
 	btn.setAttribute("class","btn btn-default");
-	btn.setAttribute("onclick","buildUserReply(" + id + ")")
+	btn.setAttribute("onclick","buildUserReply('" + commentId + "')")
 	var btn_txt=document.createTextNode("提交");
 	btn.appendChild(btn_txt);
 
@@ -255,65 +308,65 @@ function buildDemo(demo,id){
 
 }
 //发表文章评论
-function replyArticle(){
-	var user_name=getCookieValue("user_name");
-	var textarea_txt=$("#js_reply_article").val();
-	console.log(articleId);
-	console.log(textarea_txt);
-	$.post("/comment/add", 
-	{ 
-	    article_id: articleId, 
-	    content: textarea_txt
-	}, 
-	    function(data,status){
-	    var objData=JSON.parse(data);
-	    console.log(objData.code); 
-	    if (objData.code==0) {
-	    	$("#js_reply_article").val("");
-	    	var id=objData.id;
-	    	var newItem= buildItem(user_name,textarea_txt,id);
-	    	$(".reply").append(one_page);
-	    	return false;
-	    }
-	    else{
-	    	alert("系统繁忙，请稍后再试～～");
-	    	return false;
-	    }
-	});
-}
+// function replyArticle(){
+// 	var user_name=getCookieValue("user_name");
+// 	var textarea_txt=$("#js_reply_article").val();
+// 	console.log(articleId);
+// 	console.log(textarea_txt);
+// 	$.post("/comment/add", 
+// 	{ 
+// 	    article_id: articleId, 
+// 	    content: textarea_txt
+// 	}, 
+// 	    function(data,status){
+// 	    var objData=JSON.parse(data);
+// 	    console.log(objData.code); 
+// 	    if (objData.code==0) {
+// 	    	$("#js_reply_article").val("");
+// 	    	var id=objData.id;
+// 	    	var newItem= buildItem(user_name,textarea_txt,id);
+// 	    	$(".reply").append(one_page);
+// 	    	return false;
+// 	    }
+// 	    else{
+// 	    	alert("系统繁忙，请稍后再试～～");
+// 	    	return false;
+// 	    }
+// 	});
+// }
 
 //回复评论
-function buildItem(user_name,content,id){
-	var col12=document.createElement("div");
-	col12.setAttribute("class","col-xs-12");
+// function buildItem(user_name,content,id){
+// 	var col12=document.createElement("div");
+// 	col12.setAttribute("class","col-xs-12");
 
-	var img=document.createElement("img");
-	img.setAttribute("class","media-object pull-left");
-	img.setAttribute("src","/front.1/resource/User.jpg");
+// 	var img=document.createElement("img");
+// 	img.setAttribute("class","media-object pull-left");
+// 	img.setAttribute("src","/front.1/resource/User.jpg");
 
-	var media_body=document.createElement("div");
-	media_body.setAttribute("class","media-body");
+// 	var media_body=document.createElement("div");
+// 	media_body.setAttribute("class","media-body");
 
-	var h4=document.createElement("h4");
-	h4.setAttribute("class","media-heading");
-	h4_txt=document.createTextNode(user_name);
-	h4.appendChild(h4_txt);
+// 	var h4=document.createElement("h4");
+// 	h4.setAttribute("class","media-heading");
+// 	h4_txt=document.createTextNode(user_name);
+// 	h4.appendChild(h4_txt);
 
-	var p=document.createElement("p");
-	p_txt=document.createTextNode(content);
-	p.appendChild(p_txt);
+// 	var p=document.createElement("p");
+// 	p_txt=document.createTextNode(content);
+// 	p.appendChild(p_txt);
 
-	var reply_box=buildreplyBox("#demo1",id);
-	var demo=buildDemo("demo1",id);
+// 	var reply_box=buildreplyBox("#demo1",id);
+// 	var demo=buildDemo("demo1",id);
 
-	media_body.appendChild(h4);
-	media_body.appendChild(p);
-	media_body.appendChild(reply_box);
-	media_body.appendChild(demo);
+// 	media_body.appendChild(h4);
+// 	media_body.appendChild(p);
+// 	media_body.appendChild(reply_box);
+// 	media_body.appendChild(demo);
 
-	col12.appendChild(img);
-	col12.appendChild(media_body);
+// 	col12.appendChild(img);
+// 	col12.appendChild(media_body);
 
-	return col12;
+// 	return col12;
 
-}
+// }
