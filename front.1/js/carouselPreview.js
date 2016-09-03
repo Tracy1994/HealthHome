@@ -16,7 +16,7 @@ $.getJSON("/carousel/get_list?page=1&num="+5,function(jsondata){
 
 	
 //根据第几页和每页的页数加载
-function getPageData(page, pageNum){
+function getPageData(){
 	$.getJSON("/carousel/get_list?page=" + page + "&num="+5,function(jsondata){
 		console.log("jsondata.date.items"+ jsondata.data.items);				
 		console.log(jsondata);
@@ -24,60 +24,10 @@ function getPageData(page, pageNum){
 			alert("系统繁忙，请稍后再试～～");
 		}
 		else{
-			onePageItems(jsondata.data, pageNum);
+			onePageItems(jsondata.data);
 		}				
 	});
 }
-// <button type="button" class="btn btn-lg btn-default">button</button>
-var page=1;
-function onePageItems(jsondata, pageNum){
-	$("#downBtn").remove();
-	var carousels=jsondata.items;		
-		
-	for (var i = 0; i < carousels.length; i++) {
-		var one_page = buildItem(carousels[i]);
-		$("#js_carousel_list").append(one_page);
-	}
-
-	var btn=downBtn(jsondata);
-	$("#js_carousel_list").append(btn);
-	
-	if (page >= pageNum)
-	{
-		$("#downBtn").empty();
-		$("#downBtn").text("已经到达底部");
-		$("#downBtn").addClass("disabled");
-	}
-}
-
-function downBtn(jsondata){
-	var downBtn=document.createElement("button");
-	downBtn.setAttribute("class","btn btn-default ");
-	downBtn.setAttribute("id","downBtn");
-	downBtn.setAttribute("type","button");
-	downBtn.setAttribute("onclick","loading( '" + JSON.stringify(jsondata) + "')");
-
-	var span=document.createElement("span");
-	span.setAttribute("class","glyphicon glyphicon-circle-arrow-down");
-
-	downBtn.appendChild(span);
-
-	return downBtn;
-}
-
-function loading(jsondata){
-	console.log(jsondata);
-	var carousels = JSON.parse(jsondata).count;
-	pageNum=Math.ceil(carousels/5);	
-	console.log("pageNum:"+pageNum);
-	
-	if (page < pageNum) {
-		page = page + 1;
-		getPageData(page, pageNum);
-	}
-	//
-}
-
 
 
 function buildItem(carousel){
@@ -169,7 +119,7 @@ function carouselPic(carousel){
 // 			</div>
 function imgInfo(carousel){
 	var img_info=document.createElement("div");
-	img_info.setAttribute("class","img_info visible-md visible-lg");
+	img_info.setAttribute("class","img_info ");
 
 	var writer_name=document.createElement("div");
 	writer_name.setAttribute("class","writer_name");

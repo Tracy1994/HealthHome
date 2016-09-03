@@ -1,8 +1,4 @@
-/*---消除nav置顶影响
---------------------------------------------*/
-.box1{
-	height: 55px;
-}
+
 /*--右边col-xs-4 时间及按钮租的显示
 ------------------------------------------*/
 .box2{
@@ -25,6 +21,9 @@
 }
 /*--col-xs-8 轮播图的显示
 -------------------------------------------------*/
+.js_td{
+	min-width: 1050px;
+}
 .carousel_pic div{
 	font-size: 7px;
 }
@@ -37,20 +36,6 @@
 	position: absolute;
 	left: 60%;
 	color: rgb(255,255,255);
-	bottom: 25%;
+	bottom: 36%;
 	width: 35%;	
-}
-#downBtn{
-	width: 100%;
-	font-size: 18px;
-}
- #downBtn span{
-	
-	padding: 3px;
-	transition:all 2s; 	
-	-webkit-transition:all 1s; /* Safari */
-}
-#downBtn span:hover{
-	transform:rotateY(360deg);
-	-webkit-transform:rotateY(360deg); /* Safari and Chrome */
 }

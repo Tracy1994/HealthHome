@@ -6,41 +6,50 @@
 	<title>carousel edit</title>
 	<link rel="stylesheet" type="text/css" href="/front.1/css/carouselEdit.css">	
 	<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<link type="text/less" rel="stylesheet/less" rev="stylesheet/less" href="/front.1/css/lib/less.css" >
+	<script src="/front.1/js/lib/less.min.js"></script>
 	<script src="/front.1/js/lib/jquery-3.0.0.min.js"></script>	
 	<script type="text/javascript" src="/front.1/js/lib/jquery.form.min.js"></script>
 	<script type="text/javascript" src="/front.1/js/lib/bootstrap.min.js"></script>
-	<script type="text/javascript" src="/front.1/js/lib/addLoadEvent.js"></script>
 	<script type="text/javascript" src="/front.1/js/lib/modalForm.js"></script>
- <!-- 	<script type="text/javascript" src="/front.1/js/lib/getJsonHot.js"></script> -->
 	<script type="text/javascript" src="/front.1/js/carouselEdit.js"></script>	
-	<script type="text/javascript" src="/front.1/js/lib/buildDropdownMeum.js"></script>
-	<!-- <script type="text/javascript" src="/front.1/js/lib/buildArticle.js"></script> -->
+	<script type="text/javascript" src="/front.1/js/lib/nav.js"></script>
+	<script type="text/javascript" src="/front.1/js/lib/searchBtn.js"></script>
+	<script type="text/javascript" src="/front.1/js/lib/imgPreview.js"></script>
 	
 </head>
 <body>
-	<nav class="navbar navbar-default navbar-fixed-top " role="navigation">
-		
-		<div class="container">
-			<div class="navbar-brand">
-				<span><img src="/front.1/resource/logo.jpg" class="navbar-left"></span>
-				<span class="name  navbar-left">健康之家-编辑轮播</span>
-				
-			</div>
+	<nav id="nav_top" class="row">
+		<div class="col-xs-1">
+			<img src="/front.1/resource/logo.jpg" class="nav_img">
+		</div>
+		<div class="col-xs-2">
+			<p>健康之家-轮播编辑</p>
+		</div>
+		<div class="col-xs-5 ">
+			<input type="text" class="form-control" placeholder="输入关键字" id="search">
 			
-			<ul class="nav navbar-nav navbar-right">
-
-				<li id="js_index">
-					<a href="/front.1/index.html" >首页</a>
+		</div>
+		<div class="col-xs-1">
+			<button type="submit" class="btn btn-default " id="search_btn">
+				<span class="glyphicon glyphicon-search"></span>
+			</button>
+		</div>
+		<div class="col-xs-3">
+			<ul class="nav_left">
+				<li id="js_index" >
+					<a href="/front.1/index.html" class="btn">首页</a>
 				</li>			
 				<li id="js_register">
-					<a href="/front.1/html/register.html" ">注册</a>
+					<a href="/front.1/html/register.html" class="btn">注册</a>
 				</li>
-				<li >
-					<a href="/front.1/html/carouselOrder.html" ">发布轮播</a>
+				<li>
+					<a href="/front.1/html/carouselOrder.html" class="btn">发布轮播</a>
 				</li>
 			</ul>
-		</div>
+		</div>		
 	</nav>
+	
 	<div class="box1"></div>
 	<div class="container">
 		<div class="row">
@@ -59,7 +68,7 @@
 								<a href="javascript:void(0)" class="file_a btn btn-default">选择轮播图片
 								   
 								</a>
-								 <input type="file" name="carouselimg" id="doc" onchange="setImagePreview("'+doc+'","'+preview+'")" class="file">
+								 <input type="file" name="carouselimg" id="doc" onchange="setImagePreview('doc','preview')" class="file">
 								<br>
 								<a class="btn btn-default article" data-toggle="modal" href='#modal-id'>选择文章</a>
 								<div class="modal fade" id="modal-id">

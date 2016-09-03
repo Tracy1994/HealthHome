@@ -1,8 +1,8 @@
 // set carousel img preview
-function setImagePreview(avalue) {
-	var docObj=document.getElementById("doc")[0];	 
-	var imgObjPreview=document.getElementById("preview")[0];
-	if(docObj.files &&docObj.files[0])
+function setImagePreview(a,b) {
+	var docObj=document.getElementById(a);	 
+	var imgObjPreview=document.getElementById(b);
+	if(docObj.files && docObj.files)
 	{
 	//火狐下，直接设img属性
 	imgObjPreview.style.display = 'block';

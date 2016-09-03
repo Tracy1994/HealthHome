@@ -1,11 +1,14 @@
-$(document).ready(function(){
-	//发送请求，页面加载，默认开始加载分类为推荐的文章列表
+
+// $(function(){
 	var keyWord=window.location.search;
 	console.log(keyWord);
-	$.getJSON("/article/search"+keyWord,function(jsondata){
-		console.log(jsondata.code);
-		if (jsondata.code!=0) {
-			alert("系统繁忙，请稍后再试～～");
+	//首次加载文章内容
+	$.getJSON("/article/search" + keyWord + "&page=1&num="+5,function(jsondata){
+		console.log("jsondata.date.items"+ jsondata.data.items);
+		
+		console.log(jsondata);
+		if (jsondata=="") {
+			alert("网站出现一点小bug了，抢修中。。。");
 			return false;
 		}
 		if (jsondata.data.length==0) 
@@ -13,104 +16,87 @@ $(document).ready(function(){
 			alert("系统没有找到相关内容，请重新输入关键字！");
 			return false;
 		}
-		else{
-			refreshArticleList(jsondata.data);
-			console.log(jsondata.data);
+		if (jsondata.code!=0) {
+			alert("系统繁忙，请稍后再试～～");
+			return false;
 		}
+		else{
 
+			onePageItems(jsondata.data);		
+		}
 	});
-	
-	$("#search").click(function(){
-		$("#articleList").empty();
-		var keyWord=$("#keyWord").val();
-		console.log(keyWord);
-		$.getJSON("/article/search?key_word="+keyWord,function(jsondata){
+
+	//根据第几页和每页的页数加载
+	function getPageData(typeId){
+		$.getJSON("/article/search" + keyWord + "&page=" + page + "&num="+5,function(jsondata){
+			console.log("jsondata.date.items"+ jsondata.data.items);				
+			console.log(jsondata);
 			if (jsondata.code!=0) {
 				alert("系统繁忙，请稍后再试～～");
-				return false;
-			}
-			if (jsondata.data.length==0) 
-			{
-				alert("系统没有找到相关内容，请重新输入关键字！");
-				return false
 			}
 			else{
-				refreshArticleList(jsondata.data);
-				console.log(jsondata.data);
-			}
-
-		});
-	});
-	//页面加载每篇文章的信息
-	function refreshArticleList(articles){
-		$("#articleList").empty();
-		for (var i = 0; i < articles.length; i++) {
-			var articleDiv = getArticleDiv(articles[i]);
-
-			$("#articleList").append(articleDiv);
-		}
-	}
-	//页面加载单篇文章的具体内容
-	function getArticleDiv(article){
-		
-		var section= "<section>"+
-			"<div class=\"l-top\">"+
-			"<img src=\"" + article.author_head_url + "\">"+
-			"<h5 class=\"l2\">" + article.like_cnt + "</h5>"+
-			"<h4><a href=\"/front/html/article.html?article_id=" + article.id + "\".id +>" +article.title+"</a></h4>"+
-			"<p><b>"+article.author+"</b><span>"+article.author_desp+"</span></p></div>"+
-			"<div class=\"l-buttom\"><div class=\"summary\">"+
-			"<img src=\""+article.cover_url+"\">"+
-			"<span class=\"p\">"+article.summary+"</span></div><div class=\"bottom\">"+
-			"<span class=\"r\" >阅读（"+article.click_cnt+"）</span>"+
-			"<span class=\"c\">点赞（" + article.like_cnt + "）</span></div></div>"+
-			"</section>"				
-		return section;
-	}
-	window.onload = function(){
-		//登录后改变html内容和退出登录
-		function getCookieValue(cname) {
-			var name = cname + "=";
-			var ca = document.cookie.split(';');
-			for(var i=0; i<ca.length; i++) 
-		  	{
-		  		var c = ca[i].trim();
-		  		if (c.indexOf(name)==0)
-		  		{
-		  			return c.substring(name.length,c.length);
-		  		}
-		  	}
-			return "";
-		}
-
-		function checkCookie() {
-			var user_name=getCookieValue("user_name");
-			var role=getCookieValue("role");
-			console.log(user_name);
-			if (user_name!="" && role==1) {
-		  		console.log('add editer');
-		  		$("#register").text("退出");
-		  		$("#register").attr("href","/login/logout");
-		  		$("#writer").text(user_name+"编辑");
-		  		$("#writer").css("front-size","13px");
-		  		$("#writer").attr("href","/front/html/writer.html");
-		  		
-		  	}
-			else if (user_name!=""){
 				
-		  		$("#login").text(user_name);
-		  		
-		  		$("#register").text("退出");
-		  		$("#register").attr("href","/login/logout");
-		  	}		  	
-		  	console.log("role:" + role);	  			  		
-		}
-		
-		
-		//导航条的点击变色和发送请求
-		
-		checkCookie();
+				onePageItems(jsondata.data);
+			}				
+		});
 	}
-	
 
-});
+
+	//加载文章列表
+	function buildItem(article){
+		var tr=document.createElement("tr");
+		tr.setAttribute("class","js_tr");
+
+		var td=document.createElement("td");		
+		td.setAttribute("class","js_td");
+
+		var link=document.createElement("a");
+		link.setAttribute("href",'/front.1/html/articleDetial.html?article_id=' + article.id);
+		link.setAttribute("target","_blank")
+
+		tr.appendChild(td);
+		td.appendChild(link);
+
+		var box_l= buildArticleCover(article,"col-xs-4");
+		var box_r=buildArticleBrief(article,"col-xs-8");
+		var read=buildRead(article);
+
+		link.appendChild(box_l);		
+		link.appendChild(box_r);
+		box_r.appendChild(read);
+
+		return tr;			
+	}
+	$("#search_btn").click(function(){
+			var keyWord=$("#search").val();
+			console.log("keyWord:" +keyWord);
+			if (keyWord=="") {
+				alert("请输入关键字!");
+				return false;
+			}
+			else{
+				$.getJSON("/article/search" + keyWord + "&page=1&num="+5,function(jsondata){
+					console.log("jsondata.date.items"+ jsondata.data.items);
+					
+					console.log(jsondata);
+					if (jsondata=="") {
+						alert("网站出现一点小bug了，抢修中。。。");
+						return false;
+					}
+					if (jsondata.data.length==0) 
+					{
+						alert("系统没有找到相关内容，请重新输入关键字！");
+						return false;
+					}
+					if (jsondata.code!=0) {
+						alert("系统繁忙，请稍后再试～～");
+						return false;
+					}
+					else{
+
+						onePageItems(jsondata.data);		
+					}
+				});
+			}
+		});
+// });

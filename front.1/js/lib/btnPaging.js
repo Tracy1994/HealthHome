@@ -50,7 +50,6 @@ function loading(Num){
 	if (page < pageNum) {
 		page = page + 1;
 		getPageData();
-		// getPageData(page, pageNum);
 	}
 	
 }

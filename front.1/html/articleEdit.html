@@ -10,7 +10,7 @@
 	<script src="/front.1/js/lib/less.min.js"></script>
 	<script src="/front.1/js/lib/jquery-3.0.0.min.js"></script>	
 	<script type="text/javascript" src="/front.1/js/lib/jquery.form.min.js"></script>
-<!-- 	<script type="text/javascript" src="/front.1/js/lib/imgPreview.js"></script> -->
+	<script type="text/javascript" src="/front.1/js/lib/imgPreview.js"></script>
 	<script type="text/javascript" src="/front.1/js/lib/bootstrap.min.js"></script>
 	<script type="text/javascript" src="/front.1/js/articleEdit.js"></script>
 	<script type="text/javascript" src="/front.1/js/lib/nav.js"></script>
@@ -63,7 +63,7 @@
 						<a href="javascript:void(0)" class="file_a btn btn-default">选择作者头像
 						   
 						</a>
-						 <input type="file" name="headimg" id="doc_header" onchange="headerImagePreview()" class="file">
+						 <input type="file" name="headimg" id="doc_header" onchange="setImagePreview('doc_header','preview_header')" class="file">
 					</div>
 					<div class="col-xs-8">
 						<div class="input-group input-group-xs">
@@ -87,7 +87,7 @@
 						</div>
 						<a href="javascript:void(0)" class="file_a btn btn-default">选择文章封面						   
 						</a>
-						 <input type="file" name="coverimg" id="doc_cover" onchange="coverImagePreview()" class="file">
+						 <input type="file" name="coverimg" id="doc_cover" onchange="setImagePreview('doc_cover','preview_cover')" class="file">
 					</div>
 					<div class="col-xs-8">
 						<div class="input-group input-group-xs">
