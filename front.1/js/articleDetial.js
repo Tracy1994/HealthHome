@@ -18,7 +18,7 @@ $(function(){
 		else{
 			$.get("/article/get_content?article_id=" + articleId,function(data,status){
 				console.log(data);
-				$("content").text(data);
+				$("content").append(data);
 			});
 			buildArticle(jsondata.data);
 		}
@@ -191,6 +191,7 @@ $.getJSON("/comment/get_article_comments?article_id=" +articleId  + "page=1&num=
 		}
 		else{				
 			onePageItems(jsondata.data.items);
+			loadPageBtnGroup(jsondata.data);
 		}
 });
 
@@ -205,12 +206,13 @@ function getPageData(page){
 		}
 		else{
 			onePageItems(jsondata.data.items);
+
 		}				
 	});
 }
 //每页的一页评论中的单条评论
 function onePageItems(comment){	
-	// $("#reply").empty();
+	$("#reply").empty();
 	for (var i = 0; i < comment.length; i++) {
 		var one_comment = buildItem(comment[i]);
 		$("#reply").append(one_comment);		
