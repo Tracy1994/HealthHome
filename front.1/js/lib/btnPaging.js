@@ -4,7 +4,7 @@ function onePageItems(jsondata){
 	$("#downBtn").remove();
 	var articleNum=jsondata.count;
 	if (articleNum==0) {
-		$("#js_article_list").text("小编暂时没有发布文章，敬请期待！");
+		$("#js_article_list").text("暂时没有文章，敬请期待！");
 		return false;
 	}
 	var articles=jsondata.items;		
