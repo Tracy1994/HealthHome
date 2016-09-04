@@ -11,8 +11,8 @@ class ArticleMng extends CI_Model {
 	private $table_comment = 'comment';
 	private $table_comment_like = 'comment_like';
 
-	private $field_info_detail = 'id,type_id,title,author,author_desp,author_head_url,create_time,cover_url,like_cnt,click_cnt,comment_cnt,collect_cnt';
-	private $field_info_list = 'id,type_id,state,title,author,author_desp,author_head_url,create_time,cover_url,like_cnt,click_cnt,comment_cnt,collect_cnt,summary';
+	private $field_info_detail = 'id,type_id,title,author_id,author,author_desp,author_head_url,create_time,cover_url,like_cnt,click_cnt,comment_cnt,collect_cnt';
+	private $field_info_list = 'id,type_id,state,title,author_id,author,author_desp,author_head_url,create_time,cover_url,like_cnt,click_cnt,comment_cnt,collect_cnt,summary';
 	private $field_info_min = 'id,title,create_time';
 
 	public function ArticleMng()

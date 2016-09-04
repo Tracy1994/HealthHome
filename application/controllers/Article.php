@@ -276,6 +276,7 @@ class Article extends CI_Controller {
 		}
 
 		if (!isset($_REQUEST['article_id']) || intval($_REQUEST['article_id']) <= 0 ||
+			!isset($_REQUEST['author_id']) || strlen($_REQUEST['author_id']) == 0 ||
 			!isset($_REQUEST['title']) || strlen($_REQUEST['title']) == 0 ||
 			!isset($_REQUEST['author']) || strlen($_REQUEST['author']) == 0 ||
 			!isset($_REQUEST['author_desp']) || strlen($_REQUEST['author_desp']) == 0 ||
@@ -311,10 +312,11 @@ class Article extends CI_Controller {
 			}
 		}
 
-		$author_id = $this->author_mng->modify($_REQUEST['author'], $_REQUEST['author_desp'], $head_url);
+		$author_id = $this->author_mng->modify($_REQUEST['author_id'], $_REQUEST['author'], 
+			$_REQUEST['author_desp'], $head_url);
 		if ($author_id === false)
 		{
-			output_cgi_data(ERR_SYSTEM, 'add user failed');
+			output_cgi_data(ERR_SYSTEM, 'modify user failed');
 			return false;
 		}
 

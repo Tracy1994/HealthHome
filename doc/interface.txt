@@ -83,6 +83,7 @@ articleimg
 参数：
 article_id：[必填]文章ID
 title：[必填]文章标题
+author_id：[必填]作者ID
 author：[必填]作者名
 author_desp：[必填]作者描述
 type_id：[必填]列表类型(0:推荐, 1:心理, 2:真相, 3:一图读懂, 4:肿瘤, 5:慢病, 6:营养, 7:母婴)
