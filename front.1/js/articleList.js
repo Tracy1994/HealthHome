@@ -1,4 +1,4 @@
-//首次加载文章内容
+//首次加载文章内容 
 $.getJSON("/article/get_latest_list?detail=1&page=1&num="+5,function(jsondata){
 		console.log("jsondata.date.items"+ jsondata.data.items);
 		

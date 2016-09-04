@@ -2,13 +2,13 @@
 		$(document).ready(function(){
 
 			$(".a1").click(function(){
-				$(".a1").css({"font-weight":"bold","color":"rgb(0,179,138)","text-decoration":"underline"});
+				$(".a1").css({"font-weight":"bold","color":"rgba(124,104,180,0.9)","text-decoration":"underline"});
 				$(".register").hide();
 				$(".a2").css({"font-weight":"normal","color":"gray","text-decoration":"none"});
 				$(".login").show();
 			});
 			$(".a2").click(function(){
-				$(".a2").css({"font-weight":"bold","color":"rgb(0,179,138)","text-decoration":"underline"});
+				$(".a2").css({"font-weight":"bold","color":"rgba(124,104,180,0.9)","text-decoration":"underline"});
 				$(".login").hide();
 				$(".a1").css({"font-weight":"normal","color":"gray","text-decoration":"none"});
 				$(".register").show();
