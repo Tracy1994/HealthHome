@@ -1,4 +1,3 @@
-
 function buildArticleCover(article, strCol){
 	var box_l=document.createElement("div");
 	box_l.setAttribute("class",strCol + " article_cover");
@@ -35,12 +34,12 @@ function buildRead(article){
 	var span1=document.createElement("span");
 	span1.setAttribute("class","glyphicon glyphicon-eye-open");
 	var span_r=document.createElement("span");
-	var span_r_txt=document.createTextNode(' 阅读('+article.click_cnt+') ');
+	var span_r_txt=document.createTextNode('  阅读（ '+article.click_cnt+' )  ');
 
 	var span2=document.createElement("span");
 	span2.setAttribute("class","glyphicon glyphicon-thumbs-up");
 	var span_l=document.createElement("span");
-	var span_l_txt=document.createTextNode(' 点赞('+article.like_cnt+') ');
+	var span_l_txt=document.createTextNode('  点赞（ '+article.like_cnt+' )');
 
 	read.appendChild(span1);
 	read.appendChild(span_r);
@@ -51,4 +50,3 @@ function buildRead(article){
 
 	return read;
 }
-

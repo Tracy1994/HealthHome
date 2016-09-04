@@ -120,7 +120,7 @@ function buildItem(article){
 	box_r.appendChild(read);
 
 	return tr;
-		
+	
 }
 
 
@@ -132,7 +132,7 @@ function buildItem(article){
 		td.setAttribute("class","js_td");
 		
 		var link=document.createElement("a");
-		link.setAttribute("href",'/front.1/html/article.html?article_id=' + article.id);
+		link.setAttribute("href",'/front.1/html/articleDetial.html?article_id=' + article.id);
 				
 		td.appendChild(link);
 

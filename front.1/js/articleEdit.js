@@ -4,7 +4,6 @@ $(function(){
 	console.log("articleId:"+articleId);
 	if (articleId=="") {
 		$("#article_edit").attr("action","/article/publish");
-		return false;
 	}
 	else{
 		$.getJSON("/article/get_info_detail?article_id="+articleId,function(jsondata){
@@ -25,7 +24,9 @@ $(function(){
 					$("#author_desp").val(article.author_desp);
 					$("#title").val(article.title);
 					$("#type_id").val(article.type_id);
+					$("#article_id").val(articleId);
 					$("#submit").text("确定修改");
+
 				}
 		});
 		
