@@ -10,6 +10,7 @@ class UploadMng extends CI_Model {
 		parent::__construct();
 		$this->load->helper(array('form', 'url'));
 		$config['upload_path']      = './uploads/';
+		$config['allowed_types']    = 'gif|jpg|png|jpeg';
         $config['max_size']     	= 2048;
         $this->load->library('upload', $config);
 	}
