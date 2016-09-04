@@ -1,3 +1,5 @@
+@nav:rgba(124,104,180,0.9);
+@nav-darker: darken(spin(@nav, -5), 10%);
 .row{
 	min-width: 1170px;
 }
@@ -20,13 +22,15 @@
 	border-right: solid 1px rgb(200,200,200);		
 	width: 100%; 
 }*/
-.left .read {
-	
-}
+
 .left .read .btn{
 	float: right;
 	padding: 5px 10px;
 	margin: 20px 4px;
+	letter-spacing: 2px;
+	font-size: 13px;
+	color: white;
+	background-color: @nav-darker;
 }
 .comment{
 	border-top: solid 1px rgb(200,200,200);
@@ -107,11 +111,14 @@
 	text-align: center;
 	background-color: rgb(244,244,244);
 	position: relative;
+	margin: 5px;
 	/*left: -30px;*/
 	line-height: 10px;
 }
 .writer_header{
-	padding:2% 20%;
+	padding:5%;
+	width: 150px;
+	height: 150px;
 	border-radius: 50%;
 }
 .right .writer .writer_name{
@@ -127,21 +134,28 @@
 /*----js_recomand
 ------------------------------------------------------*/
 #js_recomand{
-	min-width: 464px;
-}
-#js_recomand li{
-	text-align: center;
-	font-size: 16px;
-}
-#js_recomand span{
-	margin: 5px 15px;
-}
-#js_recomand{
+	
 	position: fixed;
-	top: 220px;
+	top: 250px;
 	float: right;
 	padding:1% 15% 0% 0%;
 }
+
+#js_recomand li,
+#js_recomand a{
+	width: 253px;
+	font-size: 16px;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+#js_recomand li{
+	text-align: center;
+}
+
+#js_recomand span{
+	margin: 5px 15px;
+}
+
 
 #js_recomand .list-group-item h5{
 	display: inline;

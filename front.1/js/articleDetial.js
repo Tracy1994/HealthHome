@@ -584,7 +584,7 @@ $(function(){
 		}
 		else{
 			
-			$("#js_recomand").css("top","220px");
+			$("#js_recomand").css("top","250px");
 		}
 	}
 });

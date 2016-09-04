@@ -1,6 +1,10 @@
 //分页加载文章及按钮
 function loadPageBtnGroup(jsondata){
 	var articleNum=jsondata.count;
+	console.log("articleNum:"+articleNum);
+	if (articleNum==0) {
+		$(".page").hide();
+	}
 	var pageNum= Math.ceil(articleNum/5);	
 	console.log("pageNum:"+pageNum);
 	console.log("articleNum:"+articleNum);
