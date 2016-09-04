@@ -1,11 +1,13 @@
+var articleId=window.location.search.substring(11,1400);
+console.log("articleId:"+articleId);
 //修改文章内容
 $(function(){
-	var articleId=window.location.search.substring(11,1400);
-	console.log("articleId:"+articleId);
+	
 	if (articleId=="") {
 		$("#article_edit").attr("action","/article/publish");
 	}
 	else{
+		$("#article_edit").attr("action","/article/modify");
 		$.getJSON("/article/get_info_detail?article_id="+articleId,function(jsondata){
 				console.log("jsondata.date"+ jsondata.data);		
 				console.log(jsondata);
@@ -19,7 +21,7 @@ $(function(){
 				}
 				else{
 					var article=jsondata.data;
-					$("#article_edit").attr("action","/article/modify");
+					
 					$("#authou_name").val(article.author);
 					$("#author_desp").val(article.author_desp);
 					$("#title").val(article.title);
@@ -147,14 +149,18 @@ function showRequest(formData,jqForm,option){
 	  	return false;
 		}
 	
-	if (coverimg==null || coverimg==""){
-	  	alert("请上传文章封面！");
-	  	return false;
-		}
-	if (headimg==null || headimg==""){
-	  	alert("请上传作者头像！");
-	  	return false;
-		}	
+	if (articleId == ""){
+		if (coverimg==null || coverimg==""){
+		  	alert("请上传文章封面！");
+		  	return false;
+			}
+		if (headimg==null || headimg==""){
+		  	alert("请上传作者头像！");
+		  	return false;
+			}
+	}
+		
+	
 }
 function showResponse(responseText, statusText){ 
         console.log(responseText);
@@ -162,16 +168,8 @@ function showResponse(responseText, statusText){
         
         if (responseText.code==0) {
         	alert("提交成功！");
-        	var r=confirm("是否要跳转到文章列表页？")
-        	  if (r==true)	  	
-        	    {
-        	    window.location.href="/front.1/html/articleList.html";	        	    
-        	    }
-        	   else
-        	   {
-        	   	window.location.href="/front.1/html/articleEdit.html"
-        	   }
-        	return false;
+        	window.location.href="/front.1/html/articleList.html";
+        	
         }
         else
         {
