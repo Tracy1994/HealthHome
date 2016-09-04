@@ -2,7 +2,7 @@ var articleId=window.location.search.substring(12,1400);
 console.log("articleId:"+articleId);
 var user_name=getCookieValue("user_name");
 console.log("user_name:"+user_name);
-//加载文章内容
+//获得文章内容
 $(function(){	
 	$.getJSON("/article/get_info_detail?article_id="+articleId,function(jsondata){
 		console.log("jsondata.date"+ jsondata.data);		
@@ -136,6 +136,51 @@ function collectArticle(){
 		
 	}
 }
+//发布文章评论
+function replyArticle(){
+	var textarea_txt=$("#js_reply_article").val();
+	$.post("/comment/add", 
+		{ 
+		    article_id: articleId, 
+		    content: textarea_txt
+		}, 
+		    function(data,status){
+		    var objData=JSON.parse(data);
+		    console.log(objData.code); 
+		    if (objData.code==0) {
+		    	alert("评论成功～～");
+		    	$("#js_reply_article").val("");
+		    	$.getJSON("/comment/get_article_comments?article_id=" +articleId  + "page=1&num="+1,function(jsondata){
+		    			if (jsondata.code!=0) {
+		    				alert("系统繁忙，评论暂时无法正常显示～～");
+		    				return false;
+		    			}
+		    			else{				
+		    				newArticleComment(jsondata.data.items);
+		    			}
+		    	});
+
+		    	return false;
+		    }
+		    if (objData.code==-10003) {
+		    	alert("请登录！");
+		    	return false;
+		    }
+		    if (objData.code==-10001) {
+		    	alert("评论内容不能为空～～");
+		    	return false;
+		    }
+		    else{
+		    	alert("系统繁忙，请稍后再试～～");
+		    	return false;
+		    }
+	});
+}
+//及时显示最新评论
+function newArticleComment(comment){	
+	var one_comment = buildItem(comment[0]);
+	$("#reply").prepend(one_comment);
+}
 //首次加载文章内容的第一页评论
 $.getJSON("/comment/get_article_comments?article_id=" +articleId  + "page=1&num="+5,function(jsondata){
 		console.log("jsondata.date.items"+ jsondata.data.items);
@@ -159,7 +204,7 @@ function getPageData(page){
 			alert("系统繁忙，请稍后再试～～");
 		}
 		else{
-			onePageItems(jsondata.data.user_name , jsondata.data.content , jsondata.data.id);
+			onePageItems(jsondata.data.items);
 		}				
 	});
 }
@@ -167,8 +212,8 @@ function getPageData(page){
 function onePageItems(comment){	
 	// $("#reply").empty();
 	for (var i = 0; i < comment.length; i++) {
-		var one_page = buildItem(comment[i]);
-		$("#reply").append(one_page);		
+		var one_comment = buildItem(comment[i]);
+		$("#reply").append(one_comment);		
 	}
 	
 }
@@ -183,6 +228,18 @@ function onePageItems(comment){
 // </div>
 //加载文章单条评论
 function buildItem(comment){
+	if (comment.parent_id=="") {
+		var comment= buildArticleComment(comment);
+		return comment;
+	}
+	if (comment.parent_id!="") {
+		var comment= buildUserComment(comment);
+		return comment;
+	}
+	
+
+}
+function buildArticleComment(comment){
 	console.log("comment:"+comment);
 	var col12=document.createElement("div");
 	col12.setAttribute("class","col-xs-12 "+ "media "+ "media"+comment.id);
@@ -196,9 +253,9 @@ function buildItem(comment){
 
 	var h4=document.createElement("h4");
 	h4.setAttribute("class","media-heading");
-	h4_txt=document.createTextNode(comment.user_name);
+	var h4_txt=document.createTextNode(comment.user_name);
 	h4.appendChild(h4_txt);
-
+	
 	var p=document.createElement("p");
 	p_txt=document.createTextNode(comment.content);
 	p.appendChild(p_txt);
@@ -216,15 +273,92 @@ function buildItem(comment){
 	col12.appendChild(collapse);
 
 	return col12;
+}
+function buildUserComment(comment){
+	console.log("comment:"+comment);
+	var col12=document.createElement("div");
+	col12.setAttribute("class","col-xs-12 "+ "media "+ "media"+comment.id);
+
+	var img=document.createElement("img");
+	img.setAttribute("class","media-object pull-left");
+	img.setAttribute("src","/front.1/resource/User.jpg");
+
+	var media_body=document.createElement("div");
+	media_body.setAttribute("class","media-body");
+
+	var h4=document.createElement("h4");
+	h4.setAttribute("class","media-heading");
+
+	var user_name=document.createElement("span");
+	var user_name_txt=document.createTextNode(comment.user_name);
+	user_name.appendChild(user_name_txt);
+
+	var h4_txt=document.createTextNode("回复了");
+
+	var parent_name=document.createElement("span");
+	var parent_name_txt=document.createTextNode(comment.parent_name);
+	parent_name.appendChild(parent_name_txt);
+
+	h4.appendChild(user_name);
+	h4.appendChild(h4_txt);
+	h4.appendChild(parent_name);
+
+	var p=document.createElement("p");
+	p_txt=document.createTextNode(comment.content);
+	p.appendChild(p_txt);
+
+	var parent_comment=document.createElement("div");
+	parent_comment.setAttribute("class","well well-lg");
+	var parent_comment_txt=document.createTextNode(comment.parent_content);
+
+	parent_comment.appendChild(parent_comment_txt);
+
+	var reply_box=buildreplyBox(comment);
+	var collapse=buildCollapse(comment.id);
+
+	media_body.appendChild(h4);
+	media_body.appendChild(p);
+	media_body.appendChild(parent_comment);
+	media_body.appendChild(reply_box);
+	
+
+	col12.appendChild(img);
+	col12.appendChild(media_body);
+	col12.appendChild(collapse);
+
+	return col12;
+
+
 
 }
+// <div class="media col-xs-12">
+// 	<img class="media-object pull-left img" src="/front.1/resource/logo.jpg" alt="Image">
+// 	<div class="media-body">
+// 		<h4 class="media-heading"><span>hua</span> 回复了<span>lala</span></h4>
+// 		<p>
+// 			这是我新的回复评论的内容	
+// 		</p>
+
+// 		<div class="well well-lg">
+// 			旧评论
+// 			这是我的评论巴拉拉这是我的评论巴拉拉这是我的评论巴拉拉这是我的评论巴拉拉这是我的评论巴拉拉这是我的评论巴拉拉							
+// 		</div>
 // 		<div class="reply_box">
 // 			<span>
 // 				<a href="#" class="like">赞(1)</a>
-// 				<a data-toggle="collapse" data-target="#demo1" class="reply">回复</a>
+// 				<a> | </a>
+// 				<a data-toggle="collapse" data-target="#demo" class="reply">回复</a>
 // 			</span>
 				
 // 		</div>
+// 		<div id="demo"  class="collapse well well-lg reply_comment">
+// 			<textarea class="form-control" required="required" maxlength="100" ></textarea>
+// 			<button class="btn btn-default">提交</button>
+// 		</div>
+// 	</div>
+	
+// </div>
+
 function buildreplyBox(comment){
 	var reply=document.createElement("div");
 	reply.setAttribute("class","reply_box");
@@ -269,7 +403,7 @@ function buildCollapse(commentId){
 	demo.setAttribute("class","collapse well well-lg reply_comment");
 
 	var textarea=document.createElement("textarea");
-	textarea.setAttribute("class","form-control");
+	textarea.setAttribute("class","form-control textarea"+commentId);
 	textarea.setAttribute("required","required");
 	textarea.setAttribute("maxlength","100");
 
@@ -285,6 +419,51 @@ function buildCollapse(commentId){
 	return demo;
 
 }
+function buildUserReply(commentId){
+	var textarea_txt=$(".textarea"+commentId).val();
+	$.post("/comment/add", 
+		{ 
+		    article_id: articleId, 
+		    content: textarea_txt,
+		    parent_id:commentId
+		}, 
+		    function(data,status){
+		    var objData=JSON.parse(data);
+		    console.log(objData.code); 
+		    if (objData.code==0) {
+		    	alert("评论成功～～");
+		    	$(".textarea"+commentId).val("");
+		    	$.getJSON("/comment/get_article_comments?article_id=" +articleId  + "page=1&num="+1,function(jsondata){
+		    			if (jsondata.code!=0) {
+		    				alert("系统繁忙，评论暂时无法正常显示～～");
+		    				return false;
+		    			}
+		    			else{				
+		    				newArticleComment(jsondata.data.items);
+		    			}
+		    	});
+
+		    	return false;
+		    }
+		    if (objData.code==-10003) {
+		    	alert("请登录！");
+		    	return false;
+		    }
+		    if (objData.code==-10001) {
+		    	alert("评论内容不能为空～～");
+		    	return false;
+		    }
+		    else{
+		    	alert("系统繁忙，请稍后再试～～");
+		    	return false;
+		    }
+	});
+}
+
+// <h4 class="media-heading"><span>hua</span> 回复了<span>lala</span></h4>
+// function buildUserItem(comment){
+
+// }
 //删除评论
 function deleteArticleComment(commentId){
 	var r=confirm("是否确认删除该篇文章？")
@@ -346,51 +525,7 @@ function likeComment(commentId){
 // 			<textarea class="form-control " required="required" maxlength="100" ></textarea>
 // 			<button class="btn btn-default">提交</button>
 // 		</div>
-//发布文章评论
-function replyArticle(){
-	var textarea_txt=$("textarea").val();
-	$.post("/comment/add", 
-		{ 
-		    article_id: articleId, 
-		    content: textarea_txt
-		}, 
-		    function(data,status){
-		    var objData=JSON.parse(data);
-		    console.log(objData.code); 
-		    if (objData.code==0) {
-		    	alert("评论成功～～");
-		    	$("textarea").val("");
-		    	$.getJSON("/comment/get_article_comments?article_id=" +articleId  + "page=1&num="+1,function(jsondata){
-		    			if (jsondata.code!=0) {
-		    				alert("系统繁忙，评论暂时无法正常显示～～");
-		    				return false;
-		    			}
-		    			else{				
-		    				newArticleComment(jsondata.data.items);
-		    			}
-		    	});
 
-		    	return false;
-		    }
-		    if (objData.code==-10003) {
-		    	alert("请登录！");
-		    	return false;
-		    }
-		    if (objData.code==-10001) {
-		    	alert("评论内容不能为空～～");
-		    	return false;
-		    }
-		    else{
-		    	alert("系统繁忙，请稍后再试～～");
-		    	return false;
-		    }
-	});
-}
-//及时显示最新评论
-function newArticleComment(comment){	
-	var one_page = buildItem(comment[0]);
-	$("#reply").prepend(one_page);
-}
 //发表文章评论
 // function replyArticle(){
 // 	var user_name=getCookieValue("user_name");
@@ -435,3 +570,19 @@ function newArticleComment(comment){
 // 	return col12;
 
 // }
+// 右侧热门文章推荐
+$(function(){
+	window.onscroll= function (){
+		var top=$("body").scrollTop();
+		console.log(top);			
+		if (top>=100) {
+			
+			$("#js_recomand").css("top","50px");
+			
+		}
+		else{
+			
+			$("#js_recomand").css("top","220px");
+		}
+	}
+});
