@@ -3,6 +3,7 @@ $(function(){
 	var articleId=window.location.search.substring(11,1400);
 	console.log("articleId:"+articleId);
 	if (articleId=="") {
+		$("#article_edit").attr("action","/article/publish");
 		return false;
 	}
 	else{

@@ -165,7 +165,7 @@ function getPageData(page){
 }
 //每页的一页评论中的单条评论
 function onePageItems(comment){	
-	$("#reply").empty();
+	// $("#reply").empty();
 	for (var i = 0; i < comment.length; i++) {
 		var one_page = buildItem(comment[i]);
 		$("#reply").append(one_page);		
@@ -185,7 +185,7 @@ function onePageItems(comment){
 function buildItem(comment){
 	console.log("comment:"+comment);
 	var col12=document.createElement("div");
-	col12.setAttribute("class","col-xs-12 media");
+	col12.setAttribute("class","col-xs-12 "+ "media "+ "media"+comment.id);
 
 	var img=document.createElement("img");
 	img.setAttribute("class","media-object pull-left");
@@ -233,8 +233,8 @@ function buildreplyBox(comment){
 
 	var a1=document.createElement("a");
 	a1.setAttribute("class","like");
-	a1.setAttribute("id",comment.id);
-	a1.setAttribute("onclick","likeComment('" + comment.id + "')");
+	a1.setAttribute("id","like"+comment.id);
+	a1.setAttribute("onclick","likeComment('"+ comment.id + "')");
 	a1_txt=document.createTextNode("赞(" + comment.like_cnt + ")");
 	a1.appendChild(a1_txt);
 
@@ -245,50 +245,24 @@ function buildreplyBox(comment){
 	a3.setAttribute("data-target","#" + comment.id);
 	a3.setAttribute("class","reply");
 
-	var a3_txt=document.createTextNode( " 回复");
+	var a3_txt=document.createTextNode(" 回复");
 	a3.appendChild(a3_txt);
+
+	var a4=document.createElement("a");
+	var a4_txt=document.createTextNode("删除");
+	a4.setAttribute("onclick","deleteArticleComment('" + comment.id + "')")
+	a4.appendChild(a4_txt);
 
 	reply.appendChild(a1);
 	reply.appendChild(a3);
 
-	return reply
+	if (comment.user_name==user_name) {
+		reply.appendChild(a4);
+	}
+	
+	return reply;
 }
-//评论点赞
-function likeComment(commentId){
-	$.post("/comment/like?comment_id="+commentId,
-		{
-			comment_id:commentId
-		},
-		function(data,status){
-			var objData=JSON.parse(data);
-			if (objData.code==0) {
-				var comment_cnt=$("#"+commentId).text();
-				console.log(comment_cnt);
-				var comment_cnt=comment_cnt.replace(/[^0-9]+/g, '');
-				var comment_cnt=Number(comment_cnt)+1;
-				$("#"+commentId).text("赞(" + comment_cnt + ")");
-				return false;
-			}
-			if (objData.code==-10003)
-			{
-				alert('请登录！');
-				return false;
-			}
-			if (objData.code==-10006)
-			{
-				alert('你已经赞过了哟～～');
-				return false;
-			}
-			if (objData.code!=0) {
-				alert("系统繁忙，请稍后再试～～");
-				return false;
-			}
-	});
-}
-// 		<div id="demo1"  class="collapse well well-lg reply_comment">
-// 			<textarea class="form-control " required="required" maxlength="100" ></textarea>
-// 			<button class="btn btn-default">提交</button>
-// 		</div>
+//折叠回复窗口
 function buildCollapse(commentId){
 	var demo=document.createElement("div");
 	demo.setAttribute("id",commentId);
@@ -311,32 +285,119 @@ function buildCollapse(commentId){
 	return demo;
 
 }
+//删除评论
+function deleteArticleComment(commentId){
+	var r=confirm("是否确认删除该篇文章？")
+	if (r==true)	  	
+	{	    	
+		$.getJSON("/comment/remove?comment_id="+commentId,
+			function(jsondata){
+
+				if (jsondata.code==0) {
+					$(".media"+commentId).hide();
+					alert("已删除");
+					return false;
+				}
+				else{
+					alert("本次操作不成功～～");
+					return false;
+				}
+
+			});
+	}
+	else{
+		return false;
+	}
+	
+}
+//评论点赞
+function likeComment(commentId){
+	$.post("/comment/like?comment_id="+commentId,
+		{
+			comment_id:commentId
+		},
+		function(data,status){
+			var objData=JSON.parse(data);
+			if (objData.code==0) {
+				var comment_cnt=$("#"+"like"+commentId).text();
+				console.log(comment_cnt);
+				var comment_cnt=comment_cnt.replace(/[^0-9]+/g, '');
+				var comment_cnt=Number(comment_cnt)+1;
+				$("#"+"like"+commentId).text("赞(" + comment_cnt + ")");
+				return false;
+			}
+			if (objData.code==-10003)
+			{
+				alert('请登录！');
+				return false;
+			}
+			if (objData.code==-10006)
+			{
+				alert('你已经赞过了哟～～');
+				return false;
+			}
+			if (objData.code!=0) {
+				alert("系统繁忙，请稍后再试～～");
+				return false;
+			}
+	});
+}
+// 		<div id="demo1"  class="collapse well well-lg reply_comment">
+// 			<textarea class="form-control " required="required" maxlength="100" ></textarea>
+// 			<button class="btn btn-default">提交</button>
+// 		</div>
+//发布文章评论
+function replyArticle(){
+	var textarea_txt=$("textarea").val();
+	$.post("/comment/add", 
+		{ 
+		    article_id: articleId, 
+		    content: textarea_txt
+		}, 
+		    function(data,status){
+		    var objData=JSON.parse(data);
+		    console.log(objData.code); 
+		    if (objData.code==0) {
+		    	alert("评论成功～～");
+		    	$("textarea").val("");
+		    	$.getJSON("/comment/get_article_comments?article_id=" +articleId  + "page=1&num="+1,function(jsondata){
+		    			if (jsondata.code!=0) {
+		    				alert("系统繁忙，评论暂时无法正常显示～～");
+		    				return false;
+		    			}
+		    			else{				
+		    				newArticleComment(jsondata.data.items);
+		    			}
+		    	});
+
+		    	return false;
+		    }
+		    if (objData.code==-10003) {
+		    	alert("请登录！");
+		    	return false;
+		    }
+		    if (objData.code==-10001) {
+		    	alert("评论内容不能为空～～");
+		    	return false;
+		    }
+		    else{
+		    	alert("系统繁忙，请稍后再试～～");
+		    	return false;
+		    }
+	});
+}
+//及时显示最新评论
+function newArticleComment(comment){	
+	var one_page = buildItem(comment[0]);
+	$("#reply").prepend(one_page);
+}
 //发表文章评论
 // function replyArticle(){
 // 	var user_name=getCookieValue("user_name");
 // 	var textarea_txt=$("#js_reply_article").val();
 // 	console.log(articleId);
 // 	console.log(textarea_txt);
-// 	$.post("/comment/add", 
-// 	{ 
-// 	    article_id: articleId, 
-// 	    content: textarea_txt
-// 	}, 
-// 	    function(data,status){
-// 	    var objData=JSON.parse(data);
-// 	    console.log(objData.code); 
-// 	    if (objData.code==0) {
-// 	    	$("#js_reply_article").val("");
-// 	    	var id=objData.id;
-// 	    	var newItem= buildItem(user_name,textarea_txt,id);
-// 	    	$(".reply").append(one_page);
-// 	    	return false;
-// 	    }
-// 	    else{
-// 	    	alert("系统繁忙，请稍后再试～～");
-// 	    	return false;
-// 	    }
-// 	});
+	
 // }
 
 //回复评论
