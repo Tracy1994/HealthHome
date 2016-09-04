@@ -94,6 +94,23 @@ class CommentMng extends CI_Model {
 			return false;
 		}
 
+		foreach ($items as &$item)
+		{
+			$item['parent_name'] = "";
+			$item['parent_content'] = "";
+			if (strlen($item['parent_id']) != 0)
+			{
+				$arr_where = array('id' => $item['parent_id']);
+				$parent_item = $this->db_opt_mng->select($this->table_comment, $arr_where);
+				if (count($parent_item) > 0)
+				{
+					$parent_item = $parent_item[0];
+					$item['parent_name'] = $parent_item['user_name'];
+					$item['parent_content'] = $parent_item['content'];
+				}
+			}
+		}
+
 		return array('count' =>$count, 'items' => $items);
 	}
 
