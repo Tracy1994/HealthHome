@@ -21,12 +21,14 @@ $(function(){
 				}
 				else{
 					var article=jsondata.data;
-					
+					$("#preview_header").attr("src",article.author_head_url);
+					$("#preview_cover").attr("src",article.cover_url);
 					$("#authou_name").val(article.author);
 					$("#author_desp").val(article.author_desp);
 					$("#title").val(article.title);
 					$("#type_id").val(article.type_id);
 					$("#article_id").val(articleId);
+					$("#author_id").val(article.author_id);
 					$("#submit").text("确定修改");
 
 				}
