@@ -13,19 +13,17 @@ li{
 }
 li .remove{
 	float: right;
-	margin: 20px 10px;
+	margin: 30px 10px;
 }
 .ui-state-default{
 	height: 100px;
-	font-size: 14px;
-	line-height: 200%;
 	padding-top: 5px;
 }
 li img{
 	padding-top: 5px;
 }
 li .remove span{
-	padding: 5px 30px;	
+	padding: 2px 10px;	
 }
 .list-group-item h4{
 	line-height: 40px;

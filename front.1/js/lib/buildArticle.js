@@ -18,7 +18,7 @@ function buildArticleBrief(article,strCol){
 	var title_text=document.createTextNode(article.title);
 
 	var summary=document.createElement("p");
-	var summary_txt=document.createTextNode(article.summary);
+	var summary_txt=document.createTextNode(article.summary.substring(0,80) + "~ ~ ~");
 
 	box_r.appendChild(title);		
 	box_r.appendChild(summary);

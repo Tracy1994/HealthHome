@@ -28,14 +28,13 @@
 	font-size: 7px;
 }
 .carousel_pic h4{
-	margin-top: 3px;
-	margin-bottom: 3px;
+	margin:5px 0px;
 	font-weight: bold;
 }
 .carousel_pic .img_info{
 	position: absolute;
 	left: 60%;
 	color: rgb(255,255,255);
-	bottom: 36%;
+	bottom: 30%;
 	width: 35%;	
 }

@@ -91,14 +91,18 @@ function carouselInner(carousel){
 		else{
 			item.setAttribute("class","item");
 		}
+		var link=document.createElement("a");
+		link.setAttribute("href",'/front.1/html/articleDetial.html?article_id=' + carousel[i].article_id );
+	
 		var img=document.createElement("img");
 		img.setAttribute("src",carousel[i].img_url);
 		console.log(carousel[i].img_url);		
 
 		var img_info=imgInfo(carousel[i]);
 
-		item.appendChild(img);
-		item.appendChild(img_info);
+		item.appendChild(link);
+		link.appendChild(img);
+		link.appendChild(img_info);
 				
 
 		$(".carousel-inner").append(item);
@@ -132,7 +136,7 @@ function imgInfo(carousel){
 
 	var detial=document.createElement("div");
 	detial.setAttribute("class","detial");
-	var detial_text=document.createTextNode(carousel.summary);
+	var detial_text=document.createTextNode(carousel.summary.substring(0,60) + "~ ~ ~");
 	detial.appendChild(detial_text);
 
 	

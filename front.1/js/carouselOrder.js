@@ -36,9 +36,15 @@ $(function() {
 
 	        if (code==0) {
 	        	alert("发布成功");
+	        	return false;
+	        }
+	        if (code===-10001) {
+	        	alert("请插入轮播");
+	        	return false;
 	        }
 	        else{
 	        	alert("系统繁忙，请稍后再试～～");
+	        	return false;
 	        }
 	    }); 
 	});
@@ -132,7 +138,7 @@ function loadCarouselItem(carousel){
 	img.setAttribute("alt", "Image");
 
 	var carousel_info=document.createElement("div");
-	carousel_info.setAttribute("class","col-xs-4");
+	carousel_info.setAttribute("class","col-xs-6");
 
 	var carouselId=document.createElement("p");
 	var carouselId_id=document.createTextNode( "轮播id："+carousel.id);

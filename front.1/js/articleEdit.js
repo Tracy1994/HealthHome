@@ -1,4 +1,4 @@
-var articleId=window.location.search.substring(11,1400);
+var articleId=window.location.search.substring(11);
 console.log("articleId:"+articleId);
 //修改文章内容
 $(function(){

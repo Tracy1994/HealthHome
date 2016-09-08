@@ -57,9 +57,8 @@ function buidRight(carousel){
 
 	var build_time=document.createElement("div");
 	build_time.setAttribute("class","col-xs-12");
-	var detial_time=carousel.create_time;
-	var detialess_time=detial_time.substring(1,10);
-	build_time_txt=document.createTextNode("创建时间："+ detialess_time);
+	var full_time=carousel.create_time;
+	build_time_txt=document.createTextNode("创建时间："+ full_time.substring(0,4) + "/" +full_time.substring(5,7) + "/" +full_time.substring(8,10));
 	build_time.appendChild(build_time_txt);
 
 	right.appendChild(carousel_id);
@@ -126,21 +125,15 @@ function imgInfo(carousel){
 	var writer_name_text=document.createTextNode(carousel.author);
 	writer_name.appendChild(writer_name_text);
 
-	var writer_info=document.createElement("div");
-	writer_info.setAttribute("class","writer_info visible-lg");
-	var writer_info_text=document.createTextNode(carousel.author_desp);
-	writer_info.appendChild(writer_info_text);
-
 	var title=document.createElement("h4");
 	title_text=document.createTextNode(carousel.title);
 	title.appendChild(title_text);
 
 	var detial=document.createElement("div");
-	var detial_text=document.createTextNode(carousel.summary);
+	var detial_text=document.createTextNode(carousel.summary.substring(0,30) + "~ ~ ~");
 	detial.appendChild(detial_text);
 
 	img_info.appendChild(writer_name);
-	img_info.appendChild(writer_info);
 	img_info.appendChild(title);
 	img_info.appendChild(detial);
 
