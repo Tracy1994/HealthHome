@@ -268,7 +268,7 @@ class ArticleMng extends CI_Model {
 			'modify_time' => date('y-m-d H:i:s', time()),
 			'summary' => $this->gen_summary($content),
 			'content' => $content);
-		if (strlen($head_url) > 0)
+		if (strlen($cover_url) > 0)
 		{
 			$arr_value['cover_url'] = $cover_url;
 		}
