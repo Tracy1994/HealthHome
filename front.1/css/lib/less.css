@@ -121,6 +121,14 @@ a:hover{
 }
 /*---nav-recommand右边导航栏
 ------------------------------------------------------------*/
+
+#js_recomand li,
+#js_recomand a{
+	width: 253px;
+	font-size: 16px;
+	margin-left: 5px;
+	margin-right: 5px;
+}
 #js_recomand li{
 	background-color: @nav;
 	color: white;

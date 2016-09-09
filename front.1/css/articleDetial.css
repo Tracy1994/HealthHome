@@ -143,13 +143,6 @@
 	padding:1% 15% 0% 0%;
 }
 
-#js_recomand li,
-#js_recomand a{
-	width: 253px;
-	font-size: 16px;
-	margin-left: 5px;
-	margin-right: 5px;
-}
 #js_recomand li{
 	text-align: center;
 }
