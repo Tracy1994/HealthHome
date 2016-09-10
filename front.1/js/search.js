@@ -7,7 +7,7 @@
 		console.log("jsondata.date.items"+ jsondata.data.items);
 		
 		console.log(jsondata);
-		if (jsondata=="") {
+		if (jsondata==="") {
 			alert("网站出现一点小bug了，抢修中。。。");
 			return false;
 		}
@@ -67,10 +67,12 @@
 
 		return tr;			
 	}
-	$("#search_btn").click(function(){
-			var keyWord=$("#search").val();
+	$(function(){
+		$("#search_btn").click(function(){
+			keyWord= "?key_word=" + $("#search").val();
 			console.log("keyWord:" +keyWord);
-			if (keyWord=="") {
+			var val=$("#search").val();
+			if (val==="") {
 				alert("请输入关键字!");
 				return false;
 			}
@@ -99,4 +101,6 @@
 				});
 			}
 		});
-// });
+	});
+	
+

@@ -50,7 +50,9 @@ a:hover{
 	line-height: @nav-height;
 	font-size: 19px;
 	margin: 0px 5px;
+	color: white;
 }
+
 .nav_img{
 	border-radius: @radius-round;
 	margin: 5px 35px;
