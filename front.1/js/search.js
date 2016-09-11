@@ -68,10 +68,14 @@
 		return tr;			
 	}
 	$(function(){
+
 		$("#search_btn").click(function(){
+
 			keyWord= "?key_word=" + $("#search").val();
+			
 			console.log("keyWord:" +keyWord);
 			var val=$("#search").val();
+			
 			if (val==="") {
 				alert("请输入关键字!");
 				return false;
@@ -96,6 +100,7 @@
 					}
 					else{
 
+						$("#js_article_list").empty();
 						onePageItems(jsondata.data);		
 					}
 				});
