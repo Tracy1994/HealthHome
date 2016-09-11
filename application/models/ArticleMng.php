@@ -184,10 +184,10 @@ class ArticleMng extends CI_Model {
 	{
 		$ret = $this->db->select($this->field_info_list)->from($this->table_article_all_info)
 			->where('state', STATE_PUBLISH)
-			->or_group_start()
-				->like('title', $key_word)
-				->like('author', $key_word)
-				->like('summary', $key_word)
+			->group_start()
+				->or_like('title', $key_word)
+				->or_like('author', $key_word)
+				->or_like('summary', $key_word)
 			->group_end()
 			->limit($num, $offset)
 			->get();
@@ -199,10 +199,10 @@ class ArticleMng extends CI_Model {
 
 		$count = $this->db->select($this->field_info_list)->from($this->table_article_all_info)
 			->where('state', STATE_PUBLISH)
-			->or_group_start()
-				->like('title', $key_word)
-				->like('author', $key_word)
-				->like('summary', $key_word)
+			->group_start()
+				->or_like('title', $key_word)
+				->or_like('author', $key_word)
+				->or_like('summary', $key_word)
 			->group_end()
 			->count_all_results();
 		if ($count === false)
