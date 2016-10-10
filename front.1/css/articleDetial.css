@@ -66,12 +66,13 @@
 	border-radius: 50%;
 	width: 70px;
 }
-
 .media .media-body{
 	padding: 10px;
+	max-width: 500px;
 }
 .media .media-body p{
 	line-height: 20px;
+	
 }
 .reply_box{
 	float: right;
