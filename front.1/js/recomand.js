@@ -18,7 +18,8 @@ $(function(){
 	});
 	// 鼠标滑动，控制左右两侧导航栏出现和隐藏
 	window.onscroll= function (){
-		var top=$("body").scrollTop();
+		var top=$(document).scrollTop();
+		// var top=$("body").scrollTop();
 		console.log(top);			
 		if (top>=340) {
 			
